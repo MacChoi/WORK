@@ -13,6 +13,12 @@ function objToString(obj){
 }
 
 class GEngine {
+    static KEY_LEFT = 37;
+    static KEY_UP = 87;
+    static KEY_RIGHT = 39;
+    static KEY_DOWN = 40;
+    static KEY_SPACE = 32;
+
     static loadObjectFile(length){
         OBJECT = new Array(length);
         IMAGE = new Array(length);

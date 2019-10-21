@@ -45,16 +45,20 @@ class AnimateContainer{
 
     newAnimate(animate){
         this.objectArray.push(animate);
-        log("newAnimate() objectArray length : " + this.objectArray.length);
+        //log("newAnimate() objectArray length : " + this.objectArray.length);
     }
 
     deleteAnimate(index){
        this.objectArray.splice(index,1);
-       log("deleteAnimate() objectArray length : " + this.objectArray.length);
+       //log("deleteAnimate() objectArray length : " + this.objectArray.length);
     }
 
     setState(index,state,x,y){
         this.objectArray[index].setState(state,x,y);
-        log("setState() objectArray length : " + this.objectArray.length);
+        //log("setState() objectArray length : " + this.objectArray.length);
+    }
+    
+    getState(index){
+        return this.objectArray[index];
     }
 }

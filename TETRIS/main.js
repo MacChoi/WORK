@@ -1,18 +1,27 @@
 var engine;
 var aniContainer;
+
+var _idx_block;
+var _map;
+var _W;
+var _H;
+
 window.onload = function(){
-    engine= new GEngine(510,510);
+    engine= new GEngine(510,630);
     engine.loadImageFile(function (index) { 
         if(engine.getImageCount() == index + 1){
-            var obj = OBJECT[ID.MAP];
+            _map = OBJECT[ID.MAP];
+            _W = _map.TILE_WIDTH;
+            _H = _map.TILE_HEIGTH;
 
-            engine.drawMap(obj.DATA,IMAGE[ID.MAP],obj.TILE_WIDTH,obj.TILE_HEIGTH);
-                aniContainer = new AnimateContainer();
-                aniContainer.newAnimate(new Animate(ID.DOL,
-                OBJECT[ID.DOL],
-                STATE[ID.DOL].NEW,
-                0,0,
-                callbackAnimate
+            aniContainer = new AnimateContainer();
+
+            engine.drawMap(_map.DATA,IMAGE[ID.MAP],_map.TILE_WIDTH,_map.TILE_HEIGTH);
+ 
+            aniContainer.newAnimate(new Animate(ID.BLOCK,OBJECT[ID.BLOCK],STATE[ID.BLOCK].NEW,30*5,20,
+                function(index){
+                    _idx_block = index;
+                }
             ));
 
             loop();
@@ -21,13 +30,23 @@ window.onload = function(){
     });
 }
 
-function callbackAnimate(index){      
-    var obj = OBJECT[ID.MAP];
-    var w = obj.TILE_WIDTH;
-    var h = obj.TILE_HEIGTH;
-    var x = parseInt(mouseX / w) * w;
-    var y = parseInt(mouseY / h) * h;
-    aniContainer.setState(index,STATE[ID.DOL].NEW,x,y);
+function checkBlock(){      
+    var state = aniContainer.getState(_idx_block);
+    var idx_X = parseInt(state.x /_W);
+    var idx_Y = parseInt(state.y /_H);
+    var x = state.x;
+    var y = state.y;
+
+    if(idx_X < 1) x = _W;
+    if(idx_X >10) x = state.x - _H;
+
+    if(idx_Y > 19) y = 0;
+    
+    aniContainer.setState(_idx_block,STATE[ID.BLOCK].NEW,x,y);
+    
+    log("idx_X: "+ idx_X + " idx_Y : "+idx_Y );
+    _map.DATA[idx_Y][idx_X] = 0;
+    engine.drawMap(_map.DATA,IMAGE[ID.MAP],_W,_H);
 }
 
 function loop(){
@@ -36,60 +55,33 @@ function loop(){
     engine.draw();
     aniContainer.nextFrame(engine.getContext());
 
+    checkBlock();
+
     var delay = new Date().getTime() - start ;
     setTimeout(this.loop, LOOP_TIME - delay);
 }
 
-var flagTurnPlayer = true;
 function input(){
-    engine.getCanvas().onclick = function(event){
-        var obj = OBJECT[ID.MAP];
-        var w = obj.TILE_WIDTH;
-        var h = obj.TILE_HEIGTH;
-        var x = parseInt(event.offsetX / w);
-        var y = parseInt(event.offsetY / h);
-        
-        log("x : " + x + ", y : " + y);
-        if(x < 0 | x > 16 | y < 0 | y > 16)return;
-
-        log("map[y][x] : " + obj.DATA[y][x]);
-        if(obj.DATA[y][x] != 1)return;
-
-        if(flagTurnPlayer == true)obj.DATA[y][x] = 2; 
-        else obj.DATA[y][x] = 3;
+    window.addEventListener( 'keydown', function(e) {
+        //log("e.keyCode: " + e.keyCode);
+        var state = aniContainer.getState(_idx_block);
+        var idx_X = parseInt(state.x /_W);
+        var idx_Y = parseInt(state.y /_H);
+        var x = state.x;
+        var y = state.y;
     
-        var checkOK = checkOmok(x,y,
-            obj.DATA[y][x],
-            obj.CHECK);
-
-        flagTurnPlayer =!flagTurnPlayer;
-        engine.drawMap(obj.DATA,IMAGE[ID.MAP],w,h);
-
-        if(checkOK == true){
-            if( obj.DATA[y][x] == 2)alert("흑돌 승리!!!!");
-            else alert("백돌 승리!!!!");
+        switch (e.keyCode){
+            case GEngine.KEY_LEFT:
+                if(idx_X > 1) x = state.x - _W;;
+            break;
+            case GEngine.KEY_RIGHT:
+                if(idx_X < 10) x = state.x + _W;
+            break;
+            case GEngine.KEY_SPACE:
+            break;
         }
-    }
-
-    engine.getCanvas().addEventListener("mousemove", onMouseMove, false);
-    engine.getCanvas().addEventListener("mousedown", onMouseDown, false);
-    engine.getCanvas().addEventListener("mouseup", onMouseUp, false);
-}
-
-var mouseDown = false;
-function onMouseDown(e) {
-    mouseDown = true;
-    e.stopPropagation();
-}
-function onMouseUp(e) {
-    mouseDown = false;
-    e.stopPropagation();
-}
-
-var mouseX,mouseY;
-function onMouseMove(e) {
-    e.stopPropagation();
-    //if (!mouseDown) return;
-    mouseX = e.offsetX;
-    mouseY = e.offsetY;
+        aniContainer.setState(_idx_block,STATE[ID.BLOCK].NEW,x,y);
+        
+        e.preventDefault( );
+   });
 }
