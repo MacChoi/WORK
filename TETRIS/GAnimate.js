@@ -61,4 +61,11 @@ class AnimateContainer{
     getState(index){
         return this.objectArray[index];
     }
+
+    getIndex(id){
+        for (var index = 0; index < this.objectArray.length; index++) {
+            var element = this.objectArray[index];
+            if(id == element.id)return index;
+        }
+    }
 }
