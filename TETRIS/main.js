@@ -24,11 +24,8 @@ window.onload = function(){
             aniContainer = new AnimateContainer();
             engine.drawMap(_map_obj.DATA,IMAGE[ID.MAP],_W,_H);
  
-            aniContainer.newAnimate(new Animate(ID.BLOCK,_block_obj,STATE[ID.BLOCK].NEW,30*5,20,
-                function(index){
-                    if(checkBlock() == true){
-                        aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,30*5,20);
-                    }
+            aniContainer.newAnimate(new Animate(ID.BLOCK,_block_obj,STATE[ID.BLOCK].NEW,_W *5,-_H,
+                function(index){      
                 }
             ));
 
@@ -36,7 +33,7 @@ window.onload = function(){
             _block_state = aniContainer.getState(_block_idx);
 
             loop();
-            input();
+            initInput();
         }
     });
 }
@@ -55,6 +52,9 @@ function rotaeBlock(array){
 }
 
 function drawBlock(x,y){
+    if(checkBlock(_block_state.x,_block_state.y + _H) == true){
+        aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_W * 5,-_H);
+    }
 
     for (var i = 0; i < _block_type.length; i++) {
         const element = _block_type[i];
@@ -62,11 +62,11 @@ function drawBlock(x,y){
     }
 }
 
-function checkBlock(){
+function checkBlock(x,y){
     for (var i = 0; i < _block_type.length; i++) {
         const element = _block_type[i];
-        var idx_X = parseInt((_block_state.x /_W)+ element.x);
-        var idx_Y = parseInt((_block_state.y /_H)+ element.y);
+        var idx_X = parseInt((x /_W)+ element.x);
+        var idx_Y = parseInt((y /_H)+ element.y);
       
         if(_map_obj.DATA[idx_Y][idx_X] != 1)return true;
     }
@@ -85,26 +85,36 @@ function loop(){
     setTimeout(this.loop, LOOP_TIME - delay);
 }
 
-function input(){
+function initInput(){
     window.addEventListener( 'keydown', function(e) {
-        //log("e.keyCode: " + e.keyCode);
-        var x = _block_state.x;
-        var y = _block_state.y;
-    
+        log("e.keyCode: " + e.keyCode);
+
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
-                if(checkBlock() != true)x = x - _W;
-                else x = x + _W;
+                if(checkBlock(_block_state.x - _W,_block_state.y) != true ){
+                    aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x -_W,_block_state.y);
+                }
             break;
             case GEngine.KEY_RIGHT:
-                if(checkBlock() != true)x = x + _W;
-                else x = x - _W;
+                if(checkBlock(_block_state.x + _W,_block_state.y) != true ){
+                    aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x +_W,_block_state.y);
+                }
             break;
-            case GEngine.KEY_SPACE:
+            case GEngine.KEY_DOWN:
+                if(checkBlock(_block_state.x,_block_state.y + _H) != true ){
+                    aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x,_block_state.y + _H);
+                }
+            break;
+            case GEngine.KEY_UP:
                 _block_type = rotaeBlock(_block_type);
             break;
+
+            case GEngine.KEY_SPACE:
+                while(checkBlock(_block_state.x,parseInt(_block_state.y /_H) *_H + _H) == false){ 
+                    aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x,parseInt(_block_state.y /_H) *_H + _H);
+                }
+            break;
         }
-        aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,x,y);
         e.preventDefault( );
    });
 }
