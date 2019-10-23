@@ -1,5 +1,5 @@
-var engine;
-var aniContainer;
+var _engine;
+var _aniContainer;
 
 var _map_obj;
 var _W;
@@ -11,9 +11,9 @@ var _block_type;
 var _block_state;
 
 window.onload = function(){
-    engine= new GEngine(510,630);
-    engine.loadImageFile(function (index) { 
-        if(engine.getImageCount() == index + 1){
+    _engine= new GEngine(510,630);
+    _engine.loadImageFile(function (index) { 
+        if(_engine.getImageCount() == index + 1){
             _map_obj = OBJECT[ID.MAP];
             _W = _map_obj.TILE_WIDTH;
             _H = _map_obj.TILE_HEIGTH;
@@ -21,21 +21,42 @@ window.onload = function(){
             _block_obj = OBJECT[ID.BLOCK];
             _block_type = _block_obj.DATA[4];
             
-            aniContainer = new AnimateContainer();
-            engine.drawMap(_map_obj.DATA,IMAGE[ID.MAP],_W,_H);
+            _aniContainer = new AnimateContainer();
+            _engine.drawMap(_map_obj.DATA,IMAGE[ID.MAP],_W,_H);
  
-            aniContainer.newAnimate(new Animate(ID.BLOCK,_block_obj,STATE[ID.BLOCK].NEW,_W *5,-_H,
+            _block_idx = _aniContainer.newAnimate(new Animate(ID.BLOCK,_block_obj,STATE[ID.BLOCK].NEW,_W *5,-_H,
                 function(index){      
                 }
             ));
 
-            _block_idx = aniContainer.getIndex(ID.BLOCK);
-            _block_state = aniContainer.getState(_block_idx);
+            _block_state = _aniContainer.getState(_block_idx);
 
             loop();
             initInput();
         }
     });
+}
+
+function drawBlock(x,y){
+    if(checkBlock(_block_state.x,_block_state.y + _H) == true){
+        _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_W * 5,-_H);
+    }
+
+    for (var i = 0; i < _block_type.length; i++) {
+        const element = _block_type[i];
+        _engine.getContext().drawImage(IMAGE[ID.BLOCK][0],(element.x * _W) + x,(element.y * _H) + y);
+    }
+}
+
+function checkBlock(x,y){
+    for (var i = 0; i < _block_type.length; i++) {
+        const element = _block_type[i];
+        var idx_X = parseInt((x /_W)+ element.x);
+        var idx_Y = parseInt((y /_H)+ element.y);
+      
+        if(_map_obj.DATA[idx_Y][idx_X] != 1)return true;
+    }
+    return false;
 }
 
 function rotaeBlock(array){
@@ -51,33 +72,11 @@ function rotaeBlock(array){
     return a;
 }
 
-function drawBlock(x,y){
-    if(checkBlock(_block_state.x,_block_state.y + _H) == true){
-        aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_W * 5,-_H);
-    }
-
-    for (var i = 0; i < _block_type.length; i++) {
-        const element = _block_type[i];
-        engine.getContext().drawImage(IMAGE[ID.BLOCK][0],(element.x * _W) + x,(element.y * _H) + y);
-    }
-}
-
-function checkBlock(x,y){
-    for (var i = 0; i < _block_type.length; i++) {
-        const element = _block_type[i];
-        var idx_X = parseInt((x /_W)+ element.x);
-        var idx_Y = parseInt((y /_H)+ element.y);
-      
-        if(_map_obj.DATA[idx_Y][idx_X] != 1)return true;
-    }
-    return false;
-}
-
 function loop(){
     var start = new Date().getTime();
     
-    engine.draw();
-    aniContainer.nextFrame(engine.getContext());
+    _engine.draw();
+    _aniContainer.nextFrame(_engine.getContext());
 
     drawBlock(_block_state.x,_block_state.y);
 
@@ -92,17 +91,17 @@ function initInput(){
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
                 if(checkBlock(_block_state.x - _W,_block_state.y) != true ){
-                    aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x -_W,_block_state.y);
+                    _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x -_W,_block_state.y);
                 }
             break;
             case GEngine.KEY_RIGHT:
                 if(checkBlock(_block_state.x + _W,_block_state.y) != true ){
-                    aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x +_W,_block_state.y);
+                    _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x +_W,_block_state.y);
                 }
             break;
             case GEngine.KEY_DOWN:
                 if(checkBlock(_block_state.x,_block_state.y + _H) != true ){
-                    aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x,_block_state.y + _H);
+                    _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x,_block_state.y + _H);
                 }
             break;
             case GEngine.KEY_UP:
@@ -111,10 +110,10 @@ function initInput(){
 
             case GEngine.KEY_SPACE:
                 while(checkBlock(_block_state.x,parseInt(_block_state.y /_H) *_H + _H) == false){ 
-                    aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x,parseInt(_block_state.y /_H) *_H + _H);
+                    _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x,parseInt(_block_state.y /_H) *_H + _H);
                 }
             break;
         }
-        e.preventDefault( );
+        
    });
 }

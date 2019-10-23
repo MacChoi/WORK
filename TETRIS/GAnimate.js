@@ -45,6 +45,7 @@ class AnimateContainer{
 
     newAnimate(animate){
         this.objectArray.push(animate);
+        return this.getIndex(animate.id);
         //log("newAnimate() objectArray length : " + this.objectArray.length);
     }
 
