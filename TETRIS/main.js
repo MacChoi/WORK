@@ -59,7 +59,7 @@ function drawBlock(x,y){
     }
 
     if(boolCheckBlock == true){
-        cheakClearBlock();
+        checkClearBlock();
         _engine.drawMap(_map_data,IMAGE[ID.BLOCK],_W,_H);  
     }
 }
@@ -75,7 +75,7 @@ function checkBlock(x,y){
     return false;
 }
 
-function cheakClearBlock(){
+function checkClearBlock(){
     var ty = _map_data.length-1;
     //log("ty : " +ty);
     for (var y = _map_data.length; y > 0 ; y--) {
@@ -83,7 +83,7 @@ function cheakClearBlock(){
         for (var x = _map_data[0].length; x > 0; x--) {
             if(_map_data[ty][x]-1 == 0)count++;
 
-            log("_map_data[0].length : " +_map_data[0].length);
+            //log("_map_data[0].length : " +_map_data[0].length);
         }
         ty--;
         if(_map_data[0].length == count)ty--;
