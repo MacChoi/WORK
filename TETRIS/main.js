@@ -114,6 +114,6 @@ function initInput(){
                 }
             break;
         }
-        
+        e.preventDefault();
    });
 }
