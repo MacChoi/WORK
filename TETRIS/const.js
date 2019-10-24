@@ -15,4 +15,4 @@ var OBJECT;
 var IMAGE;
 var STATE;
 
-const LOOP_TIME = 50;
+const LOOP_TIME = 60;

@@ -12,6 +12,10 @@ function objToString(obj){
     JSON.stringify(obj);
 }
 
+function getRandom(a,b){
+    return Math.floor(Math.random() * b) + a;
+}
+
 class GEngine {
     static KEY_LEFT = 37;
     static KEY_UP = 38;
