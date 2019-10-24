@@ -57,13 +57,17 @@ function drawBlock(x,y){
 
     for (var i = 0; i < _block_data.length; i++) {
         const element = _block_data[i];
+        
         _engine.getContext().drawImage(IMAGE[ID.MAP][_block_type],(element.x * _W) + x,(element.y * _H) + y);
-    
+        
+        var idx_X = parseInt((x /_W)+ element.x);
+        var idx_Y = parseInt((y /_H)+ element.y);
+        drawBlockFX(idx_X,idx_Y);
         if(boolCheckBlock == true){
-            var idx_X = parseInt((x /_W)+ element.x);
-            var idx_Y = parseInt((y /_H)+ element.y);
             _map_data[idx_Y][idx_X] = _block_type;
         }
+
+        
     }
 
     if(boolCheckBlock == true){
@@ -72,6 +76,10 @@ function drawBlock(x,y){
         _block_type = getRandom(1,7);
         _block_data = _block_obj.DATA[getRandom(0,6)];
     }
+}
+
+function drawBlockFX(ix,iy){
+    _engine.getContext().drawImage(IMAGE[ID.FX][_block_type],(ix * _W),(iy * _H));
 }
 
 function checkBlock(x,y){

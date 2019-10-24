@@ -8,7 +8,7 @@ class Enum{
 }
 
 const ID = new Enum(
-    ["MAP","BLOCK"]
+    ["MAP","BLOCK","FX"]
 );
 
 var OBJECT;
