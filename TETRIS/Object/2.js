@@ -1,3 +1,3 @@
 OBJECT[ID.FX] = {
-    IMG:6,
+    IMG:4,
 };

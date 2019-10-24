@@ -57,29 +57,82 @@ function drawBlock(x,y){
 
     for (var i = 0; i < _block_data.length; i++) {
         const element = _block_data[i];
-        
-        _engine.getContext().drawImage(IMAGE[ID.MAP][_block_type],(element.x * _W) + x,(element.y * _H) + y);
+        var ex = (element.x * _W) + x;
+        var ey = (element.y * _H) + y;
+        _engine.getContext().drawImage(IMAGE[ID.MAP][_block_type],ex,ey);
         
         var idx_X = parseInt((x /_W)+ element.x);
         var idx_Y = parseInt((y /_H)+ element.y);
-        drawBlockFX(idx_X,idx_Y);
+        
         if(boolCheckBlock == true){
             _map_data[idx_Y][idx_X] = _block_type;
-        }
-
-        
+        }  
     }
-
+    
+    drawBlockFX(x,y);
+    
     if(boolCheckBlock == true){
         checkClearBlock();
         _engine.drawMap(_map_data,IMAGE[ID.MAP],_W,_H);
+        drawMapFx();
+
         _block_type = getRandom(1,7);
         _block_data = _block_obj.DATA[getRandom(0,6)];
     }
 }
 
-function drawBlockFX(ix,iy){
-    _engine.getContext().drawImage(IMAGE[ID.FX][_block_type],(ix * _W),(iy * _H));
+function drawBlockFX(x,y){
+    if(parseInt((y /_H)) < 0 )return;
+    var table = 
+    [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    ];
+    
+    for (var i = 0; i < _block_data.length; i++) {
+        const element = _block_data[i];
+        table[element.y+3][element.x+3] = 1;
+    }
+    for (var i = 0; i < _block_data.length; i++) {
+        const element = _block_data[i];
+        var ex = (element.x * _W) + x;
+        var ey = (element.y * _H) + y;
+        if(table[element.y+3][element.x+3-1] == 0)_engine.getContext().drawImage(IMAGE[ID.FX][3],ex,ey);
+        if(table[element.y+3-1][element.x+3] == 0)_engine.getContext().drawImage(IMAGE[ID.FX][0],ex,ey);
+        if(table[element.y+3][element.x+3+1] == 0)_engine.getContext().drawImage(IMAGE[ID.FX][1],ex,ey);
+        if(table[element.y+3+1][element.x+3] == 0)_engine.getContext().drawImage(IMAGE[ID.FX][2],ex,ey);
+    }
+}
+
+function drawMapFx(){
+    var k=_map_data.length-2;
+    for (var i=_map_data.length-2 ;i>0;i--){ 
+        var count=0;
+        for (var j=0;j<_map_data[0].length;j++){
+            if (_map_data[i][j] != 0) count++;  
+            _map_data[k][j]=_map_data[i][j];
+            var x= j *_W;
+            var y= i *_H;
+            
+            if(_map_data[k][j] != 0 & _map_data[k][j] != 8) {
+                if(_map_data[k][j-1] != _map_data[k][j])_engine.getBufferContext().drawImage(IMAGE[ID.FX][3],x,y);
+                if(_map_data[k-1][j] != _map_data[k][j])_engine.getBufferContext().drawImage(IMAGE[ID.FX][0],x,y);
+                if(_map_data[k][j+1] != _map_data[k][j])_engine.getBufferContext().drawImage(IMAGE[ID.FX][1],x,y);
+                if(_map_data[k+1][j] != _map_data[k][j])_engine.getBufferContext().drawImage(IMAGE[ID.FX][2],x,y);
+            }
+        }
+        if (count < _map_data[0].length) k--;
+    }
 }
 
 function checkBlock(x,y){
