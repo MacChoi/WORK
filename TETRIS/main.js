@@ -14,13 +14,13 @@ window.onload = function(){
     _engine= new GEngine(510,630);
     _engine.loadImageFile(function (index) { 
         if(_engine.getImageCount() == index + 1){
-            _aniContainer = new AnimateContainer();
-
             initGame();
             initInput();
             loop();
         }
     });
+
+    _aniContainer = new AnimateContainer();
 }
 
 function initGame(){
@@ -167,17 +167,28 @@ function checkGameOver(){
 
 function rotaeBlock(array){
     var a = JSON.parse(JSON.stringify( array )); //참조없는 복사
- 
     var p = a[1]; //center of rotation
+    var m =0;
     for (var i=0;i<array.length;i++){
         var x = a[i].y-p.y;
         var y = a[i].x-p.x;
         a[i].x = p.x - x;
         a[i].y = p.y + y;
-    }
 
+        log("a[i].x : " +a[i].x);
+        log("a[i].y : " +a[i].y);
+        if(a[i].x < m)m = a[i].x;
+    }
+    
     _block_data = a;
-    if(checkBlock(_block_state.x ,_block_state.y) == true) return array;
+    if(checkBlock(_block_state.x ,_block_state.y) == true){
+        if(_block_state.x/_W < 5)
+        _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x +(-m*_W),_block_state.y);
+        else
+        _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x +(m*_W),_block_state.y);
+
+        //return array;
+    }
     return a;
 }
 
