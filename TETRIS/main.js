@@ -9,7 +9,7 @@ var _block_obj;
 var _block_data;
 var _block_state;
 var _block_type = getRandom(1,7);
-var _rotate = false;
+
 window.onload = function(){
     _engine= new GEngine(510,630);
     _engine.loadImageFile(function (index) { 
@@ -78,11 +78,6 @@ function drawBlock(x,y){
 
         _block_type = getRandom(1,7);
         _block_data = _block_obj.DATA[getRandom(0,6)];
-    }
-
-    if(_rotate==true){
-        _block_data = rotaeBlock(_block_data);
-        _rotate =false;
     }
 }
 
@@ -175,32 +170,30 @@ function checkGameOver(){
 function rotaeBlock(array){
     var a = JSON.parse(JSON.stringify( array )); //참조없는 복사
     var p = a[1]; //center of rotation
-    var min =0;
-    var max =0;
-
+    var m = a[0].x;
     for (var i=0;i<array.length;i++){
         var x = a[i].y-p.y;
         var y = a[i].x-p.x;
         a[i].x = p.x - x;
         a[i].y = p.y + y;
 
-        log("a[i].x : " +a[i].x);
-        log("a[i].y : " +a[i].y);
-        if(a[i].x < min)min = a[i].x;
-        if(a[i].x > max)max = a[i].x;
-    }
-    log("min : " +min);
-    log("max : " +max);
-    _block_data = a;
-    if(checkBlock(_block_state.x ,_block_state.y) == true){
-        if(_block_state.x/_W ==1)
-            _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x +(-min*_W),_block_state.y);
-        else{
-            _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x -(max*_W),_block_state.y);
-        }
+        if(a[i].x < m)m = a[i].x;
 
-        //return array;
+        log("a[i].x: " + a[i].x);
     }
+    log("min :"+m);
+    for (var i=0;i<array.length;i++){
+        a[i].x += -m;
+        log(">>>a[i].x: " + a[i].x);
+    }
+
+    _block_data = a;
+    if(checkBlock(_block_state.x ,_block_state.y) == true)
+    _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x -_W,_block_state.y);
+
+    if(checkBlock(_block_state.x ,_block_state.y) == true)
+    _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x -(_W*2),_block_state.y);
+
     return a;
 }
 
@@ -234,7 +227,8 @@ function initInput(){
                 }
             break;
             case GEngine.KEY_UP:
-                _rotate = true;
+                if(_block_state.y > 20)
+                _block_data = rotaeBlock(_block_data);
             break;
 
             case GEngine.KEY_SPACE:

@@ -12,7 +12,7 @@ function objToString(obj){
     JSON.stringify(obj);
 }
 
-function getRandom(a,b){return 2;
+function getRandom(a,b){
     return Math.floor(Math.random() * b) + a;
 }
 
