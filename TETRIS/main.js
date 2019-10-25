@@ -176,15 +176,10 @@ function rotaeBlock(array){
         var y = a[i].x-p.x;
         a[i].x = p.x - x;
         a[i].y = p.y + y;
-
         if(a[i].x < m)m = a[i].x;
-
-        log("a[i].x: " + a[i].x);
     }
-    log("min :"+m);
     for (var i=0;i<array.length;i++){
         a[i].x += -m;
-        log(">>>a[i].x: " + a[i].x);
     }
 
     _block_data = a;
