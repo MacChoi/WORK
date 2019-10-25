@@ -175,6 +175,9 @@ function rotaeBlock(array){
         a[i].x = p.x - x;
         a[i].y = p.y + y;
     }
+
+    _block_data = a;
+    if(checkBlock(_block_state.x ,_block_state.y) == true) return array;
     return a;
 }
 
