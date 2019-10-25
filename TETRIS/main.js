@@ -9,7 +9,7 @@ var _block_obj;
 var _block_data;
 var _block_state;
 var _block_type = getRandom(1,7);
-
+var _rotate = false;
 window.onload = function(){
     _engine= new GEngine(510,630);
     _engine.loadImageFile(function (index) { 
@@ -79,6 +79,11 @@ function drawBlock(x,y){
         _block_type = getRandom(1,7);
         _block_data = _block_obj.DATA[getRandom(0,6)];
     }
+
+    if(_rotate==true){
+        _block_data = rotaeBlock(_block_data);
+        _rotate =false;
+    }
 }
 
 function drawBlockFX(x,y){
@@ -141,6 +146,8 @@ function checkBlock(x,y){
         var idx_X = parseInt((x /_W)+ element.x);
         var idx_Y = parseInt((y /_H)+ element.y);
       
+        if("idx_X :" + idx_X);
+        if("idx_Y :" + idx_Y);
         if(_map_data[idx_Y][idx_X] != 0)return true; 
     }
     return false;
@@ -168,7 +175,9 @@ function checkGameOver(){
 function rotaeBlock(array){
     var a = JSON.parse(JSON.stringify( array )); //참조없는 복사
     var p = a[1]; //center of rotation
-    var m =0;
+    var min =0;
+    var max =0;
+
     for (var i=0;i<array.length;i++){
         var x = a[i].y-p.y;
         var y = a[i].x-p.x;
@@ -177,15 +186,18 @@ function rotaeBlock(array){
 
         log("a[i].x : " +a[i].x);
         log("a[i].y : " +a[i].y);
-        if(a[i].x < m)m = a[i].x;
+        if(a[i].x < min)min = a[i].x;
+        if(a[i].x > max)max = a[i].x;
     }
-    
+    log("min : " +min);
+    log("max : " +max);
     _block_data = a;
     if(checkBlock(_block_state.x ,_block_state.y) == true){
-        if(_block_state.x/_W < 5)
-        _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x +(-m*_W),_block_state.y);
-        else
-        _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x +(m*_W),_block_state.y);
+        if(_block_state.x/_W ==1)
+            _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x +(-min*_W),_block_state.y);
+        else{
+            _aniContainer.setState(_block_idx,STATE[ID.BLOCK].NEW,_block_state.x -(max*_W),_block_state.y);
+        }
 
         //return array;
     }
@@ -222,7 +234,7 @@ function initInput(){
                 }
             break;
             case GEngine.KEY_UP:
-                _block_data = rotaeBlock(_block_data);
+                _rotate = true;
             break;
 
             case GEngine.KEY_SPACE:
