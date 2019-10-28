@@ -59,20 +59,6 @@ class AnimateContainer{
         }
     }
 
-    flipHorizontally(context,img,x,y){
-        // move to x + img's width
-        context.translate(x+img.width,y);
-    
-        // scaleX by -1; this "trick" flips horizontally
-        context.scale(-1,1);
-        
-        // draw the img
-        // no need for x,y since we've already translated
-        context.drawImage(img,0,0);
-        
-        // always clean up -- reset transformations to default
-        context.setTransform(1,0,0,1,0,0);
-    }
     newAnimate(animate){
         this.objectArray.push(animate);
         return this.getIndex(animate.id);
@@ -98,5 +84,20 @@ class AnimateContainer{
             var element = this.objectArray[index];
             if(id == element.id)return index;
         }
+    }
+
+    flipHorizontally(context,img,x,y){
+        // move to x + img's width
+        context.translate(x+img.width,y);
+    
+        // scaleX by -1; this "trick" flips horizontally
+        context.scale(-1,1);
+        
+        // draw the img
+        // no need for x,y since we've already translated
+        context.drawImage(img,0,0);
+        
+        // always clean up -- reset transformations to default
+        context.setTransform(1,0,0,1,0,0);
     }
 }

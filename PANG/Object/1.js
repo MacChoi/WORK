@@ -1,5 +1,5 @@
 OBJECT[ID.PLAYER] = {
-    IMG:11,
+    IMG:12,
     NEW:[
     [0,0,0,0,0],//image
     [0,0,0,0,0],//x
