@@ -2,7 +2,7 @@ var _engine;
 var _aniContainer;
 
 window.onload = function(){
-    _engine= new GEngine(580*2,320*2);
+    _engine= new GEngine(770,420);
     _engine.setScale(2);
     _engine.loadImageFile(function (index) { 
         if(_engine.getImageCount() == index + 1){
@@ -12,7 +12,8 @@ window.onload = function(){
         }
     });
 
-    _aniContainer = new AnimateContainer(2);
+    _aniContainer = new AnimateContainer();
+    _aniContainer.setScale(2);
 }
 
 function initGame(){
