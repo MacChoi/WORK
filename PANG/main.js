@@ -5,13 +5,22 @@ var _bg_obj;
 var _bg_data;
 var _W;
 var _H;
+var _player_obj;
+var _player_idx;
+var _player_state;
+
+var _arrow_obj;
+var _arrow_idx;
+var _arrow_state;
+
 var _checkDeleteArrow = false;
+
 window.onload = function(){
     _engine= new GEngine(770,420);
     _engine.setScale(2);
     _engine.loadImageFile(function (index) { 
         if(_engine.getImageCount() == index + 1){
-            initGame();
+            initGame(); 
             initInput();
             loop();
         }
@@ -37,23 +46,30 @@ function initGame(){
             _aniContainer.setState(_player_idx,STATE[ID.PLAYER].NEW,_player_state.x,_player_state.y);
         }
     ));
+
     _player_state = _aniContainer.getState(_player_idx);
 }
 
 function loop(){
     var start = new Date().getTime();
     _engine.draw();
+
     _aniContainer.nextFrame(_engine.getContext());
+
+    checkArrowCollision();
     checkPlayerMoveKey = checkPlayerMove();
     var delay = new Date().getTime() - start ;
     _loopTimmer = setTimeout(this.loop, LOOP_TIME - delay);
+}
+
+function checkArrowCollision(){
+
 }
 
 function checkPlayerMove(){
     var player_idx_X = parseInt((_player_state.x /_W));
     var player_idx_Y = parseInt((_player_state.y /_H));
 
-    var moveGap = 0;
     if(_bg_data[player_idx_Y][player_idx_X] != 0)
     _aniContainer.setState(_player_idx,STATE[ID.PLAYER].NEW,_player_state.x+5,_player_state.y);
     else if(_bg_data[player_idx_Y][player_idx_X+2] != 0)
@@ -81,27 +97,27 @@ function initInput(){
                 if(_aniContainer.getIndex(ID.ARROW) != 0){
                     return;
                 }else _checkDeleteArrow = false;
-
                 _aniContainer.setState(_player_idx,STATE[ID.PLAYER].FIRE,_player_state.x,_player_state.y);
-                _aniContainer.newAnimate(new Animate(ID.ARROW,OBJECT[ID.ARROW],STATE[ID.ARROW].NEW,_player_state.x+10,_player_state.y-15,
+                
+                _arrow_idx =_aniContainer.newAnimate(new Animate(ID.ARROW,OBJECT[ID.ARROW],STATE[ID.ARROW].FIRE,_player_state.x+10,_player_state.y-15,
                     function(index){
-                        var arrow_state =_aniContainer.getState(index);
-
-                        var idx_X = parseInt((arrow_state.x /_W));
-                        var idx_Y = parseInt((arrow_state.y /_H));
+                        var idx_X = parseInt((_arrow_state.x /_W));
+                        var idx_Y = parseInt((_arrow_state.y /_H));
                         if(_bg_data[idx_Y][idx_X] != 0){
-                            _aniContainer.deleteAnimate(index);
+                            _aniContainer.deleteAnimate(_arrow_idx);
                             _checkDeleteArrow = true;
+                        }else{
+                            _aniContainer.newAnimate(new Animate(ID.ARROW,OBJECT[ID.ARROW],STATE[ID.ARROW].BODY,_arrow_state.x,_arrow_state.y,
+                                function(index){
+                                    if(_checkDeleteArrow)
+                                    _aniContainer.deleteAnimate(index);
+                                }
+                            ));    
                         }
-                    
-                        _aniContainer.newAnimate(new Animate(ID.ARROW,OBJECT[ID.ARROW],STATE[ID.ARROW].BODY,arrow_state.x,arrow_state.y,
-                            function(index){
-                                if(_checkDeleteArrow)
-                                _aniContainer.deleteAnimate(index);
-                            }
-                        ));    
                     }
                 ));
+                _arrow_state =_aniContainer.getState(_arrow_idx);
+
             break;
         }
         e.preventDefault();

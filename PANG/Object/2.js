@@ -1,6 +1,11 @@
 OBJECT[ID.ARROW] = {
     IMG:9,
     NEW:[
+    [0,0],//image
+    [0,0],//x
+    [0,0],//y
+    ],
+    FIRE:[
     [0,-1],//image
     [0,0],//x
     [-5,-5],//y
