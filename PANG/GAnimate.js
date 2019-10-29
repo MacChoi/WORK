@@ -7,6 +7,7 @@ class Animate{
         this.y = y;
         this.callback = callback;
         this.objectState = Object.values(object)[state];
+        this.glint = 0;
     }
 
     nextFrame(index){
@@ -16,6 +17,10 @@ class Animate{
             this.index=0;
             this.callback(index);
         }
+
+        if(this.glint > 0){
+            this.glint--;
+        }
     }
     
     setState(state,x,y){
@@ -24,6 +29,10 @@ class Animate{
         this.state = state;
         this.index = 0;
         this.objectState = Object.values(this.object)[state];
+    }
+
+    setGlint(glint){
+        this.glint = glint;
     }
 }
 
@@ -45,9 +54,15 @@ class AnimateContainer{
             element.x += element.objectState[1][element.index];
             element.y += element.objectState[2][element.index];
             
-            if(this.scale > 1){
-                context.save();
+            //context.save();
+            if(this.scale > 1){   
                 context.scale(this.scale, this.scale);  
+            }
+            
+            if(element.glint != 0){
+                if((element.glint % 2)==0)
+                context.globalAlpha = 0.1;
+                else context.globalAlpha = 1.0;
             }
             
             if(element.objectState[0][element.index]>0)
@@ -77,6 +92,10 @@ class AnimateContainer{
     
     getState(index){
         return this.objectArray[index];
+    }
+    
+    setGlint(index,glint){
+        this.objectArray[index].setGlint(glint);
     }
 
     getIndex(id){

@@ -3,7 +3,7 @@ var _aniContainer;
 
 window.onload = function(){
     _engine= new GEngine(770,420);
-    _engine.setScale(2);
+    _engine.setScale(1);
     _engine.loadImageFile(function (index) { 
         if(_engine.getImageCount() == index + 1){
             initGame();
@@ -13,7 +13,7 @@ window.onload = function(){
     });
 
     _aniContainer = new AnimateContainer();
-    _aniContainer.setScale(2);
+    _aniContainer.setScale(1);
 }
 
 function initGame(){
@@ -43,21 +43,19 @@ function initInput(){
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
                 _aniContainer.setState(_player_idx,STATE[ID.PLAYER].LEFT,_player_state.x,_player_state.y);
-
             break;
             case GEngine.KEY_RIGHT:
                 _aniContainer.setState(_player_idx,STATE[ID.PLAYER].RIGHT,_player_state.x,_player_state.y);
-
             break;
             case GEngine.KEY_DOWN:
                
             break;
             case GEngine.KEY_UP:
-               
+                _aniContainer.setGlint(_player_idx,100);
             break;
 
             case GEngine.KEY_SPACE:
-               
+                _aniContainer.setState(_player_idx,STATE[ID.PLAYER].FIRE,_player_state.x,_player_state.y);
             break;
         }
         e.preventDefault();
