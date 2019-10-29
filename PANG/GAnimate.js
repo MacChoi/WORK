@@ -50,6 +50,7 @@ class AnimateContainer{
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
             var element = this.objectArray[index];
+            if(element == null)continue;
             var image = IMAGE[element.id][Math.abs(element.objectState[0][element.index])];
             element.x += element.objectState[1][element.index];
             element.y += element.objectState[2][element.index];
@@ -85,6 +86,16 @@ class AnimateContainer{
        //log("deleteAnimate() objectArray length : " + this.objectArray.length);
     }
 
+    deleteAnimateAll(id){
+        for (var index = 0; index < this.objectArray.length; index++) {
+            var element = this.objectArray[index];
+            
+            if(element.id == id)this.deleteAnimate(index);
+            
+        }
+        //log("deleteAnimateAll() objectArray length : " + this.objectArray.length);
+    }
+
     setState(index,state,x,y){
         this.objectArray[index].setState(state,x,y);
         //log("setState() objectArray length : " + this.objectArray.length);
@@ -103,6 +114,7 @@ class AnimateContainer{
             var element = this.objectArray[index];
             if(id == element.id)return index;
         }
+        return 0;
     }
 
     flipHorizontally(context,img,x,y){

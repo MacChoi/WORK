@@ -141,8 +141,8 @@ function checkBlock(x,y){
         var idx_X = parseInt((x /_W)+ element.x);
         var idx_Y = parseInt((y /_H)+ element.y);
       
-        if("idx_X :" + idx_X);
-        if("idx_Y :" + idx_Y);
+        // log("idx_X :" + idx_X);
+        // log("idx_Y :" + idx_Y);
         if(_map_data[idx_Y][idx_X] != 0)return true; 
     }
     return false;
