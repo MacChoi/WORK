@@ -54,7 +54,7 @@ class AnimateContainer{
             element.x += element.objectState[1][element.index];
             element.y += element.objectState[2][element.index];
             
-            //context.save();
+            context.save();
             if(this.scale > 1){   
                 context.scale(this.scale, this.scale);  
             }
