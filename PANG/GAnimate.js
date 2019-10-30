@@ -38,11 +38,8 @@ class Animate{
 
 class AnimateContainer{
     scale = 1;
-    animateCount = 0;
     constructor(){
         this.objectArray = new Array(0);
-        this.newObjectArray = new Array(0);
-        this.deleteArrayIndex = new Array(0);
     }
 
     setScale(scale){
@@ -50,24 +47,12 @@ class AnimateContainer{
     }
     
     nextFrame(context){
-         //deleteAnimate,deleteAllAnimate
-        for (var index = 0; index < this.deleteArrayIndex.length; index++) {
-            this.objectArray.splice(this.deleteArrayIndex[index],1);
-            this.deleteArrayIndex.splice(index,1);
-        } 
-        //newAnimate
-        for (var index = 0; index < this.newObjectArray.length; index++) {
-            this.objectArray.push(this.newObjectArray[index]);
-            this.newObjectArray.splice(index,1);
-        }
-        //log("deleteAnimate,deleteAllAnimate objectArray length : " + this.objectArray.length);
-        
-        animateCount = this.objectArray.length;
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
             var element = this.objectArray[index];
-            //if(element == null)continue;
+            if(element == null)continue;
             var image = IMAGE[element.id][Math.abs(element.objectState[0][element.index])];
+            if(image == null)continue;
             element.x += element.objectState[1][element.index];
             element.y += element.objectState[2][element.index];
             
@@ -92,18 +77,21 @@ class AnimateContainer{
     }
 
     newAnimate(animate){
-        this.newObjectArray.push(animate);
-        return this.objectArray.length - this.deleteArrayIndex.length;
+        this.objectArray.push(animate);
+        return this.getIndex(animate.id);
     }
 
     deleteAnimate(index){
-       this.deleteArrayIndex.push(index);
+        this.objectArray.splice(index,1);
     }
 
     deleteAllAnimate(id){
+        var count = -1;
         for (var index = 0; index < this.objectArray.length; index++) {
             if(this.objectArray[index].id == id)this.deleteAnimate(index);
+            count++;
         }
+        return count;
     }
 
     setState(index,state,x,y){
