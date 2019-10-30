@@ -42,12 +42,14 @@ function initGame(){
     ));
 
     _player_state = _aniContainer.getState(_player_idx);
+    
+    _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].LEFT_DOWN,150,30,checkBallMove));
 }
 
 function loop(){
     var start = new Date().getTime();
     _engine.draw();
-
+    
     _aniContainer.nextFrame(_engine.getContext());
 
     checkArrowCollision();
@@ -67,6 +69,10 @@ function checkPlayerMove(){
     _aniContainer.setState(_player_idx,STATE[ID.PLAYER].NEW,_player_state.x-5,_player_state.y);
 }
 
+function checkBallMove(index){
+
+}
+
 function checkArrowCollision(){   
     if(_aniContainer.getCount(ID.ARROW_1) == 0)_aniContainer.deleteAllAnimate(ID.ARROW_TAIL_1);
     if(_aniContainer.getCount(ID.ARROW_2) == 0)_aniContainer.deleteAllAnimate(ID.ARROW_TAIL_2);
@@ -82,7 +88,7 @@ function initInput(){
             case GEngine.KEY_RIGHT:
                 _aniContainer.setState(_player_idx,STATE[ID.PLAYER].RIGHT,_player_state.x,_player_state.y);
             break;
-            case GEngine.KEY_DOWN:
+            case GEngine.KEY_DOWN:     
             break;
             case GEngine.KEY_UP:
                 _aniContainer.setGlint(_player_idx,100);
@@ -97,9 +103,15 @@ function initInput(){
 
     function arrowFire(arr_id){
         _aniContainer.setState(_player_idx,STATE[ID.PLAYER].FIRE,_player_state.x,_player_state.y);
-        _aniContainer.newAnimate(new Animate(arr_id,OBJECT[arr_id],STATE[arr_id].FIRE,_player_state.x+10,_player_state.y-15,arrowFireCallback));
-    }
+        _aniContainer.newAnimate(new Animate(arr_id,OBJECT[arr_id],STATE[arr_id].FIRE,_player_state.x+10,_player_state.y-12,arrowFireCallback));
 
+        _aniContainer.newAnimate(new Animate(ID.FX,OBJECT[ID.FX],STATE[ID.FX].ARROW,_player_state.x+5,_player_state.y-10
+            ,function (index){
+                _aniContainer.deleteAnimate(index);
+            }
+        ));
+    }
+    
     function arrowFireCallback(index){
         var arr_state =_aniContainer.getState(index);
         var idx_X = parseInt((arr_state.x /_W));

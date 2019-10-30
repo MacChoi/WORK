@@ -8,6 +8,9 @@ class Animate{
         this.callback = callback;
         this.objectState = Object.values(object)[state];
         this.glint = 0;
+        this.w = 0;
+        this.h = 0;
+        this.index =0;
     }
 
     nextFrame(ani_index){
@@ -40,6 +43,7 @@ class AnimateContainer{
     scale = 1;
     constructor(){
         this.objectArray = new Array(0);
+        this.newObjectArray = new Array(0);
     }
 
     setScale(scale){
@@ -50,9 +54,9 @@ class AnimateContainer{
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
             var element = this.objectArray[index];
-            if(element == null)continue;
             var image = IMAGE[element.id][Math.abs(element.objectState[0][element.index])];
-            if(image == null)continue;
+            element.w = image.width;
+            element.h = image.height;
             element.x += element.objectState[1][element.index];
             element.y += element.objectState[2][element.index];
             
@@ -108,9 +112,9 @@ class AnimateContainer{
 
     getIndex(id){
         for (var index = 0; index < this.objectArray.length; index++) {
-            if(id == this.objectArray[index].id)return index;
+            var element = this.objectArray[index];
+            if(id == element.id)return index;
         }
-        return -1;
     }
 
     getCount(id){

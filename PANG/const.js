@@ -11,7 +11,7 @@ const ID = new Enum(
     ["BG","PLAYER",
     "ARROW_1","ARROW_TAIL_1",
     "ARROW_2","ARROW_TAIL_2",
-    "FX"]
+    "FX","BALL1"]
 );
 
 var OBJECT;
