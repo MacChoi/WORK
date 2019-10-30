@@ -10,7 +10,7 @@ var _player_idx;
 var _player_state;
 
 window.onload = function(){
-    _engine= new GEngine(770,420);
+    _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGTH);
     _engine.setScale(2);
     _engine.loadImageFile(function (index) { 
         if(_engine.getImageCount() == index + 1){
@@ -33,7 +33,7 @@ function initGame(){
     _engine.getBufferContext().drawImage(IMAGE[ID.BG][2], 0, 0);
     _player_obj = OBJECT[ID.PLAYER];
 
-    // _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
+    //_engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
 
     _player_idx = _aniContainer.newAnimate(new Animate(ID.PLAYER,_player_obj,STATE[ID.PLAYER].NEW,200,170,
         function(index){
@@ -51,8 +51,6 @@ function loop(){
     _engine.draw();
     
     _aniContainer.nextFrame(_engine.getContext());
-
-    checkArrowCollision();
     checkPlayerMoveKey = checkPlayerMove();
     
     var delay = new Date().getTime() - start ;
@@ -71,11 +69,6 @@ function checkPlayerMove(){
 
 function checkBallMove(index){
 
-}
-
-function checkArrowCollision(){   
-    if(_aniContainer.getCount(ID.ARROW_1) == 0)_aniContainer.deleteAllAnimate(ID.ARROW_TAIL_1);
-    if(_aniContainer.getCount(ID.ARROW_2) == 0)_aniContainer.deleteAllAnimate(ID.ARROW_TAIL_2);
 }
 
 function initInput(){
@@ -103,7 +96,7 @@ function initInput(){
 
     function arrowFire(arr_id){
         _aniContainer.setState(_player_idx,STATE[ID.PLAYER].FIRE,_player_state.x,_player_state.y);
-        _aniContainer.newAnimate(new Animate(arr_id,OBJECT[arr_id],STATE[arr_id].FIRE,_player_state.x+10,_player_state.y-12,arrowFireCallback));
+        _aniContainer.newAnimate(new Animate(arr_id,OBJECT[arr_id],STATE[arr_id].FIRE,_player_state.x+10,_player_state.y,arrowFireCallback));
 
         _aniContainer.newAnimate(new Animate(ID.FX,OBJECT[ID.FX],STATE[ID.FX].ARROW,_player_state.x+5,_player_state.y-10
             ,function (index){
@@ -116,20 +109,8 @@ function initInput(){
         var arr_state =_aniContainer.getState(index);
         var idx_X = parseInt((arr_state.x /_W));
         var idx_Y = parseInt((arr_state.y /_H));
-    
         if(_bg_data[idx_Y][idx_X] != 0){
             _aniContainer.deleteAnimate(index);
-            checkArrowCollision();
-        }else{
-            if(arr_state.id == ID.ARROW_1){
-                _aniContainer.newAnimate(new Animate(ID.ARROW_TAIL_1,OBJECT[ID.ARROW_TAIL_1],STATE[ID.ARROW_TAIL_1].NEW,arr_state.x,arr_state.y,
-                    function(idx){}
-                ));
-            }else if(arr_state.id == ID.ARROW_2){
-                _aniContainer.newAnimate(new Animate(ID.ARROW_TAIL_2,OBJECT[ID.ARROW_TAIL_2],STATE[ID.ARROW_TAIL_2].NEW,arr_state.x,arr_state.y,
-                    function(idx){}
-                ));
-            } 
         }
     }
 }

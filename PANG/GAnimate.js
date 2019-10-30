@@ -40,10 +40,10 @@ class Animate{
 }
 
 class AnimateContainer{
-    scale = 1;
     constructor(){
         this.objectArray = new Array(0);
         this.newObjectArray = new Array(0);
+        this.scale = 1;
     }
 
     setScale(scale){
@@ -54,7 +54,9 @@ class AnimateContainer{
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
             var element = this.objectArray[index];
+            if(element == null)continue;
             var image = IMAGE[element.id][Math.abs(element.objectState[0][element.index])];
+            if(image == null)continue;
             element.w = image.width;
             element.h = image.height;
             element.x += element.objectState[1][element.index];

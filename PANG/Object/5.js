@@ -1,8 +1,23 @@
-OBJECT[ID.ARROW_TAIL_2] = {
-    IMG:6,
-    NEW:[
-    [0,1,2,3,4],//image
-    [0,0,0,0,0],//x
-    [0,0,0,0,0],//y
+OBJECT[ID.BALL1] = {
+    IMG:5,
+    LEFT_UP:[
+    [0],//image
+    [-5],//x
+    [-5],//y
+    ],
+    RIGHT_UP:[
+    [0],//image
+    [5],//x
+    [-5],//y
+    ],
+    LEFT_DOWN:[
+    [0],//image
+    [-5],//x
+    [5],//y
+    ],
+    RIGHT_DOWN:[
+    [0],//image
+    [5],//x
+    [5],//y
     ],
 };
