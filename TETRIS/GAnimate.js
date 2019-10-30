@@ -7,6 +7,7 @@ class Animate{
         this.y = y;
         this.callback = callback;
         this.objectState = Object.values(object)[state];
+        this.index=0;
     }
 
     nextFrame(index){

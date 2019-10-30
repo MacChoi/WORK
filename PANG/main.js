@@ -119,6 +119,7 @@ function initInput(){
     
         if(_bg_data[idx_Y][idx_X] != 0){
             _aniContainer.deleteAnimate(index);
+            checkArrowCollision();
         }else{
             if(arr_state.id == ID.ARROW_1){
                 _aniContainer.newAnimate(new Animate(ID.ARROW_TAIL_1,OBJECT[ID.ARROW_TAIL_1],STATE[ID.ARROW_TAIL_1].NEW,arr_state.x,arr_state.y,
