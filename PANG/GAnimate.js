@@ -10,12 +10,12 @@ class Animate{
         this.glint = 0;
     }
 
-    nextFrame(index){
+    nextFrame(ani_index){
         if(this.index < this.objectState[0].length-1){
             this.index++;
         }else{
             this.index=0;
-            this.callback(index);
+            this.callback(ani_index);
         }
 
         if(this.glint > 0){
@@ -38,8 +38,11 @@ class Animate{
 
 class AnimateContainer{
     scale = 1;
+    animateCount = 0;
     constructor(){
         this.objectArray = new Array(0);
+        this.newObjectArray = new Array(0);
+        this.deleteArrayIndex = new Array(0);
     }
 
     setScale(scale){
@@ -47,10 +50,23 @@ class AnimateContainer{
     }
     
     nextFrame(context){
+         //deleteAnimate,deleteAllAnimate
+        for (var index = 0; index < this.deleteArrayIndex.length; index++) {
+            this.objectArray.splice(this.deleteArrayIndex[index],1);
+            this.deleteArrayIndex.splice(index,1);
+        } 
+        //newAnimate
+        for (var index = 0; index < this.newObjectArray.length; index++) {
+            this.objectArray.push(this.newObjectArray[index]);
+            this.newObjectArray.splice(index,1);
+        }
+        //log("deleteAnimate,deleteAllAnimate objectArray length : " + this.objectArray.length);
+        
+        animateCount = this.objectArray.length;
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
             var element = this.objectArray[index];
-            if(element == null)continue;
+            //if(element == null)continue;
             var image = IMAGE[element.id][Math.abs(element.objectState[0][element.index])];
             element.x += element.objectState[1][element.index];
             element.y += element.objectState[2][element.index];
@@ -76,29 +92,22 @@ class AnimateContainer{
     }
 
     newAnimate(animate){
-        this.objectArray.push(animate);
-        return this.getIndex(animate.id);
-        //log("newAnimate() objectArray length : " + this.objectArray.length);
+        this.newObjectArray.push(animate);
+        return this.objectArray.length - this.deleteArrayIndex.length;
     }
 
     deleteAnimate(index){
-       this.objectArray.splice(index,1);
-       //log("deleteAnimate() objectArray length : " + this.objectArray.length);
+       this.deleteArrayIndex.push(index);
     }
 
-    deleteAnimateAll(id){
+    deleteAllAnimate(id){
         for (var index = 0; index < this.objectArray.length; index++) {
-            var element = this.objectArray[index];
-            
-            if(element.id == id)this.deleteAnimate(index);
-            
+            if(this.objectArray[index].id == id)this.deleteAnimate(index);
         }
-        //log("deleteAnimateAll() objectArray length : " + this.objectArray.length);
     }
 
     setState(index,state,x,y){
         this.objectArray[index].setState(state,x,y);
-        //log("setState() objectArray length : " + this.objectArray.length);
     }
     
     getState(index){
@@ -111,24 +120,23 @@ class AnimateContainer{
 
     getIndex(id){
         for (var index = 0; index < this.objectArray.length; index++) {
-            var element = this.objectArray[index];
-            if(id == element.id)return index;
+            if(id == this.objectArray[index].id)return index;
         }
-        return 0;
+        return -1;
+    }
+
+    getCount(id){
+        var count = 0;
+        for (var index = 0; index < this.objectArray.length; index++) {
+            if(id == this.objectArray[index].id)count++;
+        }
+        return count;
     }
 
     flipHorizontally(context,img,x,y){
-        // move to x + img's width
         context.translate(x+img.width,y);
-    
-        // scaleX by -1; this "trick" flips horizontally
         context.scale(-1,1);
-        
-        // draw the img
-        // no need for x,y since we've already translated
         context.drawImage(img,0,0);
-        
-        // always clean up -- reset transformations to default
         context.setTransform(1,0,0,1,0,0);
     }
 }
