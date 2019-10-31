@@ -5,10 +5,9 @@ var _bg_obj;
 var _bg_data;
 var _W;
 var _H;
-var _player_obj;
-var _player_idx;
-var _player_state;
 
+var _player_state;
+var _player_idx;
 window.onload = function(){
     _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGTH);
     _engine.setScale(2);
@@ -31,19 +30,25 @@ function initGame(){
     _H = _bg_obj.TILE_HEIGTH;
 
     _engine.getBufferContext().drawImage(IMAGE[ID.BG][2], 0, 0);
-    _player_obj = OBJECT[ID.PLAYER];
+    _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
 
-    //_engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
-
-    _player_idx = _aniContainer.newAnimate(new Animate(ID.PLAYER,_player_obj,STATE[ID.PLAYER].NEW,200,170,
+    _player_idx =_aniContainer.newAnimate(new Animate(ID.PLAYER,OBJECT[ID.PLAYER],STATE[ID.PLAYER].NEW,200,170,
         function(index){
-           _aniContainer.setState(_player_idx,STATE[ID.PLAYER].NEW,_player_state.x,_player_state.y);
-        }
+            var player_state =_aniContainer.getState(index);
+            _aniContainer.setState(index,STATE[ID.PLAYER].NEW,player_state.x,player_state.y);
+        },
+        function(index){
+            checkPlayerMoveKey = checkPlayerMove(index);
+         },
     ));
 
     _player_state = _aniContainer.getState(_player_idx);
     
-    _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].LEFT_DOWN,150,30,checkBallMove));
+    _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW,150,150,null,checkBallMove));
+    _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW,50,150,null,checkBallMove));
+    _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW,0,150,null,checkBallMove));
+
+    //getCircleXY(12,180,5);
 }
 
 function loop(){
@@ -51,24 +56,33 @@ function loop(){
     _engine.draw();
     
     _aniContainer.nextFrame(_engine.getContext());
-    checkPlayerMoveKey = checkPlayerMove();
     
     var delay = new Date().getTime() - start ;
     _loopTimmer = setTimeout(this.loop, LOOP_TIME - delay);
 }
 
-function checkPlayerMove(){
-    var player_idx_X = parseInt((_player_state.x /_W));
-    var player_idx_Y = parseInt((_player_state.y /_H));
+function checkPlayerMove(index){
+    var player_state = _aniContainer.getState(index);
+    var player_idx_X = parseInt((player_state.x /_W));
+    var player_idx_Y = parseInt((player_state.y /_H));
 
     if(_bg_data[player_idx_Y][player_idx_X] != 0)
-    _aniContainer.setState(_player_idx,STATE[ID.PLAYER].NEW,_player_state.x+5,_player_state.y);
+    _aniContainer.setState(index,STATE[ID.PLAYER].NEW,player_state.x+5,player_state.y);
     else if(_bg_data[player_idx_Y][player_idx_X+2] != 0)
-    _aniContainer.setState(_player_idx,STATE[ID.PLAYER].NEW,_player_state.x-5,_player_state.y);
+    _aniContainer.setState(index,STATE[ID.PLAYER].NEW,player_state.x-5,player_state.y);
 }
 
 function checkBallMove(index){
+    var ball_state = _aniContainer.getState(index);
+    var ball_idx_Y = parseInt((ball_state.y /_H));
 
+    if(ball_state.reverseX == 1){
+        var ball_idx_X = parseInt(((ball_state.x + ball_state.w)/_W));
+        if(_bg_data[ball_idx_Y][ball_idx_X] != 0)ball_state.reverseX = -1;
+    }else{
+        var ball_idx_X = parseInt((ball_state.x/_W));
+        if(_bg_data[ball_idx_Y][ball_idx_X] != 0)ball_state.reverseX = 1;
+    }
 }
 
 function initInput(){
@@ -81,7 +95,7 @@ function initInput(){
             case GEngine.KEY_RIGHT:
                 _aniContainer.setState(_player_idx,STATE[ID.PLAYER].RIGHT,_player_state.x,_player_state.y);
             break;
-            case GEngine.KEY_DOWN:     
+            case GEngine.KEY_DOWN:
             break;
             case GEngine.KEY_UP:
                 _aniContainer.setGlint(_player_idx,100);

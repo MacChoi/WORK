@@ -16,6 +16,27 @@ function getRandom(a,b){
     return Math.floor(Math.random() * b) + a;
 }
 
+function isEmpty(str){
+    if(typeof str == "undefined" || str == null || str == "")
+        return true;
+    else
+        return false ;
+}
+
+function getCircleXY(radius,angle,angleGap){
+    var arrayPosX = new Array(0);
+    var arrayPosY = new Array(0);
+    for (let index = angle; index > 0; index-=angleGap) {
+        var posX = radius * Math.sin(index * Math.PI/180);
+        var posY = radius * Math.cos(index * Math.PI/180);
+        
+        arrayPosX.push(parseInt(posX));
+        arrayPosY.push(parseInt(posY));
+    }
+    log("arrayPosX [" + arrayPosX.length +"] :" +  arrayPosX);
+    log("arrayPosY [" + arrayPosY.length +"] :" +  arrayPosY);
+}
+
 class GEngine {
     static KEY_LEFT = 37;
     static KEY_UP = 38;

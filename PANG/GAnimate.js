@@ -1,21 +1,31 @@
 class Animate{
-    constructor(id,object,state,x,y,callback){
+    constructor(id,object,state,x,y,callback,callback2){
         this.id = id;
         this.object = object;
         this.state = state;
         this.x = x;
         this.y = y;
-        this.callback = callback;
+    
         this.objectState = Object.values(object)[state];
         this.glint = 0;
         this.w = 0;
         this.h = 0;
         this.index =0;
+
+        this.reverseX = 1;
+        this.reverseY = 1;
+
+        if(isEmpty(callback))this.callback = function(){};
+        else this.callback = callback;
+
+        if(isEmpty(callback2))this.callback2 = function(){};
+        else this.callback2 = callback2;
     }
 
     nextFrame(ani_index){
         if(this.index < this.objectState[0].length-1){
             this.index++;
+            this.callback2(ani_index);
         }else{
             this.index=0;
             this.callback(ani_index);
@@ -32,6 +42,8 @@ class Animate{
         this.state = state;
         this.index = 0;
         this.objectState = Object.values(this.object)[state];
+        this.converseX = 1;
+        this.converseY = 1;
     }
 
     setGlint(glint){
@@ -59,8 +71,8 @@ class AnimateContainer{
             if(image == null)continue;
             element.w = image.width;
             element.h = image.height;
-            element.x += element.objectState[1][element.index];
-            element.y += element.objectState[2][element.index];
+            element.x += element.objectState[1][element.index] * element.reverseX;
+            element.y += element.objectState[2][element.index] * element.reverseY;
             
             context.save();
             if(this.scale > 1){   
@@ -125,6 +137,14 @@ class AnimateContainer{
             if(id == this.objectArray[index].id)count++;
         }
         return count;
+    }
+    
+    setConverseX(cx){
+        this.converseX = cx;
+    }
+    
+    setConverseY(cy){
+        this.converseY = cy;
     }
 
     flipHorizontally(context,img,x,y){
