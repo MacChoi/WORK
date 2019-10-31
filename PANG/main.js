@@ -10,16 +10,17 @@ var _player_state;
 var _player_idx;
 window.onload = function(){
     _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGTH);
-    _engine.setScale(2);
     _engine.loadImageFile(function (index) { 
         if(_engine.getImageCount() == index + 1){
             initGame(); 
             initInput();
             loop();
+        }else{
+            //이미지 로딩중
         }
     });
-
     _aniContainer = new AnimateContainer();
+    _engine.setScale(2);
     _aniContainer.setScale(2);
 }
 
@@ -45,7 +46,6 @@ function initGame(){
     _player_state = _aniContainer.getState(_player_idx);
     
     _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW,150,150,null,checkBallMove));
-    _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW,50,150,null,checkBallMove));
     _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW,0,150,null,checkBallMove));
 
     //getCircleXY(12,180,5);
@@ -110,21 +110,20 @@ function initInput(){
 
     function arrowFire(arr_id){
         _aniContainer.setState(_player_idx,STATE[ID.PLAYER].FIRE,_player_state.x,_player_state.y);
-        _aniContainer.newAnimate(new Animate(arr_id,OBJECT[arr_id],STATE[arr_id].FIRE,_player_state.x+10,_player_state.y,arrowFireCallback));
-
+        _aniContainer.newAnimate(new Animate(arr_id,OBJECT[arr_id],STATE[arr_id].FIRE,_player_state.x+10,_player_state.y,
+            function (index){
+                var arr_state =_aniContainer.getState(index);
+                var idx_X = parseInt((arr_state.x /_W));
+                var idx_Y = parseInt((arr_state.y /_H));
+                if(_bg_data[idx_Y][idx_X] != 0){
+                    _aniContainer.deleteAnimate(index);
+                }
+            }
+        ));
         _aniContainer.newAnimate(new Animate(ID.FX,OBJECT[ID.FX],STATE[ID.FX].ARROW,_player_state.x+5,_player_state.y-10
             ,function (index){
                 _aniContainer.deleteAnimate(index);
             }
         ));
-    }
-    
-    function arrowFireCallback(index){
-        var arr_state =_aniContainer.getState(index);
-        var idx_X = parseInt((arr_state.x /_W));
-        var idx_Y = parseInt((arr_state.y /_H));
-        if(_bg_data[idx_Y][idx_X] != 0){
-            _aniContainer.deleteAnimate(index);
-        }
     }
 }
