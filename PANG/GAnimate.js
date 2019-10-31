@@ -1,5 +1,5 @@
 class Animate{
-    constructor(id,object,state,x,y,callback,callback2){
+    constructor(id,object,state,x,y,callback,callback2,callback3){
         this.id = id;
         this.object = object;
         this.state = state;
@@ -15,22 +15,23 @@ class Animate{
         this.reverseX = 1;
         this.reverseY = 1;
 
-        if(isEmpty(callback))this.callback = function(){};
-        else this.callback = callback;
+        this.callback = function(){};
+        this.callback2 = function(){};
+        this.callback3 = function(){};
 
-        if(isEmpty(callback2))this.callback2 = function(){};
-        else this.callback2 = callback2;
+        if(!isEmpty(callback))this.callback = callback;
+        if(!isEmpty(callback2))this.callback2 = callback2;
+        if(!isEmpty(callback3))this.callback3 = callback3;
     }
 
     nextFrame(ani_index){
         if(this.index < this.objectState[0].length-1){
             this.index++;
-            this.callback2(ani_index);
         }else{
             this.index=0;
-            this.callback(ani_index);
+            if(!isEmpty(this.callback))this.callback(ani_index);
         }
-
+        if(!isEmpty(this.callback2))this.callback2(ani_index);
         if(this.glint > 0){
             this.glint--;
         }
@@ -42,8 +43,8 @@ class Animate{
         this.state = state;
         this.index = 0;
         this.objectState = Object.values(this.object)[state];
-        this.converseX = 1;
-        this.converseY = 1;
+        this.reverseX = 1;
+        this.reverseY = 1;
     }
 
     setGlint(glint){
@@ -52,17 +53,28 @@ class Animate{
 }
 
 class AnimateContainer{
+    collision = new GCollision();
     constructor(){
         this.objectArray = new Array(0);
         this.newObjectArray = new Array(0);
         this.scale = 1;
     }
 
-    setScale(scale){
-        this.scale = scale;
+    checkCollision(){
+        for (var i = 0; i < this.objectArray.length; i++) {
+            for (var j = 0; j < this.objectArray.length; j++) {
+                if(i == j)continue;
+                if(isEmpty(this.objectArray[i]))continue;
+                if(isEmpty(this.objectArray[j]))continue;
+                if(this.collision.hitRectangle(this.objectArray[i],this.objectArray[j])){
+                    this.objectArray[i].callback3(i,j); 
+                }
+            }  
+        }
     }
-    
+
     nextFrame(context){
+        this.checkCollision();
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
             var element = this.objectArray[index];
@@ -112,11 +124,15 @@ class AnimateContainer{
         return count;
     }
 
+    setScale(scale){
+        this.scale = scale;
+    }
+
     setState(index,state,x,y){
         this.objectArray[index].setState(state,x,y);
     }
     
-    getState(index){
+    getAnimate(index){
         return this.objectArray[index];
     }
     
@@ -137,14 +153,6 @@ class AnimateContainer{
             if(id == this.objectArray[index].id)count++;
         }
         return count;
-    }
-    
-    setConverseX(cx){
-        this.converseX = cx;
-    }
-    
-    setConverseY(cy){
-        this.converseY = cy;
     }
 
     flipHorizontally(context,img,x,y){

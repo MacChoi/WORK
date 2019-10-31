@@ -1,5 +1,14 @@
 class GCollision {
     constructor(){}
+
+    //사각 충돌
+    hitRectangle(rect1, rect2) {
+        return rect1.x < rect2.x + rect2.w &&
+        rect1.x + rect1.w > rect2.x &&
+        rect1.y < rect2.y + rect2.h &&
+        rect1.y + rect1.h > rect2.y;
+      }
+      
     //원형 충돌
     hitCircle(circle1, circle2) { 
         // 원의 중심 좌표로부터 벡터 x, y 계산 
@@ -13,12 +22,6 @@ class GCollision {
         return hit; 
     }
     
-    //사각 충돌
-    hitRectangle(rect1, rect2) { 
-        if( rect1.x < rect2.x + rect2.width && rect1.x + rect1.width > rect2.x && rect1.y < rect2.y + rect2.height && rect1.height < rect1.y > rect2.y ) 
-        { return true; } 
-    return false; }
-
     //사각 충돌 위치
     hitRectangleSide(rect1, rect2) { 
         // 충돌 위치 
