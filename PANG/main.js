@@ -42,7 +42,7 @@ function initGame(){
             checkPlayerMoveKey = checkPlayerMove(index);
         },
         function(indexA,indexB){
-            if(_aniContainer.getAnimate(indexA).state != STATE[ID.PLAYER].DIE & _player_state.glint == 0){
+            if(_aniContainer.getAnimate(indexA).state != STATE[ID.PLAYER].DIE){
                 if(_aniContainer.getAnimate(indexB).id == ID.BALL1){
                     _aniContainer.setState(indexA,STATE[ID.PLAYER].DIE,_player_state.x,_player_state.y);
                     _aniContainer.setGlint(_player_idx,100);
@@ -103,6 +103,12 @@ function initInput(){
     });
 }
 
+function collisionBall(index,fx_state,ball_state,x,y){
+    _aniContainer.newAnimate(new Animate(ID.FX,OBJECT[ID.FX],fx_state,x,y,function (index){_aniContainer.deleteAnimate(index);}));
+    _aniContainer.setState(index,ball_state,x,y);
+    _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],ball_state,x,y,null,checkBallMove));
+}
+
 function arrowFire(arr_id){
     _aniContainer.setState(_player_idx,STATE[ID.PLAYER].FIRE,_player_state.x,_player_state.y);
     _aniContainer.newAnimate(new Animate(arr_id,OBJECT[arr_id],STATE[arr_id].FIRE,_player_state.x+10,_player_state.y,
@@ -120,32 +126,33 @@ function arrowFire(arr_id){
                 _aniContainer.deleteAnimate(indexA);
                 var aniB =_aniContainer.getAnimate(indexB);
                 if(isEmpty(aniB))return;
+                aniB.reverseX = -1;
                 switch (aniB.state) {
+                    case STATE[ID.BALL1].NEW_1:
                     case STATE[ID.BALL1].MOVE_1:
-                        _aniContainer.newAnimate(new Animate(ID.FX,OBJECT[ID.FX],STATE[ID.FX].BALL_1,aniB.x,aniB.y,function (index){_aniContainer.deleteAnimate(index);}));
-                        _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW_2,aniB.x + 30,aniB.y,null,checkBallMove));
-                        _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW_2,aniB.x - 30,aniB.y,null,checkBallMove));
+                        collisionBall(indexB,STATE[ID.FX].BALL_1,STATE[ID.BALL1].NEW_2,aniB.x,aniB.y);
                         break;
+                    case STATE[ID.BALL1].NEW_2:
                     case STATE[ID.BALL1].MOVE_2:
-                        _aniContainer.newAnimate(new Animate(ID.FX,OBJECT[ID.FX],STATE[ID.FX].BALL_2,aniB.x,aniB.y,function (index){_aniContainer.deleteAnimate(index);}));
-                        _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW_3,aniB.x + 30,aniB.y,null,checkBallMove));
-                        _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW_3,aniB.x - 30,aniB.y,null,checkBallMove));
+                        collisionBall(indexB,STATE[ID.FX].BALL_2,STATE[ID.BALL1].NEW_3,aniB.x,aniB.y);
                         break;
+                    case STATE[ID.BALL1].NEW_3:
                     case STATE[ID.BALL1].MOVE_3:
-                        _aniContainer.newAnimate(new Animate(ID.FX,OBJECT[ID.FX],STATE[ID.FX].BALL_3,aniB.x,aniB.y,function (index){_aniContainer.deleteAnimate(index);}));
-                        _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW_4,aniB.x + 30,aniB.y,null,checkBallMove));
-                        _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW_4,aniB.x - 30,aniB.y,null,checkBallMove));
+                        collisionBall(indexB,STATE[ID.FX].BALL_3,STATE[ID.BALL1].NEW_4,aniB.x,aniB.y);
                         break;
+                    case STATE[ID.BALL1].NEW_4:
                     case STATE[ID.BALL1].MOVE_4:
-                        _aniContainer.newAnimate(new Animate(ID.FX,OBJECT[ID.FX],STATE[ID.FX].BALL_4,aniB.x,aniB.y,function (index){_aniContainer.deleteAnimate(index);}));
-                        _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW_5,aniB.x + 30,aniB.y,null,checkBallMove));
-                        _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW_5,aniB.x - 30,aniB.y,null,checkBallMove));
-                        break;  
-                }
-                _aniContainer.deleteAnimate(indexB);
+                        collisionBall(indexB,STATE[ID.FX].BALL_4,STATE[ID.BALL1].NEW_5,aniB.x,aniB.y);
+                        break;
+                    case STATE[ID.BALL1].NEW_5:
+                    case STATE[ID.BALL1].MOVE_5:
+                        _aniContainer.deleteAnimate(indexB);
+                    break;     
+                } 
             }
         }
     ));
+
     _aniContainer.newAnimate(new Animate(ID.FX,OBJECT[ID.FX],STATE[ID.FX].ARROW
         ,_player_state.x+5,_player_state.y-10
         ,function (index){

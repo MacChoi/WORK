@@ -25,6 +25,7 @@ class Animate{
     }
 
     nextFrame(ani_index){
+        if(isEmpty(this.objectState))return;
         if(this.index < this.objectState[0].length-1){
             this.index++;
         }else{
@@ -43,8 +44,6 @@ class Animate{
         this.state = state;
         this.index = 0;
         this.objectState = Object.values(this.object)[state];
-        this.reverseX = 1;
-        this.reverseY = 1;
     }
 
     setGlint(glint){
@@ -79,6 +78,7 @@ class AnimateContainer{
             this.objectArray[index].nextFrame(index);
             var element = this.objectArray[index];
             if(element == null)continue;
+            if(isEmpty(this.objectState))return;
             var image = IMAGE[element.id][Math.abs(element.objectState[0][element.index])];
             if(image == null)continue;
             element.w = image.width;
