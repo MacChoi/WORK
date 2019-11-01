@@ -112,6 +112,10 @@ class AnimateContainer{
     }
 
     deleteAnimate(index){
+        this.objectArray.callback = function(){};
+        this.objectArray.callback2 = function(){};
+        this.objectArray.callback3 = function(){};
+       
         this.objectArray.splice(index,1);
     }
 

@@ -61,7 +61,7 @@ function loop(){
     _aniContainer.nextFrame(_engine.getContext());
 
     if(_aniContainer.getCount(ID.BALL1) == 0)
-    _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW_1,10 ,50,null,checkBallMove));
+    _aniContainer.newAnimate(new Animate(ID.BALL1,OBJECT[ID.BALL1],STATE[ID.BALL1].NEW_1,10,50,null,checkBallMove));
 
     var delay = new Date().getTime() - start ;
     _loopTimmer = setTimeout(this.loop, LOOP_TIME - delay);
@@ -111,7 +111,7 @@ function collisionBall(index,fx_state,ball_state,x,y){
 
 function arrowFire(arr_id){
     _aniContainer.setState(_player_idx,STATE[ID.PLAYER].FIRE,_player_state.x,_player_state.y);
-    _aniContainer.newAnimate(new Animate(arr_id,OBJECT[arr_id],STATE[arr_id].FIRE,_player_state.x+10,_player_state.y,
+    _aniContainer.newAnimate(new Animate(arr_id,OBJECT[arr_id],STATE[arr_id].FIRE,_player_state.x+10,_player_state.y-50,
         function (index){
             var arr_state =_aniContainer.getAnimate(index);
             var idx_X = parseInt((arr_state.x /_W));
@@ -123,32 +123,32 @@ function arrowFire(arr_id){
         null
         ,function (indexA,indexB){
             if(_aniContainer.getAnimate(indexB).id == ID.BALL1){
-                _aniContainer.deleteAnimate(indexA);
                 var aniB =_aniContainer.getAnimate(indexB);
                 if(isEmpty(aniB))return;
                 aniB.reverseX = -1;
                 switch (aniB.state) {
                     case STATE[ID.BALL1].NEW_1:
                     case STATE[ID.BALL1].MOVE_1:
-                        collisionBall(indexB,STATE[ID.FX].BALL_1,STATE[ID.BALL1].NEW_2,aniB.x,aniB.y);
+                        collisionBall(indexB,STATE[ID.FX].BALL_2,STATE[ID.BALL1].NEW_2,aniB.x,aniB.y                       );
                         break;
                     case STATE[ID.BALL1].NEW_2:
                     case STATE[ID.BALL1].MOVE_2:
-                        collisionBall(indexB,STATE[ID.FX].BALL_2,STATE[ID.BALL1].NEW_3,aniB.x,aniB.y);
+                        collisionBall(indexB,STATE[ID.FX].BALL_3,STATE[ID.BALL1].NEW_3,aniB.x,aniB.y);
                         break;
                     case STATE[ID.BALL1].NEW_3:
                     case STATE[ID.BALL1].MOVE_3:
-                        collisionBall(indexB,STATE[ID.FX].BALL_3,STATE[ID.BALL1].NEW_4,aniB.x,aniB.y);
+                        collisionBall(indexB,STATE[ID.FX].BALL_4,STATE[ID.BALL1].NEW_4,aniB.x,aniB.y);
                         break;
                     case STATE[ID.BALL1].NEW_4:
                     case STATE[ID.BALL1].MOVE_4:
-                        collisionBall(indexB,STATE[ID.FX].BALL_4,STATE[ID.BALL1].NEW_5,aniB.x,aniB.y);
+                        collisionBall(indexB,STATE[ID.FX].BALL_5,STATE[ID.BALL1].NEW_5,aniB.x,aniB.y);
                         break;
                     case STATE[ID.BALL1].NEW_5:
                     case STATE[ID.BALL1].MOVE_5:
                         _aniContainer.deleteAnimate(indexB);
-                    break;     
-                } 
+                        break;     
+                }
+                _aniContainer.deleteAnimate(indexA);
             }
         }
     ));

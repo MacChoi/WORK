@@ -51,13 +51,13 @@ class GEngine {
         IMAGE = new Array(length);
         STATE = new Array(length);
 
-        log("GEngine.createCanvas() OBJECT : " + length);
+        //log("GEngine.createCanvas() OBJECT : " + length);
         for(var i =0; i<length; i++){
             var jscript = document.createElement('script');
             jscript.type = 'text/javascript';
             jscript.src = "./Object/" + i + ".js";
             document.head.appendChild( jscript );
-            log("OBJECT [" + i +"] : " +jscript.src);
+            //log("OBJECT [" + i +"] : " +jscript.src);
         }
     }
 
@@ -112,7 +112,7 @@ class GEngine {
                 this.imageCount++;
             }
         }
-        log("GEngine.loadImageFile() IMAGE : " + this.imageCount);
+        //log("GEngine.loadImageFile() IMAGE : " + this.imageCount);
         var count = 0;
         for(var i = 0; i<IMAGE.length; i++){
             for(var j =0; j<IMAGE[i].length; j++){
@@ -121,7 +121,7 @@ class GEngine {
                 IMAGE[i][j].onload = function () {
                     callback(count++);
                 } 
-                log("IMAGE[" + i + "][" + j + "] : " + IMAGE[i][j].src);
+                //log("IMAGE[" + i + "][" + j + "] : " + IMAGE[i][j].src);
             }
         } 
     }
