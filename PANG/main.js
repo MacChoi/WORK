@@ -38,11 +38,9 @@ function initGame(){
             var player_state =_aniContainer.getAnimate(index);
             _aniContainer.setState(index,STATE[ID.PLAYER].NEW,player_state.x,player_state.y);
         },
-        function(index){
-            checkPlayerMoveKey = checkPlayerMove(index);
-        },
+        checkPlayerMove,
         function(indexA,indexB){
-            if(_aniContainer.getAnimate(indexA).state != STATE[ID.PLAYER].DIE){
+            if(_aniContainer.getAnimate(indexA).state != STATE[ID.PLAYER].DIE & _aniContainer.getAnimate(indexA).glint ==0){
                 if(_aniContainer.getAnimate(indexB).id == ID.BALL1){
                     _aniContainer.setState(indexA,STATE[ID.PLAYER].DIE,_player_state.x,_player_state.y);
                     _aniContainer.setGlint(_player_idx,100);
@@ -68,14 +66,14 @@ function loop(){
 }
 
 function checkPlayerMove(index){
-    var player_state = _aniContainer.getAnimate(index);
-    var player_idx_X = parseInt((player_state.x /_W));
-    var player_idx_Y = parseInt((player_state.y /_H));
-
+    var player_ani = _aniContainer.getAnimate(index);
+    var player_idx_X = parseInt((player_ani.x /_W));
+    var player_idx_Y = parseInt((player_ani.y /_H));
+    
     if(_bg_data[player_idx_Y][player_idx_X] != 0)
-    _aniContainer.setState(index,STATE[ID.PLAYER].NEW,player_state.x+5,player_state.y);
+    _aniContainer.setState(index,STATE[ID.PLAYER].NEW,player_ani.x+5,player_ani.y);
     else if(_bg_data[player_idx_Y][player_idx_X+2] != 0)
-    _aniContainer.setState(index,STATE[ID.PLAYER].NEW,player_state.x-5,player_state.y);
+    _aniContainer.setState(index,STATE[ID.PLAYER].NEW,player_ani.x-5,player_ani.y);
 }
 
 function initInput(){
@@ -159,4 +157,47 @@ function arrowFire(arr_id){
             _aniContainer.deleteAnimate(index);
         }
     ));
+}
+
+function checkBallMove(index){
+    var ball_state = _aniContainer.getAnimate(index);
+    var move_type;
+    switch(ball_state.state){
+        case STATE[ID.BALL1].MOVE_1:
+        case STATE[ID.BALL1].MOVE_2:
+        case STATE[ID.BALL1].MOVE_3:
+        case STATE[ID.BALL1].MOVE_4:
+        case STATE[ID.BALL1].MOVE_5:
+            var ball_idx_Y = parseInt((ball_state.y /_H));
+            if(ball_state.reverseX == 1){
+                var ball_idx_X = parseInt(((ball_state.x + ball_state.w)/_W));
+                if(_bg_data[ball_idx_Y][ball_idx_X+1] != 0)ball_state.reverseX = -1;
+            }else{
+                var ball_idx_X = parseInt((ball_state.x/_W));
+                if(_bg_data[ball_idx_Y][ball_idx_X-1] != 0)ball_state.reverseX = 1;
+            }
+        break;
+    }
+
+    switch(ball_state.state){
+        case STATE[ID.BALL1].NEW_1:move_type = STATE[ID.BALL1].MOVE_1;break;
+        case STATE[ID.BALL1].NEW_2:move_type = STATE[ID.BALL1].MOVE_2;break;
+        case STATE[ID.BALL1].NEW_3:move_type = STATE[ID.BALL1].MOVE_3;break;
+        case STATE[ID.BALL1].NEW_4:move_type = STATE[ID.BALL1].MOVE_4;break;
+        case STATE[ID.BALL1].NEW_5:move_type = STATE[ID.BALL1].MOVE_5;break;
+    }
+
+    switch(ball_state.state){
+        case STATE[ID.BALL1].NEW_1:
+        case STATE[ID.BALL1].NEW_2:
+        case STATE[ID.BALL1].NEW_3:
+        case STATE[ID.BALL1].NEW_4:
+        case STATE[ID.BALL1].NEW_5:
+            var ball_idx_X = parseInt((ball_state.x/_W));
+            var ball_idx_Y = parseInt(((ball_state.y + ball_state.h) /_H));
+            //if(ball_idx_Y > 20)ball_idx_Y-=1;
+            if( _bg_data[ball_idx_Y][ball_idx_X] != 0)
+            _aniContainer.setState(index,move_type,ball_state.x,ball_state.y);
+        break;
+    }
 }
