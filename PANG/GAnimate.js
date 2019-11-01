@@ -73,7 +73,7 @@ class AnimateContainer{
     }
 
     nextFrame(context){
-        this.checkCollision();
+        
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
             var element = this.objectArray[index];
@@ -102,6 +102,7 @@ class AnimateContainer{
             
             context.restore();
         }
+        this.checkCollision();
     }
 
     newAnimate(animate){

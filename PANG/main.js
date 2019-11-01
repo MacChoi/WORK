@@ -144,6 +144,7 @@ function arrowFire(arr_id){
                     case STATE[ID.BALL1].NEW_5:
                     case STATE[ID.BALL1].MOVE_5:
                         _aniContainer.deleteAnimate(indexB);
+                        _aniContainer.deleteAnimate(indexA);
                         break;     
                 }
                 _aniContainer.deleteAnimate(indexA);
