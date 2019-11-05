@@ -49,7 +49,7 @@ function initGame(){
         }
     ));
 
-    _player_state = _aniContainer.getAnimate(_player_idx);
+    
 }
 
 function loop(){
