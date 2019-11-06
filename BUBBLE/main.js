@@ -33,8 +33,18 @@ function initGame(){
     _player_idx = _ani.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,100,117,
         function(index){
             _ani.setState(_player_idx,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
-        });
+        }
+    );
     _player_ani = _ani.getAnimate(_player_idx);
+
+
+    _ani.newAnimate(ID.MON,STATE[ID.MON].NEW,280,117,
+        function(index){
+            var mon_ani = _ani.getAnimate(index); 
+            _ani.setState(index,STATE[ID.MON].RIGHT,mon_ani.x,mon_ani.y);
+            mon_ani.setReverseX(mon_ani.reverseX * -1);
+        }
+    );
 }
 
 function loop(){
@@ -65,6 +75,14 @@ function initInput(){
             break;
             case GEngine.KEY_SPACE:
                 _ani.setState(_player_idx,STATE[ID.PLAYER].FIRE,_player_ani.x,_player_ani.y);
+            
+                var bubble_idx =_ani.newAnimate(ID.BUBBLE,STATE[ID.BUBBLE].FIRE,_player_ani.x,_player_ani.y+10,
+                    function(index){
+                        var bubble_ani = _ani.getAnimate(bubble_idx); 
+                        _ani.setState(bubble_idx,STATE[ID.BUBBLE].MOVE,bubble_ani.x,bubble_ani.y);
+                    });
+                var bubble_ani = _ani.getAnimate(bubble_idx);   
+                bubble_ani.setReverseX(_player_ani.reverseX);
             break;
         }
         e.preventDefault();
