@@ -14,7 +14,6 @@ window.onload = function(){
         if(_engine.getImageCount() == index + 1){
             initGame(); 
             initInput();
-            loop();
         }else{
             //이미지 로딩중
         }
@@ -30,13 +29,17 @@ function initGame(){
 
     //_engine.getBufferContext().drawImage(IMAGE[ID.BG][2], 0, 0);
     _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
+    _engine.startLoop(function(){
+        _engine.draw();
+        _ani.nextFrame(_engine.getContext());
+    });
+
     _player_idx = _ani.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,100,117,
         function(index){
             _ani.setState(_player_idx,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
         }
     );
     _player_ani = _ani.getAnimate(_player_idx);
-
 
     _ani.newAnimate(ID.MON,STATE[ID.MON].NEW,280,117,
         function(index){
@@ -45,14 +48,6 @@ function initGame(){
             mon_ani.setReverseX(mon_ani.reverseX * -1);
         }
     );
-}
-
-function loop(){
-    var start = new Date().getTime();
-    _engine.draw();
-    _ani.nextFrame(_engine.getContext());
-    var delay = new Date().getTime() - start ;
-    _loopTimmer = setTimeout(this.loop, LOOP_TIME - delay);
 }
 
 function initInput(){

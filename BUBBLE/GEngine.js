@@ -45,7 +45,7 @@ class GEngine {
     static KEY_SPACE = 32;
 
     scale = 1;
-    
+    static loopCallback = null;
     static loadObjectFile(length){
         OBJECT = new Array(length);
         IMAGE = new Array(length);
@@ -142,6 +142,18 @@ class GEngine {
                 this.bufferContext.drawImage(image[map[y][x]] , x * sizeX, y * sizeY);   
             }
         } 
+    }
+
+    startLoop(callback){
+        GEngine.loopCallback = callback;
+        GEngine.loop();
+    }
+
+    static loop(){
+        var start = new Date().getTime();
+        GEngine.loopCallback();
+        var delay = new Date().getTime() - start ;
+        setTimeout(GEngine.loop, LOOP_TIME - delay);
     }
 }
 
