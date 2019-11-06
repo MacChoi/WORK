@@ -55,6 +55,9 @@ class Animate{
 
 class AnimateContainer{
     collision = new GCollision();
+    gravityArray = null;
+    _W = 0;
+    _H = 0;
     constructor(){
         this.objectArray = new Array(0);
         this.newObjectArray = new Array(0);
@@ -84,7 +87,33 @@ class AnimateContainer{
             element.h = image.height;
             element.x += element.objectState[1][element.index] * element.reverseX;
             element.y += element.objectState[2][element.index] * element.reverseY;
-            
+
+            var idx_X_1=parseInt((element.x) /this._W);
+            var idx_X_2=parseInt((element.x+element.w) /this._W);
+            var idx_Y=parseInt(element.y /this._H);
+            if(this.gravityArray[idx_Y][idx_X_1] != 0 ){
+                if(!isEmpty(element.objectState[3]))
+                if(element.objectState[3][element.index] !=0)
+                element.x = ((idx_X_1+1) * this._W);
+            }
+            if(this.gravityArray[idx_Y][idx_X_2] != 0 ){
+                if(!isEmpty(element.objectState[3]))
+                if(element.objectState[3][element.index] !=0)
+                element.x = (idx_X_1 * this._W);
+            }
+
+            var idx_X_1_10=parseInt((element.x+10) /this._W);
+            var idx_X_2_10=parseInt((element.x+element.w-10) /this._W);
+            if(!isEmpty(element.objectState[3])){
+                element.y += element.objectState[3][element.index];
+                if(!isEmpty(this.gravityArray)){
+                    if(this.gravityArray[idx_Y+1][idx_X_1_10] != 0 |
+                        this.gravityArray[idx_Y+1][idx_X_2_10] != 0){
+                        element.y = idx_Y *this._H;
+                    }
+                }
+            }
+
             context.save();
             if(this.scale > 1){   
                 context.scale(this.scale, this.scale);  
@@ -164,5 +193,11 @@ class AnimateContainer{
         context.scale(-1,1);
         context.drawImage(img,0,0);
         context.setTransform(1,0,0,1,0,0);
+    }
+
+    setGravityArray(gravityArray,_W,_H){
+        this.gravityArray = gravityArray;
+        this._W = _W;
+        this._H = _H;
     }
 }

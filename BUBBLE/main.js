@@ -18,7 +18,7 @@ window.onload = function(){
             //이미지 로딩중
         }
     });
-    _ani = new AnimateContainer();
+    
 }
 
 function initGame(){
@@ -27,13 +27,16 @@ function initGame(){
     _W = _bg_obj.TILE_WIDTH;
     _H = _bg_obj.TILE_HEIGTH;
 
+    _ani = new AnimateContainer();
+    _ani.setGravityArray(_bg_data,_W,_H);
+    
     _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
     _engine.startLoop(function(){
         _engine.draw();
         _ani.nextFrame(_engine.getContext());
     });
 
-    _player_idx = _ani.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,100,117,
+    _player_idx = _ani.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,380,280,
         function(index){
             _ani.setState(_player_idx,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
         }
@@ -64,7 +67,7 @@ function initInput(){
             case GEngine.KEY_DOWN:
             break;
             case GEngine.KEY_UP:
-                if(_player_ani.state != STATE[ID.PLAYER].UP)
+                if(_player_ani.state == STATE[ID.PLAYER].NEW)
                 _ani.setState(_player_idx,STATE[ID.PLAYER].UP,_player_ani.x,_player_ani.y);
             break;
             case GEngine.KEY_SPACE:
