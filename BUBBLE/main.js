@@ -27,7 +27,6 @@ function initGame(){
     _W = _bg_obj.TILE_WIDTH;
     _H = _bg_obj.TILE_HEIGTH;
 
-    //_engine.getBufferContext().drawImage(IMAGE[ID.BG][2], 0, 0);
     _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
     _engine.startLoop(function(){
         _engine.draw();
