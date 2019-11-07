@@ -25,9 +25,10 @@ class Animate{
         if(isEmpty(this.objectState))return;
         if(this.index < this.objectState[0].length-1){
             this.index++;
+            if(!isEmpty(this.callback))this.callback(AnimateContainer.NEXT_FRAME,ani_index);
         }else{
             this.index=0;
-            if(!isEmpty(this.callback))this.callback(ani_index);
+            if(!isEmpty(this.callback))this.callback(AnimateContainer.END_FRAME,ani_index);
         }
         
         if(this.glint > 0){
@@ -54,6 +55,10 @@ class Animate{
 }
 
 class AnimateContainer{
+    static END_FRAME = 0;
+    static NEXT_FRAME = 1;
+    static COLLISION = 2;
+
     collision = new GCollision();
     gravityArray = null;
     _W = 0;
@@ -71,7 +76,7 @@ class AnimateContainer{
                 if(isEmpty(this.objectArray[i]))continue;
                 if(isEmpty(this.objectArray[j]))continue;
                 if(this.collision.hitRectangle(this.objectArray[i],this.objectArray[j])){
-                    //this.objectArray[i].callback3(i,j); 
+                    this.objectArray[i].callback(AnimateContainer.COLLISION,i,j); 
                 }
             }  
         }
@@ -142,9 +147,6 @@ class AnimateContainer{
 
     deleteAnimate(index){
         this.objectArray.callback = function(){};
-        this.objectArray.callback2 = function(){};
-        this.objectArray.callback3 = function(){};
-       
         this.objectArray.splice(index,1);
     }
 

@@ -37,17 +37,34 @@ function initGame(){
     });
 
     _player_idx = _ani.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,380,280,
-        function(index){
-            _ani.setState(_player_idx,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
+        function(type,indexA,indexB){
+            switch (type) {
+                case AnimateContainer.END_FRAME:
+                    _ani.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
+                break;
+                case AnimateContainer.NEXT_FRAME:
+                break;
+                case AnimateContainer.COLLISION:
+                break;
+            }
         }
     );
     _player_ani = _ani.getAnimate(_player_idx);
 
     _ani.newAnimate(ID.MON,STATE[ID.MON].NEW,280,117,
-        function(index){
-            var mon_ani = _ani.getAnimate(index); 
-            _ani.setState(index,STATE[ID.MON].RIGHT,mon_ani.x,mon_ani.y);
-            mon_ani.setReverseX(mon_ani.reverseX * -1);
+        function(type,indexA,indexB){
+            switch (type) {
+                case AnimateContainer.END_FRAME:
+                    var mon_ani = _ani.getAnimate(indexA); 
+                    _ani.setState(indexA,STATE[ID.MON].RIGHT,mon_ani.x,mon_ani.y);
+                    mon_ani.setReverseX(mon_ani.reverseX * -1);
+                break;
+                case AnimateContainer.NEXT_FRAME:
+                break;
+                case AnimateContainer.COLLISION:
+
+                break;
+            }   
         }
     );
 }
@@ -74,10 +91,15 @@ function initInput(){
                 _ani.setState(_player_idx,STATE[ID.PLAYER].FIRE,_player_ani.x,_player_ani.y);
             
                 var bubble_idx =_ani.newAnimate(ID.BUBBLE,STATE[ID.BUBBLE].FIRE,_player_ani.x,_player_ani.y+10,
-                    function(index){
-                        var bubble_ani = _ani.getAnimate(bubble_idx); 
-                        _ani.setState(bubble_idx,STATE[ID.BUBBLE].MOVE,bubble_ani.x,bubble_ani.y);
+                    function(type,indexA){
+                        switch (type) {
+                            case AnimateContainer.END_FRAME:
+                                var bubble_ani = _ani.getAnimate(indexA); 
+                                _ani.setState(indexA,STATE[ID.BUBBLE].MOVE,bubble_ani.x,bubble_ani.y);
+                            break;
+                        }
                     });
+                    
                 var bubble_ani = _ani.getAnimate(bubble_idx);   
                 bubble_ani.setReverseX(_player_ani.reverseX);
             break;
