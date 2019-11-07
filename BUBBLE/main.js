@@ -2,7 +2,7 @@ var _engine;
 var _ani;
 
 var _bg_obj;
-var _bg_data;
+var _bg_data,_bg_data2;
 var _W;
 var _H;
 
@@ -18,12 +18,12 @@ window.onload = function(){
             //이미지 로딩중
         }
     });
-    
 }
 
 function initGame(){
     _bg_obj = OBJECT[ID.BG];
     _bg_data = _bg_obj.DATA;
+    _bg_data2 = _bg_obj.DATA2;
     _W = _bg_obj.TILE_WIDTH;
     _H = _bg_obj.TILE_HEIGTH;
 
@@ -92,10 +92,29 @@ function initInput(){
             
                 var bubble_idx =_ani.newAnimate(ID.BUBBLE,STATE[ID.BUBBLE].FIRE,_player_ani.x,_player_ani.y+10,
                     function(type,indexA){
+                        var bubble_ani = _ani.getAnimate(indexA); 
                         switch (type) {
                             case AnimateContainer.END_FRAME:
                                 var bubble_ani = _ani.getAnimate(indexA); 
-                                _ani.setState(indexA,STATE[ID.BUBBLE].MOVE,bubble_ani.x,bubble_ani.y);
+                                _ani.setState(indexA,STATE[ID.BUBBLE].RIGHT,bubble_ani.x,bubble_ani.y);
+                            break;
+                            case AnimateContainer.NEXT_FRAME:
+                                var idx_X=parseInt(bubble_ani.x /_W);
+                                var idx_Y=parseInt(bubble_ani.y /_H);
+                                if(_bg_data2[idx_Y][idx_X] == L){
+                                    bubble_ani.reverseX = 1;
+                                    _ani.setState(indexA,STATE[ID.BUBBLE].LEFT,bubble_ani.x,bubble_ani.y);
+                                }
+                                else if(_bg_data2[idx_Y][idx_X] == R){
+                                    bubble_ani.reverseX = 1;
+                                    _ani.setState(indexA,STATE[ID.BUBBLE].RIGHT,bubble_ani.x,bubble_ani.y);
+                                }
+                                else if(_bg_data2[idx_Y][idx_X] == U){
+                                    _ani.setState(indexA,STATE[ID.BUBBLE].UP,bubble_ani.x,bubble_ani.y);
+                                }
+                                else if(_bg_data2[idx_Y][idx_X] == D){
+                                    _ani.setState(indexA,STATE[ID.BUBBLE].DOWN,bubble_ani.x,bubble_ani.y);
+                                }
                             break;
                         }
                     });

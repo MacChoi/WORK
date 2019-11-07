@@ -25,12 +25,12 @@ class Animate{
         if(isEmpty(this.objectState))return;
         if(this.index < this.objectState[0].length-1){
             this.index++;
-            if(!isEmpty(this.callback))this.callback(AnimateContainer.NEXT_FRAME,ani_index);
         }else{
             this.index=0;
             if(!isEmpty(this.callback))this.callback(AnimateContainer.END_FRAME,ani_index);
         }
-        
+        if(!isEmpty(this.callback))this.callback(AnimateContainer.NEXT_FRAME,ani_index);
+
         if(this.glint > 0){
             this.glint--;
         }
