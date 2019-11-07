@@ -23,8 +23,8 @@ OBJECT[ID.BG] = {
     ],
     DATA2:[
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,R,R,R,R,R,R,D,D,L,L,L,L,L,L,1],
-        [1,U,U,U,U,U,L,L,R,R,U,U,U,U,U,1],
+        [1,R,R,R,R,R,R,R,R,D,L,L,L,L,L,1],
+        [1,U,U,U,U,U,U,L,L,L,U,U,U,U,U,1],
         [1,U,U,U,U,U,U,U,U,U,U,U,U,U,U,1],
         [1,2,U,U,2,2,2,2,2,2,2,2,U,U,2,1],
         [1,R,U,U,L,L,L,L,R,R,R,R,U,U,L,1],

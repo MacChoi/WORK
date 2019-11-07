@@ -36,8 +36,10 @@ function initGame(){
         _ani.nextFrame(_engine.getContext());
     });
 
-    _player_idx = _ani.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,380,280,
+    _player_idx = _ani.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,300,60,
         function(type,indexA,indexB){
+            var aniA = _ani.getAnimate(indexA);
+            var aniB = _ani.getAnimate(indexB);
             switch (type) {
                 case AnimateContainer.END_FRAME:
                     _ani.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
@@ -45,28 +47,23 @@ function initGame(){
                 case AnimateContainer.NEXT_FRAME:
                 break;
                 case AnimateContainer.COLLISION:
+                    if(aniB.id == ID.BUBBLE){
+                        _ani.deleteAnimate(indexB);
+                        _ani.newAnimate(ID.BUBBLE,STATE[ID.BUBBLE].DIE,aniB.x,aniB.y
+                        ,function(type,indexA){
+                            switch (type) {
+                                case AnimateContainer.END_FRAME:
+                                    _ani.deleteAnimate(indexA);                                    
+                                break; 
+                            }
+                        });
+                    }
                 break;
             }
         }    
     );
     _player_ani = _ani.getAnimate(_player_idx);
-
-    _ani.newAnimate(ID.MON,STATE[ID.MON].NEW,280,280,
-        function(type,indexA,indexB){
-            switch (type) {
-                case AnimateContainer.END_FRAME:
-                    var mon_ani = _ani.getAnimate(indexA); 
-                    _ani.setState(indexA,STATE[ID.MON].RIGHT,mon_ani.x,mon_ani.y);
-                    mon_ani.setReverseX(mon_ani.reverseX * -1);
-                break;
-                case AnimateContainer.NEXT_FRAME:
-                break;
-                case AnimateContainer.COLLISION:
-
-                break;
-            }   
-        }
-    );
+    _ani.newAnimate(ID.MON,STATE[ID.MON].NEW,280,60,callBackMon);
 }
 
 function initInput(){
@@ -89,41 +86,14 @@ function initInput(){
             break;
             case GEngine.KEY_SPACE:
                 _ani.setState(_player_idx,STATE[ID.PLAYER].FIRE,_player_ani.x,_player_ani.y);
-            
-                var bubble_idx =_ani.newAnimate(ID.BUBBLE,STATE[ID.BUBBLE].FIRE,_player_ani.x,_player_ani.y+10,callBackBubble);
+                
+                var gapX = -10;
+                if(_player_ani.reverseX == 1)gapX = _player_ani.w;
+                var bubble_idx =_ani.newAnimate(ID.BUBBLE,STATE[ID.BUBBLE].FIRE,_player_ani.x + gapX,_player_ani.y+10,callBackBubble);
                 var bubble_ani = _ani.getAnimate(bubble_idx);   
                 bubble_ani.setReverseX(_player_ani.reverseX);
             break;
         }
         e.preventDefault();
     });
-
-    function callBackBubble(type,indexA,indexB){
-        var bubble_ani = _ani.getAnimate(indexA); 
-        switch (type) {
-            case AnimateContainer.END_FRAME:
-                var bubble_ani = _ani.getAnimate(indexA); 
-                _ani.setState(indexA,STATE[ID.BUBBLE].RIGHT,bubble_ani.x,bubble_ani.y);
-            break;
-            case AnimateContainer.NEXT_FRAME:
-                if(bubble_ani.state == STATE[ID.BUBBLE].FIRE)break;
-                var idx_X=parseInt(bubble_ani.x /_W);
-                var idx_Y=parseInt(bubble_ani.y /_H);
-                if(_bg_data2[idx_Y][idx_X] == L){
-                    bubble_ani.reverseX = 1;
-                    _ani.setState(indexA,STATE[ID.BUBBLE].LEFT,bubble_ani.x,bubble_ani.y);
-                }
-                else if(_bg_data2[idx_Y][idx_X] == R){
-                    bubble_ani.reverseX = 1;
-                    _ani.setState(indexA,STATE[ID.BUBBLE].RIGHT,bubble_ani.x,bubble_ani.y);
-                }
-                else if(_bg_data2[idx_Y][idx_X] == U){
-                    _ani.setState(indexA,STATE[ID.BUBBLE].UP,bubble_ani.x,bubble_ani.y);
-                }
-                else if(_bg_data2[idx_Y][idx_X] == D){
-                    _ani.setState(indexA,STATE[ID.BUBBLE].DOWN,bubble_ani.x,bubble_ani.y);
-                }
-            break;
-        }
-    }
 }

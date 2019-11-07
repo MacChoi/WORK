@@ -88,6 +88,7 @@ class AnimateContainer{
             var element = this.objectArray[index];
             if(isEmpty(element))continue;
             var image = IMAGE[element.id][Math.abs(element.objectState[0][element.index])];
+            if(isEmpty(image))continue;
             element.w = image.width;
             element.h = image.height;
             element.x += element.objectState[1][element.index] * element.reverseX;
