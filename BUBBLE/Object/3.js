@@ -76,6 +76,7 @@ function callBackMon(type,indexA,indexB){
         case AnimateContainer.COLLISION:
             if(aniB.id == ID.BUBBLE){
                 _ani.setState(indexA,STATE[ID.MON].B_LEFT,aniB.x,aniB.y);
+                _ani.deleteAnimate(indexB);
             } 
             else if(aniB.id == ID.PLAYER){ 
                 switch(aniA.state){
