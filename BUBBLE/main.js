@@ -99,6 +99,7 @@ function initInput(){
                                 _ani.setState(indexA,STATE[ID.BUBBLE].RIGHT,bubble_ani.x,bubble_ani.y);
                             break;
                             case AnimateContainer.NEXT_FRAME:
+                                if(bubble_ani.state == STATE[ID.BUBBLE].FIRE)break;
                                 var idx_X=parseInt(bubble_ani.x /_W);
                                 var idx_Y=parseInt(bubble_ani.y /_H);
                                 if(_bg_data2[idx_Y][idx_X] == L){
