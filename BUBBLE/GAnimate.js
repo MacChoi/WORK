@@ -30,7 +30,6 @@ class Animate{
             if(!isEmpty(this.callback))this.callback(AnimateContainer.END_FRAME,ani_index);
         }
         if(!isEmpty(this.callback))this.callback(AnimateContainer.NEXT_FRAME,ani_index);
-
         if(this.glint > 0){
             this.glint--;
         }

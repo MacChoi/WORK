@@ -34,12 +34,11 @@ OBJECT[ID.BUBBLE] = {
 
 
 function callBackBubble(type,indexA,indexB){
-    var bubble_ani = _ani.getAnimate(indexA);
-    var bubble_aniB = _ani.getAnimate(indexB);
+    var bubble_ani = _aniCon.getAnimate(indexA);
+    var bubble_aniB = _aniCon.getAnimate(indexB);
     switch (type) {
         case AnimateContainer.END_FRAME:
-            var bubble_ani = _ani.getAnimate(indexA); 
-            _ani.setState(indexA,STATE[ID.BUBBLE].RIGHT,bubble_ani.x,bubble_ani.y);
+            _aniCon.setState(indexA,STATE[ID.BUBBLE].RIGHT,bubble_ani.x,bubble_ani.y);
         break;
         case AnimateContainer.NEXT_FRAME:
             if(bubble_ani.state == STATE[ID.BUBBLE].FIRE)break;
@@ -47,21 +46,20 @@ function callBackBubble(type,indexA,indexB){
             var idx_Y=parseInt(bubble_ani.y /_H);
             if(_bg_data2[idx_Y][idx_X] == L){
                 bubble_ani.reverseX = 1;
-                _ani.setState(indexA,STATE[ID.BUBBLE].LEFT,bubble_ani.x,bubble_ani.y);
+                _aniCon.setState(indexA,STATE[ID.BUBBLE].LEFT,bubble_ani.x,bubble_ani.y);
             }
             else if(_bg_data2[idx_Y][idx_X] == R){
                 bubble_ani.reverseX = 1;
-                _ani.setState(indexA,STATE[ID.BUBBLE].RIGHT,bubble_ani.x,bubble_ani.y);
+                _aniCon.setState(indexA,STATE[ID.BUBBLE].RIGHT,bubble_ani.x,bubble_ani.y);
             }
             else if(_bg_data2[idx_Y][idx_X] == U){
-                _ani.setState(indexA,STATE[ID.BUBBLE].UP,bubble_ani.x,bubble_ani.y);
+                _aniCon.setState(indexA,STATE[ID.BUBBLE].UP,bubble_ani.x,bubble_ani.y);
             }
             else if(_bg_data2[idx_Y][idx_X] == D){
-                _ani.setState(indexA,STATE[ID.BUBBLE].DOWN,bubble_ani.x,bubble_ani.y);
+                _aniCon.setState(indexA,STATE[ID.BUBBLE].DOWN,bubble_ani.x,bubble_ani.y);
             }
         break;
-        case AnimateContainer.COLLISION:
-            
+        case AnimateContainer.COLLISION:    
         break;
     }
 }
