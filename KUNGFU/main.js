@@ -39,11 +39,12 @@ window.onload = function(){
 function initGame(){
     _bg_obj = OBJECT[ID.BG];
     _bg_data = _bg_obj.DATA;
+    _bg_data2 = _bg_obj.DATA2;
     _W = _bg_obj.TILE_WIDTH;
     _H = _bg_obj.TILE_HEIGTH;
 
     _aniCon = new AnimateContainer();
-    _aniCon.setGravityArray(_bg_data,_W,_H);
+    _aniCon.setGravityArray(_bg_data2,_W,_H);
     
     //_engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
     _engine.startLoop(function(){
