@@ -1,5 +1,6 @@
 var _engine;
 var _aniCon;
+var _audio;
 
 var _bg_obj;
 var _bg_data;
@@ -11,13 +12,26 @@ var _player_ani;
 
 var _indexMoveMap=35;
 window.onload = function(){
+    _audio = new GAudio();
     _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGTH);
-    _engine.loadImageFile(function (index) { 
-        if(_engine.getImageCount() == index + 1){
-            initGame(); 
-            initInput();
-        }else{
-            //이미지 로딩중
+    _engine.loadImageFile(function (type,index) {
+        switch(type){
+            case GEngine.END_FILE:
+                _audio.loadSoundFile(function (type, index) {
+                    switch(type){
+                        case GEngine.END_FILE:
+                                initGame(); 
+                                initInput();
+                        break;
+                        case GEngine.NEXT_FILE:
+                            //이미지 파일 로딩중
+                        break;
+                    }
+                });
+            break;
+            case GEngine.NEXT_FILE:
+                //이미지 파일 로딩중
+            break;
         }
     });
 }
@@ -62,7 +76,18 @@ function initInput(){
                
             break;
             case GEngine.KEY_SPACE:
-               
+                var index= _aniCon.newAnimate(ID.BG,STATE[ID.BG].NEW,0,0,function(type,indexA,indexB){
+                    
+                    switch (type) {
+                        case AnimateContainer.END_FRAME:
+                            
+                        break;
+                        case AnimateContainer.SOUND_ENDED:
+                            log("SOUND_ENDED")
+                            break;
+                    }
+
+                });
             break;
         }
         e.preventDefault();

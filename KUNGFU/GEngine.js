@@ -38,6 +38,9 @@ function getCircleXY(radius,angle,angleGap){
 }
 
 class GEngine {
+    static END_FILE = 0;
+    static NEXT_FILE = 1;
+
     static KEY_LEFT = 37;
     static KEY_UP = 38;
     static KEY_RIGHT = 39;
@@ -49,6 +52,7 @@ class GEngine {
     static loadObjectFile(length){
         OBJECT = new Array(length);
         IMAGE = new Array(length);
+        SOUND = new Array(length);
         STATE = new Array(length);
 
         //log("GEngine.createCanvas() OBJECT : " + length);
@@ -114,13 +118,16 @@ class GEngine {
         }
         //log("GEngine.loadImageFile() IMAGE : " + this.imageCount);
         var count = 0;
+        var imgMaxCount = this.imageCount;
         for(var i = 0; i<IMAGE.length; i++){
             for(var j =0; j<IMAGE[i].length; j++){
                 IMAGE[i][j] = new Image();
                 IMAGE[i][j].src =  "./Image/" + i + "/" + j + ".png";
                 IMAGE[i][j].onload = function () {
-                    callback(count++);
-                } 
+                    callback(GEngine.NEXT_FILE,count++);
+                    if(imgMaxCount == count+1)callback(GEngine.END_FILE,count);
+                }
+
                 //log("IMAGE[" + i + "][" + j + "] : " + IMAGE[i][j].src);
             }
         } 

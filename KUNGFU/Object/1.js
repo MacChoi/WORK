@@ -1,5 +1,6 @@
 OBJECT[ID.PLAYER] = {
     IMG:11,
+    SOUND:0,
     NEW:[
     [1],//image
     [0],//x

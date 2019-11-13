@@ -13,6 +13,7 @@ const ID = new Enum(
 
 var OBJECT;
 var IMAGE;
+var SOUND;
 var STATE;
 
 const LOOP_TIME = 60;

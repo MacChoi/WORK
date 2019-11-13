@@ -1,4 +1,6 @@
 class Animate{
+    static callbackSound;
+
     constructor(id,object,state,x,y,callback){
         this.id = id;
         this.object = object;
@@ -41,6 +43,17 @@ class Animate{
         this.state = state;
         this.index = 0;
         this.objectState = Object.values(this.object)[state];
+
+        var sound = SOUND[this.id][this.objectState[1][0]];
+  
+        if(!isEmpty(sound)){
+            //sound.currentTime=0;
+            // sound.addEventListener('ended',function callback(){
+            //     callback(AnimateContainer.SOUND_ENDED,sound);
+            //     this.removeEventListener("ended",callback,true);
+            // },true);
+            sound.play();
+        }
     }
 
     setGlint(glint){
@@ -57,6 +70,7 @@ class AnimateContainer{
     static END_FRAME = 0;
     static NEXT_FRAME = 1;
     static COLLISION = 2;
+    static SOUND_ENDED = 3;
 
     collision = new GCollision();
     gravityArray = null;
@@ -84,33 +98,34 @@ class AnimateContainer{
     nextFrame(context){
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
+
             var element = this.objectArray[index];
             if(isEmpty(element))continue;
             var image = IMAGE[element.id][Math.abs(element.objectState[0][element.index])];
             if(isEmpty(image))continue;
             element.w = image.width;
             element.h = image.height;
-            element.x += element.objectState[1][element.index] * element.reverseX;
-            element.y += element.objectState[2][element.index] * element.reverseY;
+            element.x += element.objectState[2][element.index] * element.reverseX;
+            element.y += element.objectState[3][element.index] * element.reverseY;
 
             var idx_X_1=parseInt((element.x) /this._W);
             var idx_X_2=parseInt((element.x+element.w) /this._W);
             var idx_Y=parseInt(element.y /this._H);
             if(this.gravityArray[idx_Y][idx_X_1] != 0 ){
-                if(!isEmpty(element.objectState[3]))
-                if(element.objectState[3][element.index] !=0)
+                if(!isEmpty(element.objectState[4]))
+                if(element.objectState[4][element.index] !=0)
                 element.x = ((idx_X_1+1) * this._W);
             }
             if(this.gravityArray[idx_Y][idx_X_2] != 0 ){
-                if(!isEmpty(element.objectState[3]))
-                if(element.objectState[3][element.index] !=0)
+                if(!isEmpty(element.objectState[4]))
+                if(element.objectState[4][element.index] !=0)
                 element.x = (idx_X_1 * this._W);
             }
 
             var idx_X_1_10=parseInt((element.x+10) /this._W);
             var idx_X_2_10=parseInt((element.x+element.w-10) /this._W);
-            if(!isEmpty(element.objectState[3])){
-                element.y += element.objectState[3][element.index];
+            if(!isEmpty(element.objectState[4])){
+                element.y += element.objectState[4][element.index];
                 if(!isEmpty(this.gravityArray)){
                     if(this.gravityArray[idx_Y+1][idx_X_1_10] != 0 |
                         this.gravityArray[idx_Y+1][idx_X_2_10] != 0){
@@ -142,11 +157,16 @@ class AnimateContainer{
    
     newAnimate(id,state,x,y,callback){
         var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y,callback))-1;
+        var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
+  
+        if(!isEmpty(sound)){
+            sound.play();
+        }
         return index;
     }
 
     deleteAnimate(index){
-        this.objectArray.callback = function(){};
+        this.objectArray[index].callback = function(){};
         this.objectArray.splice(index,1);
     }
 
