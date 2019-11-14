@@ -151,10 +151,12 @@ class AnimateContainer{
    
     newAnimate(id,state,x,y,callback){
         var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y,callback))-1;
-        var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
-  
-        if(!isEmpty(sound)){
-            sound.play();
+
+        if(this.objectArray[index].objectState[1][0] != NO_SOUND){
+            var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
+            if(!isEmpty(sound)){
+                sound.play();
+            }
         }
         return index;
     }
@@ -179,10 +181,13 @@ class AnimateContainer{
 
     setState(index,state,x,y){
         this.objectArray[index].setState(state,x,y);
-        var sound = SOUND[this.objectArray[index].id][this.objectArray[index].objectState[1][0]];
-  
-        if(!isEmpty(sound)){
-            sound.play();
+
+        if(this.objectArray[index].objectState[1][0] != NO_SOUND){
+            var sound = SOUND[this.objectArray[index].id][this.objectArray[index].objectState[1][0]];
+    
+            if(!isEmpty(sound)){
+                sound.play();
+            }
         }
     }
     

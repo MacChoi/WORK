@@ -29,7 +29,7 @@ OBJECT[ID.BG] = {
     ],
     BG_MUSIC:[
         [0],//image
-        [0],//sound
+        [NO_SOUND],//sound
         [0],//x
         [0],//y
         [5]//gravity power

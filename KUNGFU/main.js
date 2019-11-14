@@ -10,9 +10,9 @@ var _H;
 var _player_idx;
 var _player_ani;
 
-var _indexMoveMap=39;
-var _prePlayerX =0;
-var _tmpMoveTile = 0;
+var _indexStartDrawMap=39;
+var _previousPlayerX =0;
+var _gapXdrawMap = 0;
 
 window.onload = function(){
     _audio = new GAudio();
@@ -39,18 +39,13 @@ function initGame(){
     _aniCon = new AnimateContainer();
     _aniCon.setGravityArray(_bg_data2,_W,_H);
 
-    _aniCon.setIndexStartXGravityArray(_indexMoveMap);
+    _aniCon.setIndexStartXGravityArray(_indexStartDrawMap);
 
     _engine.startLoop(function(){
         _engine.draw();
         _aniCon.nextFrame(_engine.getContext());
     });
     //_engine.drawMap(_bg_data2,IMAGE[ID.BG],_W,_H);
-
-    _engine.drawMoveMap(_bg_data,IMAGE[ID.BG],_W,_H, // map,image,sizeW,sizeH
-        _indexMoveMap,0, //startX,startY
-        10,6,//sizeX,sizeY
-        0,0);//mX,mY
 
     // _aniCon.setScale(2);
     // _engine.setScale(2);
@@ -109,30 +104,30 @@ function callbackPlayer(type,indexA,indexB){
 
         break;
         case AnimateContainer.NEXT_FRAME:
-            var gapX = (_prePlayerX -aniA.x);
+            var gapX = (_previousPlayerX -aniA.x);
             if(gapX == -5){
-                log(_tmpMoveTile)
-                if(_tmpMoveTile < 0){
-                    _indexMoveMap++;
-                    _tmpMoveTile = 35 + _tmpMoveTile;
+                log(_gapXdrawMap)
+                if(_gapXdrawMap < 0){
+                    _indexStartDrawMap++;
+                    _gapXdrawMap = 35 + _gapXdrawMap;
                 }else{
-                    _tmpMoveTile -=5;
+                    _gapXdrawMap -=5;
                 }
             }else if(gapX == 5){
-                if(_tmpMoveTile > 35){
-                    _indexMoveMap--;
-                    _tmpMoveTile = 45 - _tmpMoveTile;
+                if(_gapXdrawMap > 35){
+                    _indexStartDrawMap--;
+                    _gapXdrawMap = 45 - _gapXdrawMap;
                 }else{
-                    _tmpMoveTile +=5;
+                    _gapXdrawMap +=5;
                 }
             }
             
             _engine.drawMoveMap(_bg_data,IMAGE[ID.BG],_W,_H, // map,image,sizeW,sizeH
-            _indexMoveMap,0, //startX,startY
+            _indexStartDrawMap,0, //startX,startY
             11,6,//sizeX,sizeY
-            _tmpMoveTile - _W,0);//mX,mY
-                //log(_prePlayerX -aniA.x)
-            _prePlayerX = aniA.x;
+            _gapXdrawMap - _W,0);//mX,mY
+                //log(_previousPlayerX -aniA.x)
+            _previousPlayerX = aniA.x;
         break;
         case AnimateContainer.COLLISION:
 

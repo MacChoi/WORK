@@ -1,3 +1,5 @@
+const NO_SOUND=-1; 
+
 class GAudio {
     constructor(){}
     callback = function(){};
