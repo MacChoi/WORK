@@ -48,6 +48,8 @@ function initGame(){
     //_engine.drawMap(_bg_data2,IMAGE[ID.BG],_W,_H);
     _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,260,100,callbackPlayer);
     _player_ani = _aniCon.getAnimate(_player_idx);
+
+    _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT,100,100,callbackEnemy);
 }
 
 function initInput(){
@@ -63,49 +65,24 @@ function initInput(){
                 _player_ani.setReverseX(1);
                 break;
             case GEngine.KEY_DOWN:
-            case GEngine.KEY_DOWN:
             break;
             case GEngine.KEY_UP:
                 if(_player_ani.state == STATE[ID.PLAYER].NEW)
                 _aniCon.setState(_player_idx,STATE[ID.PLAYER].UP,_player_ani.x,_player_ani.y);
             break;
+            case GEngine.KEY_SHIFT:
+            case GEngine.KEY_A:
+                if(_player_ani.state == STATE[ID.PLAYER].NEW)
+                _aniCon.setState(_player_idx,STATE[ID.PLAYER].PUNCH,_player_ani.x,_player_ani.y);
+                break;
             case GEngine.KEY_SPACE:
-                var index= _aniCon.newAnimate(ID.BG,STATE[ID.BG].NEW,0,0,function(type,indexA,indexB){    
-                    switch (type) {
-                        case AnimateContainer.END_FRAME:
-                            
-                        break;
-                        case AnimateContainer.SOUND_ENDED:
-                            break;
-                    }
-
-                });
+            case GEngine.KEY_S:
+                if(_player_ani.state == STATE[ID.PLAYER].NEW)
+                _aniCon.setState(_player_idx,STATE[ID.PLAYER].KICK,_player_ani.x,_player_ani.y);
             break;
         }
         e.preventDefault();
     });
-}
-
-function callbackPlayer(type,indexA,indexB){
-    var aniA = _aniCon.getAnimate(indexA);
-    var aniB = _aniCon.getAnimate(indexB);
-    switch (type) {
-        case AnimateContainer.END_FRAME:
-            if(aniA.state == STATE[ID.PLAYER].DIE){
-                _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
-                aniA.setGlint(100);
-            }else{
-                _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
-            }
-
-        break;
-        case AnimateContainer.NEXT_FRAME:
-            moveDrawMap(aniA);
-        break;
-        case AnimateContainer.COLLISION:
-
-        break;
-    }    
 }
 
 function moveDrawMap(aniA){

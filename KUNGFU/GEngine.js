@@ -46,6 +46,9 @@ class GEngine {
     static KEY_RIGHT = 39;
     static KEY_DOWN = 40;
     static KEY_SPACE = 32;
+    static KEY_SHIFT = 16;
+    static KEY_A = 65;
+    static KEY_S = 83;
 
     scale = 1;
     static loopCallback = null;
