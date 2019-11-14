@@ -9,7 +9,7 @@ OBJECT[ID.ENEMY] = {
     [5]//gravity power
     ],
     RIGHT:[
-    [-1,-2,-3,-4],//image
+    [-1,-2,-3,-1],//image
     [NO_SOUND],//sound
     [1,2,3,4],//x
     [0,0,0,0],//y

@@ -1,5 +1,5 @@
 OBJECT[ID.PLAYER] = {
-    IMG:11,
+    IMG:13,
     SOUND:0,
     NEW:[
     [1],//image
@@ -16,11 +16,18 @@ OBJECT[ID.PLAYER] = {
     [5,5,5,5]//gravity power
     ],
     UP:[
-    [1,1,1,1,1,1,1,1],//image
+    [11,11,11,11,11,11,11,11],//image
     [NO_SOUND],//sound
     [0,0,0,0,0,0,0,0],//x
     [-20,-20,-20,-20,20,20,20,20],//y
     [0,0,0,0,5,5,5,5]//gravity power
+    ],
+    UP_KICK:[
+    [12,12,11,11],//image
+    [NO_SOUND],//sound
+    [0,0,0,0],//x
+    [0,0,0,0],//y
+    [15,15,15,15]//gravity power
     ],
     KICK:[
     [5,6,7,8,5],//image
