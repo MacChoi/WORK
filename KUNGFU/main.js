@@ -46,11 +46,7 @@ function initGame(){
         _aniCon.nextFrame(_engine.getContext());
     });
     //_engine.drawMap(_bg_data2,IMAGE[ID.BG],_W,_H);
-
-    // _aniCon.setScale(2);
-    // _engine.setScale(2);
-
-    _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,170,100,callbackPlayer);
+    _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,260,100,callbackPlayer);
     _player_ani = _aniCon.getAnimate(_player_idx);
 }
 
@@ -104,33 +100,42 @@ function callbackPlayer(type,indexA,indexB){
 
         break;
         case AnimateContainer.NEXT_FRAME:
-            var gapX = (_previousPlayerX -aniA.x);
-            if(gapX == -5){
-                log(_gapXdrawMap)
-                if(_gapXdrawMap < 0){
-                    _indexStartDrawMap++;
-                    _gapXdrawMap = 35 + _gapXdrawMap;
-                }else{
-                    _gapXdrawMap -=5;
-                }
-            }else if(gapX == 5){
-                if(_gapXdrawMap > 35){
-                    _indexStartDrawMap--;
-                    _gapXdrawMap = 45 - _gapXdrawMap;
-                }else{
-                    _gapXdrawMap +=5;
-                }
-            }
-            
-            _engine.drawMoveMap(_bg_data,IMAGE[ID.BG],_W,_H, // map,image,sizeW,sizeH
-            _indexStartDrawMap,0, //startX,startY
-            11,6,//sizeX,sizeY
-            _gapXdrawMap - _W,0);//mX,mY
-                //log(_previousPlayerX -aniA.x)
-            _previousPlayerX = aniA.x;
+            moveDrawMap(aniA);
         break;
         case AnimateContainer.COLLISION:
 
         break;
     }    
+}
+
+function moveDrawMap(aniA){
+    var gapX = (_previousPlayerX -aniA.x);
+    if(gapX < 0){
+        if(_gapXdrawMap < 0){
+            _indexStartDrawMap++;
+            _gapXdrawMap = 35 + _gapXdrawMap;
+        }else{
+            _gapXdrawMap -=5;
+        }
+    }else if(gapX > 0){
+        if(_gapXdrawMap > 35){
+            _indexStartDrawMap--;
+            _gapXdrawMap = 45 - _gapXdrawMap;
+        }else{
+            _gapXdrawMap +=5;
+        }
+    }
+    if(_indexStartDrawMap > 39){
+        _indexStartDrawMap = 39;
+        _gapXdrawMap = 0;        
+    }
+
+    _aniCon.setIndexStartXGravityArray(_indexStartDrawMap);
+
+    _engine.drawMoveMap(_bg_data,IMAGE[ID.BG],_W,_H, // map,image,sizeW,sizeH
+    _indexStartDrawMap,0, //startX,startY
+    11,6,//sizeX,sizeY
+    _gapXdrawMap - _W,0);//mX,mY
+    
+    _previousPlayerX = aniA.x;
 }
