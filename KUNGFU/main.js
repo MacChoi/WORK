@@ -10,28 +10,20 @@ var _H;
 var _player_idx;
 var _player_ani;
 
-var _indexMoveMap=35;
+var _indexMoveMap=39;
+var _prePlayerX;
+
 window.onload = function(){
     _audio = new GAudio();
     _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGTH);
     _engine.loadImageFile(function (type,index) {
-        switch(type){
-            case GEngine.END_FILE:
-                _audio.loadSoundFile(function (type, index) {
-                    switch(type){
-                        case GEngine.END_FILE:
-                                initGame(); 
-                                initInput();
-                        break;
-                        case GEngine.NEXT_FILE:
-                            //이미지 파일 로딩중
-                        break;
-                    }
-                });
-            break;
-            case GEngine.NEXT_FILE:
-                //이미지 파일 로딩중
-            break;
+        if(GEngine.END_FILE == type){
+            _audio.loadSoundFile(function (type, index) {
+                if(GEngine.END_FILE == type){
+                    initGame(); 
+                    initInput();
+                }
+            });
         }
     });
 }
@@ -45,18 +37,25 @@ function initGame(){
 
     _aniCon = new AnimateContainer();
     _aniCon.setGravityArray(_bg_data2,_W,_H);
-    
-    //_engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
+
+    _aniCon.setIndexStartXGravityArray(_indexMoveMap);
+
     _engine.startLoop(function(){
         _engine.draw();
         _aniCon.nextFrame(_engine.getContext());
     });
+    //_engine.drawMap(_bg_data2,IMAGE[ID.BG],_W,_H);
 
-    //50 x 6
-//drawMoveMap(map,image,sizeW,sizeH,startX,startY,sizeX,sizeY,mX,mY){
-    _engine.drawMoveMap(_bg_data,IMAGE[ID.BG],_W,_H,_indexMoveMap,0,10,6,-_W,0);
+    _engine.drawMoveMap(_bg_data,IMAGE[ID.BG],_W,_H, // map,image,sizeW,sizeH
+        _indexMoveMap,0, //startX,startY
+        10,6,//sizeX,sizeY
+        0,0);//mX,mY
+
     // _aniCon.setScale(2);
     // _engine.setScale(2);
+
+    _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,170,100,callbackPlayer);
+    _player_ani = _aniCon.getAnimate(_player_idx);
 }
 
 function initInput(){
@@ -64,27 +63,27 @@ function initInput(){
         //log("e.keyCode: " + e.keyCode);
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
-                _engine.drawMoveMap(_bg_data,IMAGE[ID.BG],_W,_H,_indexMoveMap--,0,10,6,-_W,0);
-
+                _aniCon.setState(_player_idx,STATE[ID.PLAYER].RIGHT,_player_ani.x,_player_ani.y);
+                _player_ani.setReverseX(-1);
                 break;
             case GEngine.KEY_RIGHT:
-                _engine.drawMoveMap(_bg_data,IMAGE[ID.BG],_W,_H,_indexMoveMap++,0,10,6,-_W,0);
-
+                _aniCon.setState(_player_idx,STATE[ID.PLAYER].RIGHT,_player_ani.x,_player_ani.y);
+                _player_ani.setReverseX(1);
                 break;
+            case GEngine.KEY_DOWN:
             case GEngine.KEY_DOWN:
             break;
             case GEngine.KEY_UP:
-               
+                if(_player_ani.state == STATE[ID.PLAYER].NEW)
+                _aniCon.setState(_player_idx,STATE[ID.PLAYER].UP,_player_ani.x,_player_ani.y);
             break;
             case GEngine.KEY_SPACE:
-                var index= _aniCon.newAnimate(ID.BG,STATE[ID.BG].NEW,0,0,function(type,indexA,indexB){
-                    
+                var index= _aniCon.newAnimate(ID.BG,STATE[ID.BG].NEW,0,0,function(type,indexA,indexB){    
                     switch (type) {
                         case AnimateContainer.END_FRAME:
                             
                         break;
                         case AnimateContainer.SOUND_ENDED:
-                            log("SOUND_ENDED")
                             break;
                     }
 
@@ -93,4 +92,27 @@ function initInput(){
         }
         e.preventDefault();
     });
+}
+
+function callbackPlayer(type,indexA,indexB){
+    var aniA = _aniCon.getAnimate(indexA);
+    var aniB = _aniCon.getAnimate(indexB);
+    switch (type) {
+        case AnimateContainer.END_FRAME:
+            if(aniA.state == STATE[ID.PLAYER].DIE){
+                _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
+                aniA.setGlint(100);
+            }else{
+                _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
+            }
+        break;
+        case AnimateContainer.NEXT_FRAME:
+
+            log(_prePlayerX -aniA.x)
+            _prePlayerX = aniA.x;
+        break;
+        case AnimateContainer.COLLISION:
+
+        break;
+    }    
 }

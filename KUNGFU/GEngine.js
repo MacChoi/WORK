@@ -151,7 +151,7 @@ class GEngine {
         } 
     }
 
-    drawMoveMap(map,image,sizeW,sizeH,startX,startY,sizeX,sizeY,dX,dy){
+    drawMoveMap(map,image,sizeW,sizeH,startX,startY,sizeX,sizeY,mX,mY){
         var mX = -(startX * sizeW);
         var mY = -(startY * sizeH);
         for(var x=startX; x<sizeX +startX ; x++) {

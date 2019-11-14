@@ -43,17 +43,6 @@ class Animate{
         this.state = state;
         this.index = 0;
         this.objectState = Object.values(this.object)[state];
-
-        var sound = SOUND[this.id][this.objectState[1][0]];
-  
-        if(!isEmpty(sound)){
-            //sound.currentTime=0;
-            // sound.addEventListener('ended',function callback(){
-            //     callback(AnimateContainer.SOUND_ENDED,sound);
-            //     this.removeEventListener("ended",callback,true);
-            // },true);
-            sound.play();
-        }
     }
 
     setGlint(glint){
@@ -74,6 +63,8 @@ class AnimateContainer{
 
     collision = new GCollision();
     gravityArray = null;
+    indexStartXGravityArray = 0;
+
     _W = 0;
     _H = 0;
     constructor(){
@@ -105,30 +96,33 @@ class AnimateContainer{
             if(isEmpty(image))continue;
             element.w = image.width;
             element.h = image.height;
+            var tmpx= element.x;
             element.x += element.objectState[2][element.index] * element.reverseX;
             element.y += element.objectState[3][element.index] * element.reverseY;
 
-            var idx_X_1=parseInt((element.x) /this._W);
-            var idx_X_2=parseInt((element.x+element.w) /this._W);
+            var idx_X_1=parseInt((element.x) /this._W) + this.indexStartXGravityArray;
+            var idx_X_2=parseInt((element.x+element.w) /this._W) + this.indexStartXGravityArray;
             var idx_Y=parseInt(element.y /this._H);
+            
             if(this.gravityArray[idx_Y][idx_X_1] != 0 ){
                 if(!isEmpty(element.objectState[4]))
                 if(element.objectState[4][element.index] !=0)
-                element.x = ((idx_X_1+1) * this._W);
+                element.x = tmpx;
             }
             if(this.gravityArray[idx_Y][idx_X_2] != 0 ){
                 if(!isEmpty(element.objectState[4]))
                 if(element.objectState[4][element.index] !=0)
-                element.x = (idx_X_1 * this._W);
+                element.x = tmpx;
             }
 
-            var idx_X_1_10=parseInt((element.x+10) /this._W);
-            var idx_X_2_10=parseInt((element.x+element.w-10) /this._W);
+            var idx_X_1_10=parseInt((element.x+10) /this._W) + this.indexStartXGravityArray;
+            var idx_X_2_10=parseInt((element.x+element.w-10) /this._W) + this.indexStartXGravityArray;
             if(!isEmpty(element.objectState[4])){
                 element.y += element.objectState[4][element.index];
                 if(!isEmpty(this.gravityArray)){
                     if(this.gravityArray[idx_Y+1][idx_X_1_10] != 0 |
                         this.gravityArray[idx_Y+1][idx_X_2_10] != 0){
+                            
                         element.y = idx_Y *this._H;
                     }
                 }
@@ -185,6 +179,11 @@ class AnimateContainer{
 
     setState(index,state,x,y){
         this.objectArray[index].setState(state,x,y);
+        var sound = SOUND[this.objectArray[index].id][this.objectArray[index].objectState[1][0]];
+  
+        if(!isEmpty(sound)){
+            sound.play();
+        }
     }
     
     getAnimate(index){
@@ -221,5 +220,9 @@ class AnimateContainer{
         this.gravityArray = gravityArray;
         this._W = _W;
         this._H = _H;
+    }
+
+    setIndexStartXGravityArray(index){
+        this.indexStartXGravityArray = index;   
     }
 }
