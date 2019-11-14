@@ -11,7 +11,8 @@ var _player_idx;
 var _player_ani;
 
 var _indexMoveMap=39;
-var _prePlayerX;
+var _prePlayerX =0;
+var _tmpMoveTile = 0;
 
 window.onload = function(){
     _audio = new GAudio();
@@ -105,10 +106,32 @@ function callbackPlayer(type,indexA,indexB){
             }else{
                 _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
             }
+
         break;
         case AnimateContainer.NEXT_FRAME:
-
-            log(_prePlayerX -aniA.x)
+            var gapX = (_prePlayerX -aniA.x);
+            if(gapX == -5){
+                log(_tmpMoveTile)
+                if(_tmpMoveTile < 0){
+                    _indexMoveMap++;
+                    _tmpMoveTile = 35 + _tmpMoveTile;
+                }else{
+                    _tmpMoveTile -=5;
+                }
+            }else if(gapX == 5){
+                if(_tmpMoveTile > 35){
+                    _indexMoveMap--;
+                    _tmpMoveTile = 45 - _tmpMoveTile;
+                }else{
+                    _tmpMoveTile +=5;
+                }
+            }
+            
+            _engine.drawMoveMap(_bg_data,IMAGE[ID.BG],_W,_H, // map,image,sizeW,sizeH
+            _indexMoveMap,0, //startX,startY
+            11,6,//sizeX,sizeY
+            _tmpMoveTile - _W,0);//mX,mY
+                //log(_prePlayerX -aniA.x)
             _prePlayerX = aniA.x;
         break;
         case AnimateContainer.COLLISION:

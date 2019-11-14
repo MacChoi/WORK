@@ -151,12 +151,12 @@ class GEngine {
         } 
     }
 
-    drawMoveMap(map,image,sizeW,sizeH,startX,startY,sizeX,sizeY,mX,mY){
+    drawMoveMap(map,image,sizeW,sizeH,startX,startY,sizeX,sizeY,dX,dY){
         var mX = -(startX * sizeW);
         var mY = -(startY * sizeH);
         for(var x=startX; x<sizeX +startX ; x++) {
             for(var y=startY; y<sizeY +startY; y++) {
-                this.bufferContext.drawImage(image[map[y][x]] ,mX + x * sizeW,mY + y * sizeH);   
+                this.bufferContext.drawImage(image[map[y][x]] ,dX + mX + x * sizeW,dY + mY + y * sizeH);   
             }
         } 
     }
