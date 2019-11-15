@@ -231,4 +231,13 @@ class AnimateContainer{
     setIndexStartXGravityArray(index){
         this.indexStartXGravityArray = index;   
     }
+
+
+    allAddXY(x,y){
+        for (var index = 0; index < this.objectArray.length; index++) {
+            var element = this.objectArray[index];
+            element.x +=x;
+            element.y +=y;
+        }
+    }
 }

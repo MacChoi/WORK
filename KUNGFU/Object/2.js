@@ -11,7 +11,7 @@ OBJECT[ID.ENEMY] = {
     RIGHT:[
     [-1,-2,-3,-1],//image
     [NO_SOUND],//sound
-    [1,2,3,4],//x
+    [0,0,0,0],//x
     [0,0,0,0],//y
     [5,5,5,5]//gravity power
     ],

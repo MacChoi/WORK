@@ -12,7 +12,7 @@ var _player_ani;
 
 var _indexStartDrawMap=39;
 var _previousPlayerX =0;
-var _gapXdrawMap = 0;
+var _gapXdrawMap = -160;
 
 window.onload = function(){
     _audio = new GAudio();
@@ -46,7 +46,7 @@ function initGame(){
         _aniCon.nextFrame(_engine.getContext());
     });
     //_engine.drawMap(_bg_data2,IMAGE[ID.BG],_W,_H);
-    _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,260,100,callbackPlayer);
+    _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,160,100,callbackPlayer);
     _player_ani = _aniCon.getAnimate(_player_idx);
 
     _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT,100,100,callbackEnemy);
@@ -90,29 +90,40 @@ function initInput(){
 }
 
 function moveDrawMap(aniA){
-    var gapX = (_previousPlayerX -aniA.x);
+    var gapX = (_previousPlayerX - aniA.x);
+    log("gapX: " +gapX);
+    log("_previousPlayerX: " +_previousPlayerX);
+    log("aniA.x: " +aniA.x);
     if(gapX < 0){
         if(_gapXdrawMap < 0){
             _indexStartDrawMap++;
             _gapXdrawMap = 35 + _gapXdrawMap;
         }else{
-            _gapXdrawMap -=5;
+            _gapXdrawMap +=gapX;
+            _aniCon.allAddXY(gapX,0);
         }
     }else if(gapX > 0){
         if(_gapXdrawMap > 35){
             _indexStartDrawMap--;
             _gapXdrawMap = 45 - _gapXdrawMap;
         }else{
-            _gapXdrawMap +=5;
+            _gapXdrawMap +=gapX;
+            _aniCon.allAddXY(gapX,0);
         }
+    }else{
+        _previousPlayerX=160;
+        aniA.x=160;
     }
+
     if(_indexStartDrawMap > 39){
         _indexStartDrawMap = 39;
         _gapXdrawMap = 0;        
+    }else if(_indexStartDrawMap < 0){
+        _indexStartDrawMap = 0;
+        _gapXdrawMap = 35; 
     }
 
     _aniCon.setIndexStartXGravityArray(_indexStartDrawMap);
-
     _engine.drawMoveMap(_bg_data,IMAGE[ID.BG],_W,_H, // map,image,sizeW,sizeH
     _indexStartDrawMap,0, //startX,startY
     11,6,//sizeX,sizeY
