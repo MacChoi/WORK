@@ -10,9 +10,10 @@ var _H;
 var _player_idx;
 var _player_ani;
 
+const PLAYER_START_POSITION = 160;
 var _indexStartDrawMap=39;
 var _previousPlayerX =0;
-var _gapXdrawMap = -160;
+var _gapXdrawMap = -PLAYER_START_POSITION;
 
 window.onload = function(){
     _audio = new GAudio();
@@ -91,9 +92,9 @@ function initInput(){
 
 function moveDrawMap(aniA){
     var gapX = (_previousPlayerX - aniA.x);
-    log("gapX: " +gapX);
-    log("_previousPlayerX: " +_previousPlayerX);
-    log("aniA.x: " +aniA.x);
+    // log("gapX: " +gapX);
+    // log("_previousPlayerX: " +_previousPlayerX);
+    // log("aniA.x: " +aniA.x);
     if(gapX < 0){
         if(_gapXdrawMap < 0){
             _indexStartDrawMap++;
@@ -102,6 +103,8 @@ function moveDrawMap(aniA){
             _gapXdrawMap +=gapX;
             _aniCon.allAddXY(gapX,0);
         }
+        _previousPlayerX=PLAYER_START_POSITION;
+        aniA.x=PLAYER_START_POSITION;
     }else if(gapX > 0){
         if(_gapXdrawMap > 35){
             _indexStartDrawMap--;
@@ -110,9 +113,8 @@ function moveDrawMap(aniA){
             _gapXdrawMap +=gapX;
             _aniCon.allAddXY(gapX,0);
         }
-    }else{
-        _previousPlayerX=160;
-        aniA.x=160;
+        _previousPlayerX=PLAYER_START_POSITION;
+        aniA.x=PLAYER_START_POSITION;
     }
 
     if(_indexStartDrawMap > 39){
