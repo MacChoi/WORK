@@ -83,7 +83,6 @@ function initInput(){
 
                 else if(_player_ani.state == STATE[ID.PLAYER].UP)
                 _aniCon.setState(_player_idx,STATE[ID.PLAYER].UP_KICK,_player_ani.x,_player_ani.y);
-
             break;
         }
         e.preventDefault();
