@@ -11,12 +11,11 @@ class GEngine {
     static KEY_A = 65;
     static KEY_S = 83;
 
-    scale = 1;
     static loopCallback = null;
     static debug = false;
-
     static LOOP_TIME = 1000;
 
+    scale = 1;
     static loadObjectFile(length){
         OBJECT = new Array(length);
         IMAGE = new Array(length);
