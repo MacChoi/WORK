@@ -17,7 +17,7 @@ var _gapXdrawMap = -PLAYER_START_POSITION;
 
 window.onload = function(){
     _audio = new GAudio();
-    _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGTH);
+    _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGTH,60);
     _engine.loadImageFile(function (type,index) {
         if(GEngine.END_FILE == type){
             _audio.loadSoundFile(function (type, index) {

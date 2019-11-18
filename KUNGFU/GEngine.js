@@ -52,6 +52,10 @@ class GEngine {
 
     scale = 1;
     static loopCallback = null;
+    static debug = false;
+
+    static LOOP_TIME = 1000;
+
     static loadObjectFile(length){
         OBJECT = new Array(length);
         IMAGE = new Array(length);
@@ -68,8 +72,8 @@ class GEngine {
         }
     }
 
-    static debug = false;
-    constructor(width,height) {
+    constructor(width,height,loop_time) {
+        GEngine.LOOP_TIME = loop_time;
         this.canvas = GEngine.createCanvas(width,height,true);
         this.context= this.canvas.getContext('2d');
 
@@ -174,7 +178,7 @@ class GEngine {
         var start = new Date().getTime();
         GEngine.loopCallback();
         var delay = new Date().getTime() - start ;
-        setTimeout(GEngine.loop, LOOP_TIME - delay);
+        setTimeout(GEngine.loop, GEngine.LOOP_TIME - delay);
     }
 }
 
