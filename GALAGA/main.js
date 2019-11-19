@@ -39,18 +39,19 @@ function initGame(){
 
     _aniCon = new AnimateContainer();
     _aniCon.setGravityArray(_bg_data2,_W,_H);
-
     _aniCon.setIndexStartXGravityArray(_indexStartDrawMap);
 
     _engine.startLoop(function(){
         _engine.draw();
         _aniCon.nextFrame(_engine.getContext());
     });
-    //_engine.drawMap(_bg_data2,IMAGE[ID.BG],_W,_H);
-    _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,160,100,callbackPlayer);
+    _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,160,100,1,callbackPlayer);
     _player_ani = _aniCon.getAnimate(_player_idx);
 
-    _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT,100,100,callbackEnemy);
+    _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT,-100,100,1,callbackEnemy);
+    _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT,-50,100,1,callbackEnemy);
+
+    _aniCon.newAnimate(ID.BG,STATE[ID.BG].NEW,0,0,1,function(){});
 }
 
 function initInput(){

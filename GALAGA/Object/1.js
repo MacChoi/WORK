@@ -1,6 +1,6 @@
 OBJECT[ID.PLAYER] = {
     IMG:13,
-    SOUND:1,
+    SOUND:0,
     NEW:[
     [1],//image
     [NO_SOUND],//sound
@@ -10,7 +10,7 @@ OBJECT[ID.PLAYER] = {
     ],
     RIGHT:[
     [1,2,3,4],//image
-    [0],//sound
+    [NO_SOUND],//sound
     [1,2,3,4],//x
     [0,0,0,0],//y
     [5,5,5,5]//gravity power

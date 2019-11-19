@@ -7,12 +7,11 @@ class GEngine {
     static KEY_RIGHT = 39;
     static KEY_DOWN = 40;
     static KEY_SPACE = 32;
-    static KEY_SHIFT = 16;
+    static KEY_ALT = 18;
     static KEY_A = 65;
     static KEY_S = 83;
 
     static loopCallback = null;
-    static debug = false;
     static LOOP_TIME = 1000;
 
     scale = 1;
@@ -32,6 +31,7 @@ class GEngine {
         }
     }
 
+    static debug = false;
     constructor(width,height,loop_time) {
         GEngine.LOOP_TIME = loop_time;
         this.canvas = GEngine.createCanvas(width,height,true);
