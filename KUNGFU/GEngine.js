@@ -1,3 +1,42 @@
+function log(text){
+    if(GEngine.debug == false)return;
+    console.log(text);   
+}
+
+function sleep(delay){
+    var start =new Date().getTime();
+    while(new Date().getTime()< start + delay);
+}
+
+function objToString(obj){
+    JSON.stringify(obj);
+}
+
+function getRandom(a,b){
+    return Math.floor(Math.random() * b) + a;
+}
+
+function isEmpty(str){
+    if(typeof str == "undefined" || str == null || str == "")
+        return true;
+    else
+        return false ;
+}
+
+function getCircleXY(radius,angle,angleGap){
+    var arrayPosX = new Array(0);
+    var arrayPosY = new Array(0);
+    for (let index = angle; index > 0; index-=angleGap) {
+        var posX = radius * Math.sin(index * Math.PI/180);
+        var posY = radius * Math.cos(index * Math.PI/180);
+        
+        arrayPosX.push(parseInt(posX));
+        arrayPosY.push(parseInt(posY));
+    }
+    log("arrayPosX [" + arrayPosX.length +"] :" +  arrayPosX);
+    log("arrayPosY [" + arrayPosY.length +"] :" +  arrayPosY);
+}
+
 class GEngine {
     static END_FILE = 0;
     static NEXT_FILE = 1;
@@ -7,15 +46,12 @@ class GEngine {
     static KEY_RIGHT = 39;
     static KEY_DOWN = 40;
     static KEY_SPACE = 32;
-    static KEY_SHIFT = 16;
+    static KEY_ALT = 18;
     static KEY_A = 65;
     static KEY_S = 83;
 
-    static loopCallback = null;
-    static debug = false;
-    static LOOP_TIME = 1000;
-
     scale = 1;
+    static loopCallback = null;
     static loadObjectFile(length){
         OBJECT = new Array(length);
         IMAGE = new Array(length);
@@ -32,8 +68,8 @@ class GEngine {
         }
     }
 
-    constructor(width,height,loop_time) {
-        GEngine.LOOP_TIME = loop_time;
+    static debug = false;
+    constructor(width,height) {
         this.canvas = GEngine.createCanvas(width,height,true);
         this.context= this.canvas.getContext('2d');
 
@@ -138,7 +174,7 @@ class GEngine {
         var start = new Date().getTime();
         GEngine.loopCallback();
         var delay = new Date().getTime() - start ;
-        setTimeout(GEngine.loop, GEngine.LOOP_TIME - delay);
+        setTimeout(GEngine.loop, LOOP_TIME - delay);
     }
 }
 

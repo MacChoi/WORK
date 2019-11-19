@@ -59,7 +59,9 @@ class AnimateContainer{
     static END_FRAME = 0;
     static NEXT_FRAME = 1;
     static COLLISION = 2;
-    static SOUND_ENDED = 3;
+    static COLLISION_LEFT = 3;
+    static COLLISION_RIGHT = 4;
+    static SOUND_ENDED = 5;
 
     collision = new GCollision();
     gravityArray = null;
@@ -108,11 +110,15 @@ class AnimateContainer{
                 if(!isEmpty(element.objectState[4]))
                 if(element.objectState[4][element.index] !=0)
                 element.x = tmpx;
+
+                this.objectArray[index].callback(AnimateContainer.COLLISION_LEFT,index); 
             }
             if(this.gravityArray[idx_Y][idx_X_2] != 0 ){
                 if(!isEmpty(element.objectState[4]))
                 if(element.objectState[4][element.index] !=0)
                 element.x = tmpx;
+
+                this.objectArray[index].callback(AnimateContainer.COLLISION_RIGHT,index); 
             }
 
             var idx_X_1_10=parseInt((element.x+10) /this._W) + this.indexStartXGravityArray;
@@ -150,9 +156,11 @@ class AnimateContainer{
         this.checkCollision();
     }
    
-    newAnimate(id,state,x,y,callback){
+    newAnimate(id,state,x,y,reverseX,callback){
         var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y,callback))-1;
-
+        var ani = _aniCon.getAnimate(index);
+        ani.setReverseX(reverseX);
+        
         if(this.objectArray[index].objectState[1][0] != NO_SOUND){
             var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
             if(!isEmpty(sound)){

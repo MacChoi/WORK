@@ -14,10 +14,9 @@ const PLAYER_START_POSITION = 160;
 var _indexStartDrawMap=39;
 var _previousPlayerX =0;
 var _gapXdrawMap = -PLAYER_START_POSITION;
-
 window.onload = function(){
     _audio = new GAudio();
-    _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGTH,60);
+    _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGTH);
     _engine.loadImageFile(function (type,index) {
         if(GEngine.END_FILE == type){
             _audio.loadSoundFile(function (type, index) {
@@ -39,7 +38,6 @@ function initGame(){
 
     _aniCon = new AnimateContainer();
     _aniCon.setGravityArray(_bg_data2,_W,_H);
-
     _aniCon.setIndexStartXGravityArray(_indexStartDrawMap);
 
     _engine.startLoop(function(){
@@ -47,10 +45,13 @@ function initGame(){
         _aniCon.nextFrame(_engine.getContext());
     });
     //_engine.drawMap(_bg_data2,IMAGE[ID.BG],_W,_H);
-    _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,160,100,callbackPlayer);
+    _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,160,100,1,callbackPlayer);
     _player_ani = _aniCon.getAnimate(_player_idx);
 
-    _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT,100,100,callbackEnemy);
+    _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT,-100,100,1,callbackEnemy);
+    _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT,-50,100,1,callbackEnemy);
+
+    _aniCon.newAnimate(ID.BG,STATE[ID.BG].NEW,0,0,1,function(){});
 }
 
 function initInput(){
@@ -58,10 +59,12 @@ function initInput(){
         //log("e.keyCode: " + e.keyCode);
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
+                if(_player_ani.state == STATE[ID.PLAYER].NEW)
                 _aniCon.setState(_player_idx,STATE[ID.PLAYER].RIGHT,_player_ani.x,_player_ani.y);
                 _player_ani.setReverseX(-1);
                 break;
             case GEngine.KEY_RIGHT:
+                if(_player_ani.state == STATE[ID.PLAYER].NEW)
                 _aniCon.setState(_player_idx,STATE[ID.PLAYER].RIGHT,_player_ani.x,_player_ani.y);
                 _player_ani.setReverseX(1);
                 break;
@@ -71,7 +74,7 @@ function initInput(){
                 if(_player_ani.state == STATE[ID.PLAYER].NEW)
                 _aniCon.setState(_player_idx,STATE[ID.PLAYER].UP,_player_ani.x,_player_ani.y);
             break;
-            case GEngine.KEY_SHIFT:
+            case GEngine.KEY_ALT:
             case GEngine.KEY_A:
                 if(_player_ani.state == STATE[ID.PLAYER].NEW)
                 _aniCon.setState(_player_idx,STATE[ID.PLAYER].PUNCH,_player_ani.x,_player_ani.y);
@@ -83,6 +86,7 @@ function initInput(){
 
                 else if(_player_ani.state == STATE[ID.PLAYER].UP)
                 _aniCon.setState(_player_idx,STATE[ID.PLAYER].UP_KICK,_player_ani.x,_player_ani.y);
+
             break;
         }
         e.preventDefault();

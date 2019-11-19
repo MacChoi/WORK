@@ -22,8 +22,12 @@ class GAudio {
             for(var j =0; j<SOUND[i].length; j++){
                 SOUND[i][j] = new Audio("./Sound/" + i + "/" + j + ".mp3");
                 SOUND[i][j].loop = false;
-                callback(GEngine.NEXT_FILE,count++);
-                if(soundMaxCount == count)callback(GEngine.END_FILE,count);
+
+                SOUND[i][j].addEventListener('canplaythrough', function() { 
+                    callback(GEngine.NEXT_FILE,count++);
+                    if(soundMaxCount == count)callback(GEngine.END_FILE,count);
+                 }, false);
+
                 //log("SOUND[" + i + "][" + j + "] : " + SOUND[i][j].src);
             }
         } 
