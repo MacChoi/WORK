@@ -28,7 +28,6 @@ window.onload = function(){
 function initGame(){
     _bg_obj = OBJECT[ID.BG];
     _bg_data = _bg_obj.DATA;
-    _bg_data2 = _bg_obj.DATA2;
     _W = _bg_obj.TILE_WIDTH;
     _H = _bg_obj.TILE_HEIGTH;
 
@@ -36,11 +35,13 @@ function initGame(){
     _aniCon.setGravityArray(_bg_data,_W,_H);
 
     _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
-
     _engine.startLoop(function(){
         _engine.draw();
         _aniCon.nextFrame(_engine.getContext());
     });
+    _aniCon.setScale(2);
+    _engine.setScale(2);
+
     _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,160,100,1,callbackPlayer);
     _player_ani = _aniCon.getAnimate(_player_idx);
 }
