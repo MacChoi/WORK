@@ -61,7 +61,8 @@ class AnimateContainer{
     static COLLISION = 2;
     static COLLISION_LEFT = 3;
     static COLLISION_RIGHT = 4;
-    static SOUND_ENDED = 5;
+    static COLLISION_DOWN = 5;
+    static SOUND_ENDED = 6;
 
     collision = new GCollision();
     gravityArray = null;
@@ -113,6 +114,7 @@ class AnimateContainer{
 
                 this.objectArray[index].callback(AnimateContainer.COLLISION_LEFT,index); 
             }
+
             if(this.gravityArray[idx_Y][idx_X_2] != 0 ){
                 if(!isEmpty(element.objectState[4]))
                 if(element.objectState[4][element.index] !=0)
@@ -130,6 +132,7 @@ class AnimateContainer{
                         this.gravityArray[idx_Y+1][idx_X_2_10] != 0){
                             
                         element.y = idx_Y *this._H;
+                        this.objectArray[index].callback(AnimateContainer.COLLISION_DOWN,index); 
                     }
                 }
             }

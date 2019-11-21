@@ -57,12 +57,12 @@ function callbackPlayer(type,indexA,indexB){
     var aniB = _aniCon.getAnimate(indexB);
     switch (type) {
         case AnimateContainer.END_FRAME:
-            if(aniA.state == STATE[ID.PLAYER].DIE){
-                _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
-                aniA.setGlint(100);
-            }else{
-                _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
-            }
+            // if(aniA.state == STATE[ID.PLAYER].DIE){
+            //     _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
+            //     aniA.setGlint(100);
+            // }else{
+            //     _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
+            // }
 
         break;
         case AnimateContainer.NEXT_FRAME:

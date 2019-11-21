@@ -1,17 +1,18 @@
-OBJECT[ID.FX] = {
-    IMG:0,
+OBJECT[ID.MISSILE] = {
+    IMG:1,
     SOUND:0,
-    TYPE_1:[
+    NEW:[
     [0,0],//image
     [NO_SOUND],//sound
-    [0,10],//x
-    [0,-10],//y
+    [0,1],//x
+    [0,1],//y
+    [5,5]//gravity power
     ]
 };
 
-function callbackFX(type,indexA,indexB){
+function callbackMissile(type,indexA,indexB){
     switch (type) {
-        case AnimateContainer.END_FRAME:
+        case AnimateContainer.COLLISION_DOWN:
             _aniCon.deleteAnimate(indexA);
         break;
     } 

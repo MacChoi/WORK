@@ -42,8 +42,12 @@ function initGame(){
     _aniCon.setScale(2);
     _engine.setScale(2);
 
-    _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,160,100,1,callbackPlayer);
-    _player_ani = _aniCon.getAnimate(_player_idx);
+    //_player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,160,100,1,callbackPlayer);
+    //_player_ani = _aniCon.getAnimate(_player_idx);
+
+    _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT_TURN,50,50,1,callbackEnemy);
+
+    getCircleXY(3,360,20);
 }
 
 function initInput(){
