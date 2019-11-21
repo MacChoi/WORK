@@ -4,11 +4,15 @@ var _audio;
 
 var _bg_obj;
 var _bg_data;
+var _bg_data2;
 var _W;
 var _H;
 
 var _player_idx;
 var _player_ani;
+
+var _enemy_move_idx;
+var _enemy_move_ani;
 
 window.onload = function(){
     _audio = new GAudio();
@@ -28,6 +32,7 @@ window.onload = function(){
 function initGame(){
     _bg_obj = OBJECT[ID.BG];
     _bg_data = _bg_obj.DATA;
+    _bg_data2 = _bg_obj.DATA2;
     _W = _bg_obj.TILE_WIDTH;
     _H = _bg_obj.TILE_HEIGTH;
 
@@ -45,7 +50,10 @@ function initGame(){
     _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,130,250,1,callbackPlayer);
     _player_ani = _aniCon.getAnimate(_player_idx);
 
-    _aniCon.newAnimate(ID.BG,STATE[ID.BG].STAR1,30,30,1,callbackBg);
+    _enemy_move_idx = _aniCon.newAnimate(ID.BG,STATE[ID.BG].MOVE,0,0,1,callbackBg);
+    _enemy_move_ani = _aniCon.getAnimate(_enemy_move_idx);
+    
+    initEnemy();
 }
 
 function initInput(){
@@ -67,10 +75,32 @@ function initInput(){
                 _aniCon.setState(_player_idx,STATE[ID.PLAYER].UP,_player_ani.x,_player_ani.y);
             break;
             case GEngine.KEY_SPACE:
+                if(_aniCon.getCount(ID.MY_MISSILE) < 5)
                 _aniCon.newAnimate(ID.MY_MISSILE,STATE[ID.MY_MISSILE].NEW,_player_ani.x ,_player_ani.y,1,callbackMyMissile);
 
             break;
         }
         e.preventDefault();
     });
+}
+
+function initEnemy(){
+    var sX=0;
+    var sY=30;
+    for(var x=0; x<_bg_data2[0].length; x++) {
+        for(var y=0; y<_bg_data2.length; y++) {
+            switch (_bg_data2[y][x]){
+                case 1:
+                    _aniCon.newAnimate(ID.ENEMY_1,STATE[ID.ENEMY_1].NEW,sX+x*_W,sY+ y*_H,1,callbackEnemy);
+                break;
+                case 2:
+                    _aniCon.newAnimate(ID.ENEMY_1,STATE[ID.ENEMY_1].NEW,sX+x*_W,sY+ y*_H,1,callbackEnemy);
+
+                break;
+                case 3:
+                    _aniCon.newAnimate(ID.ENEMY_1,STATE[ID.ENEMY_1].NEW,sX+x*_W,sY+ y*_H,1,callbackEnemy);
+                break;  
+            }
+        }
+    }
 }

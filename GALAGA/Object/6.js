@@ -1,4 +1,4 @@
-OBJECT[ID.MY_MISSILE] = {
+OBJECT[ID.ENEMY_MISSILE] = {
     IMG:1,
     SOUND:0,
     NEW:[
@@ -8,12 +8,11 @@ OBJECT[ID.MY_MISSILE] = {
     [-5,-5],//y
     ]
 };
-
-function callbackMyMissile(type,indexA,indexB){
+    
+function callbackEnemyMissile(type,indexA,indexB){
     switch (type) {
         case AnimateContainer.COLLISION_UP:
             _aniCon.deleteAnimate(indexA);
-        break;
-        
+        break;     
     } 
 }
