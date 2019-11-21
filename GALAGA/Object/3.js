@@ -1,5 +1,5 @@
 OBJECT[ID.FX] = {
-    IMG:1,
+    IMG:0,
     SOUND:0,
     TYPE_1:[
     [0,0],//image

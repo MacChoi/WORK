@@ -10,11 +10,6 @@ var _H;
 var _player_idx;
 var _player_ani;
 
-const PLAYER_START_POSITION = 160;
-var _indexStartDrawMap=39;
-var _previousPlayerX =0;
-var _gapXdrawMap = -PLAYER_START_POSITION;
-
 window.onload = function(){
     _audio = new GAudio();
     _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGTH,60);
@@ -38,8 +33,9 @@ function initGame(){
     _H = _bg_obj.TILE_HEIGTH;
 
     _aniCon = new AnimateContainer();
-    _aniCon.setGravityArray(_bg_data2,_W,_H);
-    _aniCon.setIndexStartXGravityArray(_indexStartDrawMap);
+    _aniCon.setGravityArray(_bg_data,_W,_H);
+
+    _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
 
     _engine.startLoop(function(){
         _engine.draw();
@@ -47,11 +43,6 @@ function initGame(){
     });
     _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,160,100,1,callbackPlayer);
     _player_ani = _aniCon.getAnimate(_player_idx);
-
-    _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT,-100,100,1,callbackEnemy);
-    _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT,-50,100,1,callbackEnemy);
-
-    _aniCon.newAnimate(ID.BG,STATE[ID.BG].NEW,0,0,1,function(){});
 }
 
 function initInput(){
@@ -88,48 +79,4 @@ function initInput(){
         }
         e.preventDefault();
     });
-}
-
-function moveDrawMap(aniA){
-    var gapX = (_previousPlayerX - aniA.x);
-    // log("gapX: " +gapX);
-    // log("_previousPlayerX: " +_previousPlayerX);
-    // log("aniA.x: " +aniA.x);
-    if(gapX < 0){
-        if(_gapXdrawMap < 0){
-            _indexStartDrawMap++;
-            _gapXdrawMap = 35 + _gapXdrawMap;
-        }else{
-            _gapXdrawMap +=gapX;
-            _aniCon.allAddXY(gapX,0);
-        }
-        _previousPlayerX=PLAYER_START_POSITION;
-        aniA.x=PLAYER_START_POSITION;
-    }else if(gapX > 0){
-        if(_gapXdrawMap > 35){
-            _indexStartDrawMap--;
-            _gapXdrawMap = 45 - _gapXdrawMap;
-        }else{
-            _gapXdrawMap +=gapX;
-            _aniCon.allAddXY(gapX,0);
-        }
-        _previousPlayerX=PLAYER_START_POSITION;
-        aniA.x=PLAYER_START_POSITION;
-    }
-
-    if(_indexStartDrawMap > 39){
-        _indexStartDrawMap = 39;
-        _gapXdrawMap = 0;        
-    }else if(_indexStartDrawMap < 0){
-        _indexStartDrawMap = 0;
-        _gapXdrawMap = 35; 
-    }
-
-    _aniCon.setIndexStartXGravityArray(_indexStartDrawMap);
-    _engine.drawMoveMap(_bg_data,IMAGE[ID.BG],_W,_H, // map,image,sizeW,sizeH
-    _indexStartDrawMap,0, //startX,startY
-    11,6,//sizeX,sizeY
-    _gapXdrawMap - _W,0);//mX,mY
-    
-    _previousPlayerX = aniA.x;
 }

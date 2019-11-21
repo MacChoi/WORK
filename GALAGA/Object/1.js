@@ -1,5 +1,5 @@
 OBJECT[ID.PLAYER] = {
-    IMG:13,
+    IMG:6,
     SOUND:0,
     NEW:[
     [1],//image
@@ -66,7 +66,6 @@ function callbackPlayer(type,indexA,indexB){
 
         break;
         case AnimateContainer.NEXT_FRAME:
-            moveDrawMap(aniA);
         break;
         case AnimateContainer.COLLISION:
 

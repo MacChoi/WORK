@@ -1,5 +1,5 @@
 OBJECT[ID.ENEMY] = {
-    IMG:5,
+    IMG:16,
     SOUND:0,
     NEW:[
     [-1,-4],//image
