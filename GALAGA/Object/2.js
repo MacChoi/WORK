@@ -15,15 +15,14 @@ OBJECT[ID.ENEMY] = {
     // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [-7,-1,-1,-2,-2,-2,-2,-1,-1,3,1,1,2,2,2,2,1,1],//x
     [3,2,2,1,0,0,-1,-2,-2,-3,-2,-2,-1,0,0,1,2,2],//y
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     //[5,5,5,5]//gravity power
     ],
     MOVE:[
-    [10,10,10,10,10],//image
+    [10,10,10,10,10,10,10,10,10,10],//image
     [NO_SOUND],//sound
-    [5,5,5,5,5],//x
-    [1,1,1,1,1],//y
-    [5,5,5,5,5]//gravity power
+    [-5,-5,-5,-5,-5,-5,-5,-5,-5,-5],//x
+    [1,1,1,1,1,1,1,1,1,1],//y
+    [5,5,5,5,5,5,5,5,5,5]//gravity power
     ],
     HOME:[
     [-7],//image
@@ -44,10 +43,12 @@ function callbackEnemy(type,indexA,indexB){
     var aniB = _aniCon.getAnimate(indexB);
     switch (type) {
         case AnimateContainer.END_FRAME:
-            if(aniA.state == STATE[ID.ENEMY].RIGHT_TURN)
-            _aniCon.setState(indexA,STATE[ID.ENEMY].MOVE,aniA.x,aniA.y);
+            if(aniA.state == STATE[ID.ENEMY].RIGHT_TURN){
+                _aniCon.setState(indexA,STATE[ID.ENEMY].MOVE,aniA.x,aniA.y);
+                if(getRandom(0,1)==0)_aniCon.newAnimate(ID.MISSILE,STATE[ID.MISSILE].NEW,aniA.x,aniA.y -15,1,callbackMissile);
+            }
             else if(aniA.state == STATE[ID.ENEMY].MOVE){
-                if(getRandom(0,10)==0)_aniCon.newAnimate(ID.MISSILE,STATE[ID.MISSILE].NEW,aniA.x,aniA.y -15,1,callbackMissile);
+                if(getRandom(0,1)==0)_aniCon.newAnimate(ID.MISSILE,STATE[ID.MISSILE].NEW,aniA.x,aniA.y -15,1,callbackMissile);
             }
         break;
         case AnimateContainer.NEXT_FRAME:
@@ -55,8 +56,10 @@ function callbackEnemy(type,indexA,indexB){
         case AnimateContainer.COLLISION:
         break;
         case AnimateContainer.COLLISION_LEFT:
+            _aniCon.setState(indexA,STATE[ID.ENEMY].MOVE,220,aniA.y);
+        break;
         case AnimateContainer.COLLISION_RIGHT:
-            _aniCon.setState(indexA,STATE[ID.ENEMY].HOME,0,15);
+            _aniCon.setState(indexA,STATE[ID.ENEMY].MOVE,aniA.x,15);
         break;
         case AnimateContainer.COLLISION_DOWN:
             _aniCon.setState(indexA,STATE[ID.ENEMY].HOME,aniA.x,15);
