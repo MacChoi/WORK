@@ -9,7 +9,7 @@ OBJECT[ID.PLAYER] = {
     [5]//gravity power
     ],
     RIGHT:[
-    [1,2,3,4],//image
+    [1,1,1,1],//image
     [NO_SOUND],//sound
     [1,2,3,4],//x
     [0,0,0,0],//y
@@ -44,10 +44,10 @@ OBJECT[ID.PLAYER] = {
     [5,5,5,5]//gravity power
     ],
     DIE:[
-    [5,6,7,8,9,10],//image
+    [2,3,4,5,4],//image
     [NO_SOUND],//sound
-    [0,0,0,0,0,0],//x
-    [0,0,0,0,0,0],//y 
+    [0,0,0,0,0],//x
+    [0,0,0,0,0],//y 
     ],
 };
 
@@ -57,13 +57,9 @@ function callbackPlayer(type,indexA,indexB){
     var aniB = _aniCon.getAnimate(indexB);
     switch (type) {
         case AnimateContainer.END_FRAME:
-            // if(aniA.state == STATE[ID.PLAYER].DIE){
-            //     _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
-            //     aniA.setGlint(100);
-            // }else{
-            //     _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
-            // }
-
+            if(aniA.state != STATE[ID.PLAYER].DIE){
+                _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
+            }
         break;
         case AnimateContainer.NEXT_FRAME:
         break;

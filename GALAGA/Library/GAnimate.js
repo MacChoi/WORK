@@ -61,6 +61,7 @@ class AnimateContainer{
     static COLLISION = 2;
     static COLLISION_LEFT = 3;
     static COLLISION_RIGHT = 4;
+    static COLLISION_UP = 5;
     static COLLISION_DOWN = 5;
     static SOUND_ENDED = 6;
 
@@ -106,7 +107,8 @@ class AnimateContainer{
             var idx_X_1=parseInt((element.x) /this._W) + this.indexStartXGravityArray;
             var idx_X_2=parseInt((element.x+element.w) /this._W) + this.indexStartXGravityArray;
             var idx_Y=parseInt(element.y /this._H);
-            
+
+            if( idx_Y > 1)
             if(this.gravityArray[idx_Y][idx_X_1] != 0 ){
                 if(!isEmpty(element.objectState[4]))
                 if(element.objectState[4][element.index] !=0)
@@ -114,7 +116,7 @@ class AnimateContainer{
 
                 this.objectArray[index].callback(AnimateContainer.COLLISION_LEFT,index); 
             }
-
+            if( idx_Y > 1)
             if(this.gravityArray[idx_Y][idx_X_2] != 0 ){
                 if(!isEmpty(element.objectState[4]))
                 if(element.objectState[4][element.index] !=0)
@@ -135,6 +137,11 @@ class AnimateContainer{
                         this.objectArray[index].callback(AnimateContainer.COLLISION_DOWN,index); 
                     }
                 }
+            }
+
+            if(element.y < 0){
+                element.y = idx_Y *this._H;
+                this.objectArray[index].callback(AnimateContainer.COLLISION_UP,index);
             }
 
             context.save();

@@ -42,12 +42,10 @@ function initGame(){
     _aniCon.setScale(2);
     _engine.setScale(2);
 
-    //_player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,160,100,1,callbackPlayer);
-    //_player_ani = _aniCon.getAnimate(_player_idx);
+    _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,130,250,1,callbackPlayer);
+    _player_ani = _aniCon.getAnimate(_player_idx);
 
-    _aniCon.newAnimate(ID.ENEMY,STATE[ID.ENEMY].RIGHT_TURN,50,50,1,callbackEnemy);
-
-    getCircleXY(3,360,20);
+    _aniCon.newAnimate(ID.BG,STATE[ID.BG].STAR1,30,30,1,callbackBg);
 }
 
 function initInput(){
@@ -68,18 +66,9 @@ function initInput(){
                 if(_player_ani.state == STATE[ID.PLAYER].NEW)
                 _aniCon.setState(_player_idx,STATE[ID.PLAYER].UP,_player_ani.x,_player_ani.y);
             break;
-            case GEngine.KEY_SHIFT:
-            case GEngine.KEY_A:
-                if(_player_ani.state == STATE[ID.PLAYER].NEW)
-                _aniCon.setState(_player_idx,STATE[ID.PLAYER].PUNCH,_player_ani.x,_player_ani.y);
-                break;
             case GEngine.KEY_SPACE:
-            case GEngine.KEY_S:
-                if(_player_ani.state == STATE[ID.PLAYER].NEW)
-                _aniCon.setState(_player_idx,STATE[ID.PLAYER].KICK,_player_ani.x,_player_ani.y);
+                _aniCon.newAnimate(ID.MY_MISSILE,STATE[ID.MY_MISSILE].NEW,_player_ani.x ,_player_ani.y,1,callbackMyMissile);
 
-                else if(_player_ani.state == STATE[ID.PLAYER].UP)
-                _aniCon.setState(_player_idx,STATE[ID.PLAYER].UP_KICK,_player_ani.x,_player_ani.y);
             break;
         }
         e.preventDefault();

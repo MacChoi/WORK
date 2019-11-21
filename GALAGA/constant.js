@@ -8,7 +8,7 @@ class Enum{
 }
 
 const ID = new Enum(
-    ["BG","PLAYER","ENEMY","MISSILE"]
+    ["BG","PLAYER","ENEMY","MY_MISSILE"]
 );
 
 var OBJECT;
