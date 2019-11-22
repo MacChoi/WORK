@@ -98,10 +98,10 @@ function initEnemy(sX,sY){
                     _aniCon.newAnimate(ID.ENEMY_1,STATE[ID.ENEMY_1].NEW,pX,pY,1,value,callbackEnemy);
                 break;
                 case 2:
-                    _aniCon.newAnimate(ID.ENEMY_1,STATE[ID.ENEMY_1].NEW,pX,pY,1,value,callbackEnemy);
+                    _aniCon.newAnimate(ID.ENEMY_2,STATE[ID.ENEMY_2].NEW,pX,pY,1,value,callbackEnemy);
                 break;
                 case 3:
-                    _aniCon.newAnimate(ID.ENEMY_1,STATE[ID.ENEMY_1].NEW,pX,pY,1,value,callbackEnemy);
+                    _aniCon.newAnimate(ID.ENEMY_3,STATE[ID.ENEMY_3].NEW,pX,pY,1,value,callbackEnemy);
                 break;  
             }
         }
