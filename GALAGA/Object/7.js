@@ -1,18 +1,18 @@
 OBJECT[ID.FX] = {
     IMG:5,
-    SOUND:0,
+    SOUND:1,
     NEW:[
-    [0,0],//image
-    [NO_SOUND],//sound
-    [0,0],//x
-    [-5,-5],//y
+    [0,1,2,3,4],//image
+    [0],//sound
+    [0,0,0,0,0],//x
+    [0,0,0,0,0],//y
     ]
 };
     
-function callbackEnemyMissile(type,indexA,indexB){
+function callbackFX(type,indexA,indexB){
     switch (type) {
-        case AnimateContainer.COLLISION_UP:
-            _aniCon.deleteAnimate(indexA);
-        break;     
+        case AnimateContainer.END_FRAME:
+           _aniCon.deleteAnimate(indexA); 
+        break;    
     } 
 }
