@@ -14,7 +14,7 @@ var _player_ani;
 var _enemy_move_idx;
 var _enemy_move_ani;
 
-const _ENEMY_X =-20;
+const _ENEMY_X =20;
 const _ENEMY_Y =30;
 
 window.onload = function(){
@@ -80,7 +80,6 @@ function initInput(){
             case GEngine.KEY_SPACE:
                 if(_aniCon.getCount(ID.MY_MISSILE) < 5)
                 _aniCon.newAnimate(ID.MY_MISSILE,STATE[ID.MY_MISSILE].NEW,_player_ani.x ,_player_ani.y,1,null,callbackMyMissile);
-
             break;
         }
         e.preventDefault();

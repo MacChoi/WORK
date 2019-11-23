@@ -55,7 +55,9 @@ function callbackEnemy(type,indexA,indexB){
             }
         break;
         case AnimateContainer.NEXT_FRAME:
-            aniA.x += _enemy_move_ani.reverseX;
+            if(aniA.state == STATE[aniA.id].NEW)
+            aniA.x = aniA.value.x + _enemy_move_ani.x;
+
             if(aniA.state == STATE[aniA.id].HOME)
             moveHome(aniA,indexA);
         break;
@@ -81,10 +83,8 @@ function callbackEnemy(type,indexA,indexB){
     }    
 }
 
-var previusX;
 function moveHome(aniA,indexA){
-    //log((aniA.x-aniA.value.x))
-    var posX = aniA.value.x + (aniA.x-aniA.value.x)*_enemy_move_ani.reverseX;
+    var posX = aniA.value.x + _enemy_move_ani.x;
     var posY = aniA.value.y;
  
     if(aniA.x< posX)aniA.x +=1;
@@ -92,6 +92,7 @@ function moveHome(aniA,indexA){
   
     if(aniA.y < posY)aniA.y +=1;
     else if(aniA.y > posY)aniA.y -=1;
+    
     if(aniA.x == posX && aniA.y == posY){
         _aniCon.setState(indexA,STATE[aniA.id].NEW,posX,posY);
         return;

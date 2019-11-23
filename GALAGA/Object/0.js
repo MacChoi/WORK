@@ -33,7 +33,7 @@ OBJECT[ID.BG] = {
     MOVE:[
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//image
         [NO_SOUND],//sound
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//x
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],//x
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//y
     ],
     DIE:[
@@ -86,16 +86,28 @@ function callbackBg(type,indexA,indexB){
     switch (type) {
         case AnimateContainer.END_FRAME:
             if(aniA.state == STATE[ID.BG].MOVE)
-            aniA.setReverseX(aniA.reverseX * -1);
+            _enemy_move_ani.setReverseX(_enemy_move_ani.reverseX * -1);
         break;
         case AnimateContainer.NEXT_FRAME:
             if(_aniCon.getCount(ID.BG)<20){
                 var randomTable = [STATE[ID.BG].STAR1,STATE[ID.BG].STAR2,STATE[ID.BG].STAR3,STATE[ID.BG].STAR4,STATE[ID.BG].STAR5];
                 var randomTable2 = [1,-1];
-                _aniCon.newAnimate(ID.BG,randomTable[getRandom(0,randomTable.length)],getRandom(0,250),getRandom(0,100),randomTable2[getRandom(0,randomTable2.length)],null,callbackBg);
+                _aniCon.newAnimate(ID.BG,randomTable[getRandom(0,randomTable.length)]
+                ,getRandom(0,250),getRandom(0,100)
+                ,randomTable2[getRandom(0,randomTable2.length)],null,callbackBgStar);
             }
-
         break;
+        case AnimateContainer.COLLISION_DOWN:
+            if(aniA.state != STATE[ID.BG].MOVE)
+            _aniCon.deleteAnimate(indexA);
+        break;
+    }    
+}
+
+function callbackBgStar(type,indexA,indexB){
+    var aniA = _aniCon.getAnimate(indexA);
+    var aniB = _aniCon.getAnimate(indexB);
+    switch (type) {
         case AnimateContainer.COLLISION_DOWN:
             if(aniA.state != STATE[ID.BG].MOVE)
             _aniCon.deleteAnimate(indexA);

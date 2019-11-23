@@ -29,20 +29,20 @@ function callbackPlayer(type,indexA,indexB){
     var aniB = _aniCon.getAnimate(indexB);
     switch (type) {
         case AnimateContainer.END_FRAME:
-            if(aniA.state != STATE[ID.PLAYER].DIE){
-                _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
-            }else{
+            if(aniA.state == STATE[ID.PLAYER].DIE){
                 _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
                 aniA.setGlint(100);
+            }else{
+                _aniCon.setState(indexA,STATE[ID.PLAYER].NEW,_player_ani.x,_player_ani.y);
             }
         break;
         case AnimateContainer.NEXT_FRAME:
         break;
         case AnimateContainer.COLLISION:
             if(_player_ani.glint != 0)return;
-            if(aniB.id == ID.ENEMY_MISSILE || aniB.id == ID.ENEMY_1)
+            if(aniB.id == ID.ENEMY_MISSILE || aniB.id == ID.ENEMY_1
+                || aniB.id == ID.ENEMY_2|| aniB.id == ID.ENEMY_3)
             _aniCon.setState(indexA,STATE[ID.PLAYER].DIE,_player_ani.x,_player_ani.y);
-
         break;
     }    
 }
