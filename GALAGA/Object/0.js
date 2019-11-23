@@ -1,8 +1,8 @@
 OBJECT[ID.BG] = {
     IMG:7,
     SOUND:1,
-    BG_WIDTH:255 * 2, BG_HEIGTH:270 * 2,
-    TILE_WIDTH:15,TILE_HEIGTH:15,
+    BG_WIDTH:255 * 2, BG_HEIGHT:270 * 2,
+    TILE_WIDTH:15,TILE_HEIGHT:15,
     DATA:[
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -35,13 +35,6 @@ OBJECT[ID.BG] = {
         [NO_SOUND],//sound
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],//x
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//y
-    ],
-    DIE:[
-        [0,0],//image
-        [NO_SOUND],//sound
-        [0,0],//x
-        [0,0],//y
-        [5,5]//gravity power
     ],
     STAR1:[
         [2],//image
@@ -96,10 +89,6 @@ function callbackBg(type,indexA,indexB){
                 ,getRandom(0,250),getRandom(0,100)
                 ,randomTable2[getRandom(0,randomTable2.length)],null,callbackBgStar);
             }
-        break;
-        case AnimateContainer.COLLISION_DOWN:
-            if(aniA.state != STATE[ID.BG].MOVE)
-            _aniCon.deleteAnimate(indexA);
         break;
     }    
 }

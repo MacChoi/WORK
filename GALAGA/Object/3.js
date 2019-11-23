@@ -29,12 +29,6 @@ OBJECT[ID.ENEMY_1] = {
     [0,0],//x
     [0,0],//y
     ],
-    DIE:[
-    [-4,-4,-4,-4],//image
-    [NO_SOUND],//sound
-    [-5,-5,-5,-5],//x
-    [5,5,5,5],//y 
-    ],
 };
 
 function callbackEnemy(type,indexA,indexB){

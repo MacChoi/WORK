@@ -145,9 +145,7 @@ class GEngine {
 GEngine.debug = true;
 GEngine.loadObjectFile(ID.length);
 
-
-
-
+//help function
 function log(text){
     if(GEngine.debug == false)return;
     console.log(text);   

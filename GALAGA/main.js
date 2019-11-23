@@ -19,7 +19,7 @@ const _ENEMY_Y =30;
 
 window.onload = function(){
     _audio = new GAudio();
-    _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGTH,60);
+    _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT,60);
     _engine.loadImageFile(function (type,index) {
         if(GEngine.END_FILE == type){
             _audio.loadSoundFile(function (type, index) {
@@ -37,7 +37,7 @@ function initGame(){
     _bg_data = _bg_obj.DATA;
     _bg_data2 = _bg_obj.DATA2;
     _W = _bg_obj.TILE_WIDTH;
-    _H = _bg_obj.TILE_HEIGTH;
+    _H = _bg_obj.TILE_HEIGHT;
 
     _aniCon = new AnimateContainer();
     _aniCon.setGravityArray(_bg_data,_W,_H);
@@ -53,10 +53,10 @@ function initGame(){
     _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,130,250,1,null,callbackPlayer);
     _player_ani = _aniCon.getAnimate(_player_idx);
 
-    initEnemy(_ENEMY_X,_ENEMY_Y);
-
     _enemy_move_idx = _aniCon.newAnimate(ID.BG,STATE[ID.BG].MOVE,0,0,1,null,callbackBg);
     _enemy_move_ani = _aniCon.getAnimate(_enemy_move_idx);
+
+    initEnemy(_ENEMY_X,_ENEMY_Y);
 }
 
 function initInput(){
@@ -74,8 +74,6 @@ function initInput(){
             case GEngine.KEY_DOWN:
             break;
             case GEngine.KEY_UP:
-                if(_player_ani.state == STATE[ID.PLAYER].NEW)
-                _aniCon.setState(_player_idx,STATE[ID.PLAYER].UP,_player_ani.x,_player_ani.y);
             break;
             case GEngine.KEY_SPACE:
                 if(_aniCon.getCount(ID.MY_MISSILE) < 5)

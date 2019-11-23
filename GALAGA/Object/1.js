@@ -23,7 +23,6 @@ OBJECT[ID.PLAYER] = {
     ],
 };
 
-
 function callbackPlayer(type,indexA,indexB){
     var aniA = _aniCon.getAnimate(indexA);
     var aniB = _aniCon.getAnimate(indexB);
