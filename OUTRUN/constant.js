@@ -9,8 +9,8 @@ class Enum{
 
 const ID = new Enum(
     ["BG",
-    "PLAYER",
-    "MY_MISSILE",
+    "CAR",
+    "CAR_FX",
     "ENEMY_1",
     "ENEMY_2",
     "ENEMY_3",

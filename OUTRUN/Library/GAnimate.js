@@ -122,7 +122,7 @@ class AnimateContainer{
             if(this.gravityArray[idx_Y][idx_X_2] != 0 ){
                 if(!isEmpty(element.objectState[4]))
                 if(element.objectState[4][element.index] !=0)
-                element.x = tmpx;
+                //element.x = tmpx;
 
                 this.objectArray[index].callback(AnimateContainer.COLLISION_RIGHT,index); 
             }

@@ -1,17 +1,17 @@
-OBJECT[ID.MY_MISSILE] = {
-    IMG:1,
-    SOUND:1,
-    NEW:[
-    [0,0],//image
+OBJECT[ID.CAR_FX] = {
+    IMG:4,
+    SOUND:0,
+    LEFT:[
+    [0,1,2,3],//image
     [0],//sound
-    [0,0],//x
-    [-5,-5],//y
+    [-1,-2,-3,-4],//x
+    [-1,-2,-3,-4],//y
     ]
 };
 
-function callbackMyMissile(type,indexA,indexB){
+function callbackCarFx(type,indexA,indexB){
     switch (type) {
-        case AnimateContainer.COLLISION_UP:
+        case AnimateContainer.END_FRAME:
             _aniCon.deleteAnimate(indexA);
         break; 
     } 
