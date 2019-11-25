@@ -1,4 +1,4 @@
-var _engine,_engine2;
+var _engine;
 var _aniCon;
 var _audio;
 
@@ -19,7 +19,7 @@ const _ENEMY_Y =30;
 
 window.onload = function(){
     _audio = new GAudio();
-    _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT,60,true);
+    _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT,60);
     _engine.loadImageFile(function (type,index) {
         if(GEngine.END_FILE == type){
             _audio.loadSoundFile(function (type, index) {
@@ -30,26 +30,6 @@ window.onload = function(){
             });
         }
     });
-
-    // _engine2= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT,60,false);
-    // _engine2.loadImageFile(function (type,index) {
-    //     if(GEngine.END_FILE == type){
-    //         _audio.loadSoundFile(function (type, index) {
-    //             if(GEngine.END_FILE == type){
-    //                 initGame(); 
-    //                 initInput();
-    //             }
-    //         });
-    //     }
-    // });
-
-
-    // var div = document.getElementById("canvas1"); 
-    // div.appendChild(_engine.canvas);
-
-    // var div2 = document.getElementById("canvas2"); 
-    // div2.appendChild(_engine2.canvas);
-
 }
 
 function initGame(){
@@ -67,8 +47,8 @@ function initGame(){
         _engine.draw();
         _aniCon.nextFrame(_engine.getContext());
     });
-    // _aniCon.setScale(2);
-    // _engine.setScale(2);
+    _aniCon.setScale(2);
+    _engine.setScale(2);
 
     _player_idx = _aniCon.newAnimate(ID.PLAYER,STATE[ID.PLAYER].NEW,130,250,1,null,callbackPlayer);
     _player_ani = _aniCon.getAnimate(_player_idx);
@@ -76,7 +56,7 @@ function initGame(){
     _enemy_move_idx = _aniCon.newAnimate(ID.BG,STATE[ID.BG].MOVE,0,0,1,null,callbackBg);
     _enemy_move_ani = _aniCon.getAnimate(_enemy_move_idx);
 
-   // initEnemy(_ENEMY_X,_ENEMY_Y);
+    initEnemy(_ENEMY_X,_ENEMY_Y);
 }
 
 function initInput(){
