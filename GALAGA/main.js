@@ -30,6 +30,14 @@ window.onload = function(){
             });
         }
     });
+
+
+    var div = document.getElementById("test"); 
+    div.appendChild(_engine.canvas);
+
+    //div.appendChild(this.bufferContext);
+
+
 }
 
 function initGame(){

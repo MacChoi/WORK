@@ -37,7 +37,7 @@ class GEngine {
         this.canvas = GEngine.createCanvas(width,height,true);
         this.context= this.canvas.getContext('2d');
 
-        this.bufferCanvas = GEngine.createCanvas(width,height,);
+        this.bufferCanvas = GEngine.createCanvas(width,height,false);
         this.bufferContext= this.bufferCanvas.getContext('2d');
    
         for(var i =0; i<OBJECT.length; i++){
