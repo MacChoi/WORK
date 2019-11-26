@@ -170,7 +170,7 @@ class AnimateContainer{
    
     newAnimate(id,state,x,y,reverseX,value,callback){
         var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y,value,callback))-1;
-        var ani = _aniCon.getAnimate(index);
+        var ani = this.getAnimate(index);
         ani.setReverseX(reverseX);
         
         if(this.objectArray[index].objectState[1][0] != NO_SOUND){
