@@ -5,28 +5,24 @@ html{
 
 body { 
 	/* margin: 0 auto; */
-	background-color:transparent;
-	background:		
+	background-color:transparent;	
 }
 
 .wrapper {
-	/* margin: 0 auto;  */
-	display: inline-block; 
-	/* position:relative; */
 	/* width: 100%;
 	height: 100%; */
-	width:400;
-	height:400;
+	width:450;
+	height:405;
 }
 
 .canvas-01 {
 	width: 550;
-	height: 5;
+	height: 0;
 }
 
 .canvas-02 {display: block;
 	width: 550;
-	height: 550;
+	height: 540;
 	transform: rotateX(65deg);
 }
 

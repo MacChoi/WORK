@@ -52,11 +52,17 @@ function initGame(){
         _aniCon2.nextFrame(_engine2.getContext());
     });
     
-   _aniCon.newAnimate(ID.BG,STATE[ID.BG].NEW,220,0,1,null,callbackBg);
+   _aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,0,1,null,callbackBg);
+   _aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,50,1,null,callbackBg);
+   _aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,100,1,null,callbackBg);
+   _aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,150,1,null,callbackBg);
+   _aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,200,1,null,callbackBg);
+   _aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,212,1,null,callbackBg);
+
    _sky_idx= _aniCon2.newAnimate(ID.BG,STATE[ID.BG].SKY,400,0,1,null,callbackSky);
    _hills_idx=_aniCon2.newAnimate(ID.BG,STATE[ID.BG].HILLS,0,0,1,null,callbackHills);
-   //_trees_idx=_aniCon2.newAnimate(ID.BG,STATE[ID.BG].TREES,0,0,1,null,callbackTrees);
 
+    _aniCon2.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,269,1,null,callbackBg);
     _player_idx = _aniCon2.newAnimate(ID.CAR,STATE[ID.CAR].NEW,220,270,1,null,callbackCar);
     _player_ani = _aniCon2.getAnimate(_player_idx);
 }
@@ -89,9 +95,7 @@ function initInput(){
 function drawSkyHillsTrees(sky_state,hills_state,trees_state){
     var _sky_ani = _aniCon2.getAnimate(_sky_idx);
     var _hills_ani = _aniCon2.getAnimate(_hills_idx);
-    var _trees_ani = _aniCon2.getAnimate(_trees_idx);
 
     _aniCon2.setState(_sky_idx,sky_state,_sky_ani.x,_sky_ani.y);
     _aniCon2.setState(_hills_idx,hills_state,_hills_ani.x,_hills_ani.y);
-    //_aniCon2.setState(_trees_idx,trees_state,_trees_ani.x,_trees_ani.y);
 }

@@ -1,7 +1,7 @@
 OBJECT[ID.BG] = {
     IMG:9,
     SOUND:0,
-    BG_WIDTH:440, BG_HEIGHT:350,
+    BG_WIDTH:440, BG_HEIGHT:320,
     TILE_WIDTH:15,TILE_HEIGHT:15,
     DATA:[
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -63,65 +63,53 @@ OBJECT[ID.BG] = {
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     ],
     NEW:[
-    [2,3,4],//image
+    [6,7,8],//image
+    [NO_SOUND],//sound
+    [0,0,0],//x
+    [0,0,0],//y
+    ],
+    ROAD:[
+    [2,3,2],//image
     [NO_SOUND],//sound
     [0,0,0],//x
     [0,0,0],//y
     ],
     SKY:[
-    [6,6,6],//image
+    [5,5,5],//image
     [NO_SOUND],//sound
     [0,0,0],//x
     [0,0,0],//y
     ],
     SKY_LEFT:[
-    [6,6,6],//image
+    [5,5,5],//image
     [NO_SOUND],//sound
     [-1,-1,-1],//x
     [0,0,0],//y
     ],
     SKY_RIGHT:[
-    [6,6,6],//image
+    [5,5,5],//image
     [NO_SOUND],//sound
     [1,1,1],//x
     [0,0,0],//y
     ],
     HILLS:[
-    [5,5,5],//image
+    [4,4,4],//image
     [NO_SOUND],//sound
     [0,0,0],//x
     [0,0,0],//y
     ],
     HILLS_LEFT:[
-    [5,5,5],//image
+    [4,4,4],//image
     [NO_SOUND],//sound
     [-3,-3,-3],//x
     [0,0,0],//y
     ],
     HILLS_RIGHT:[
-    [5,5,5],//image
+    [4,4,4],//image
     [NO_SOUND],//sound
     [3,3,3],//x
     [0,0,0],//y
     ],
-    TREES:[
-    [7,7,7],//image
-    [NO_SOUND],//sound
-    [0,0,0],//x
-    [0,0,0],//y
-    ],
-    TREES_LEFT:[
-    [7,7,7],//image
-    [NO_SOUND],//sound
-    [-5,-5,-5],//x
-    [0,0,0],//y
-    ],
-    TREES_RIGHT:[
-    [7,7,7],//image
-    [NO_SOUND],//sound
-    [5,5,5],//x
-    [0,0,0],//y
-    ]
 };
 
 function callbackBg(type,indexA,indexB){
@@ -153,15 +141,6 @@ function callbackHills(type,indexA,indexB){
     switch (type) {
         case AnimateContainer.END_FRAME:
             _aniCon2.setState(_hills_idx,STATE[ID.BG].HILLS,aniA.x,aniA.y);
-        break;
-    }    
-}
-
-function callbackTrees(type,indexA,indexB){
-    var aniA = _aniCon2.getAnimate(indexA);
-    switch (type) {
-        case AnimateContainer.END_FRAME:
-            _aniCon2.setState(_trees_idx,STATE[ID.BG].TREES,aniA.x,aniA.y);
         break;
     }    
 }
