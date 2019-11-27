@@ -42,8 +42,8 @@ function initGame(){
     var div2 = document.getElementById("canvas1"); 
     div2.appendChild(_engine2.canvas);
 
-    _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
-    _engine2.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
+    // _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
+    // _engine2.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
     _engine.startLoop(function(){
         _engine.draw();
         _aniCon.nextFrame(_engine.getContext());
@@ -53,13 +53,12 @@ function initGame(){
     });
     
    _aniCon.newAnimate(ID.BG,STATE[ID.BG].NEW,220,0,1,null,callbackBg);
+   _sky_idx= _aniCon2.newAnimate(ID.BG,STATE[ID.BG].SKY,400,0,1,null,callbackSky);
+   _hills_idx=_aniCon2.newAnimate(ID.BG,STATE[ID.BG].HILLS,0,0,1,null,callbackHills);
+   //_trees_idx=_aniCon2.newAnimate(ID.BG,STATE[ID.BG].TREES,0,0,1,null,callbackTrees);
 
-    _player_idx = _aniCon.newAnimate(ID.CAR,STATE[ID.CAR].NEW,220,200,1,null,callbackCar);
-    _player_ani = _aniCon.getAnimate(_player_idx);
-
-    _sky_idx= _aniCon2.newAnimate(ID.BG,STATE[ID.BG].SKY,0,0,1,null,callbackSky);
-    _hills_idx=_aniCon2.newAnimate(ID.BG,STATE[ID.BG].HILLS,0,0,1,null,callbackHills);
-    _trees_idx=_aniCon2.newAnimate(ID.BG,STATE[ID.BG].TREES,0,0,1,null,callbackTrees);
+    _player_idx = _aniCon2.newAnimate(ID.CAR,STATE[ID.CAR].NEW,220,270,1,null,callbackCar);
+    _player_ani = _aniCon2.getAnimate(_player_idx);
 }
 
 function initInput(){
@@ -67,13 +66,13 @@ function initInput(){
         //log("e.keyCode: " + e.keyCode);
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
-                _aniCon.setState(_player_idx,STATE[ID.CAR].LEFT,_player_ani.x,_player_ani.y);
-                _aniCon.newAnimate(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_player_ani.x,_player_ani.y+30,1,null,callbackCarFx);
+                _aniCon2.setState(_player_idx,STATE[ID.CAR].LEFT,_player_ani.x,_player_ani.y);
+                _aniCon2.newAnimate(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_player_ani.x,_player_ani.y+30,1,null,callbackCarFx);
                 drawSkyHillsTrees(STATE[ID.BG].SKY_LEFT,STATE[ID.BG].HILLS_LEFT,STATE[ID.BG].TREES_LEFT);
                 break;
             case GEngine.KEY_RIGHT:
-                _aniCon.setState(_player_idx,STATE[ID.CAR].RIGHT,_player_ani.x,_player_ani.y);
-                _aniCon.newAnimate(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_player_ani.x,_player_ani.y+30,-1,null,callbackCarFx);
+                _aniCon2.setState(_player_idx,STATE[ID.CAR].RIGHT,_player_ani.x,_player_ani.y);
+                _aniCon2.newAnimate(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_player_ani.x,_player_ani.y+30,-1,null,callbackCarFx);
                 drawSkyHillsTrees(STATE[ID.BG].SKY_RIGHT,STATE[ID.BG].HILLS_RIGHT,STATE[ID.BG].TREES_RIGHT);
                 break;
             case GEngine.KEY_DOWN:
@@ -94,5 +93,5 @@ function drawSkyHillsTrees(sky_state,hills_state,trees_state){
 
     _aniCon2.setState(_sky_idx,sky_state,_sky_ani.x,_sky_ani.y);
     _aniCon2.setState(_hills_idx,hills_state,_hills_ani.x,_hills_ani.y);
-    _aniCon2.setState(_trees_idx,trees_state,_trees_ani.x,_trees_ani.y);
+    //_aniCon2.setState(_trees_idx,trees_state,_trees_ani.x,_trees_ani.y);
 }
