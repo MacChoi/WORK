@@ -1,7 +1,7 @@
 OBJECT[ID.BG] = {
     IMG:9,
     SOUND:0,
-    BG_WIDTH:440, BG_HEIGHT:320,
+    BG_WIDTH:435, BG_HEIGHT:320,
     TILE_WIDTH:15,TILE_HEIGHT:15,
     DATA:[
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -69,6 +69,12 @@ OBJECT[ID.BG] = {
     [0,0,0],//y
     ],
     ROAD:[
+    [2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2],//image
+    [NO_SOUND],//sound
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//x
+    [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9],//y
+    ],
+    ROAD_2:[
     [2,3,2],//image
     [NO_SOUND],//sound
     [0,0,0],//x
@@ -117,12 +123,45 @@ function callbackBg(type,indexA,indexB){
     var aniB = _aniCon.getAnimate(indexB);
     switch (type) {
         case AnimateContainer.END_FRAME:
-        
         break;
         case AnimateContainer.NEXT_FRAME:
             // if(_aniCon.getCount(ID.BG)<20){
             //     _aniCon.newAnimate(ID.BG,STATE[ID.BG].NEW,0,0,1,null,callbackBg);
             // }
+        break;
+    }    
+}
+
+function callbackRoad(type,indexA,indexB){
+    var aniA = _aniCon.getAnimate(indexA);
+    switch (type) {
+        case AnimateContainer.COLLISION_DOWN:
+        //         _aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,0,1,null,callbackBg);
+        //         _aniCon.deleteAnimate(indexA);
+        break;
+        case AnimateContainer.END_FRAME:
+            _aniCon.setState(indexA,STATE[ID.BG].ROAD,220,0);
+            
+            // _aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,0,1,null,callbackBg);
+            // _aniCon.deleteAnimate(indexA);
+        break;
+    }    
+}
+
+function callbackRoad2(type,indexA,indexB){
+    var aniA = _aniCon2.getAnimate(indexA);
+    switch (type) {
+        case AnimateContainer.END_FRAME:
+            //_aniCon2.setState(indexA,STATE[ID.BG].ROAD,220,260);
+        break;
+    }    
+}
+
+function callbackSky(type,indexA,indexB){
+    var aniA = _aniCon2.getAnimate(indexA);
+    switch (type) {
+        case AnimateContainer.END_FRAME:
+            _aniCon2.setState(_sky_idx,STATE[ID.BG].SKY,aniA.x,aniA.y);
         break;
     }    
 }

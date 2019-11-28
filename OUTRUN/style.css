@@ -20,7 +20,8 @@ body {
 	height: 0;
 }
 
-.canvas-02 {display: block;
+.canvas-02 {
+	display: block;
 	width: 550;
 	height: 540;
 	transform: rotateX(65deg);

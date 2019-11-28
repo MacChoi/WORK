@@ -11,11 +11,9 @@ const ID = new Enum(
     ["BG",
     "CAR",
     "CAR_FX",
-    "ENEMY_1",
-    "ENEMY_2",
-    "ENEMY_3",
-    "ENEMY_MISSILE",
-    "FX"]
+    "TREE",
+    "ENEMY",
+    ]
 );
 
 var OBJECT;

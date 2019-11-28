@@ -1,4 +1,4 @@
-OBJECT[ID.ENEMY_2] = {
+OBJECT[ID.ENEMY] = {
     IMG:16,
     SOUND:1,
     NEW:[
