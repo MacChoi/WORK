@@ -25,11 +25,11 @@ OBJECT[ID.MY_CAR] = {
 };
 
 function callbackCar(type,indexA,indexB){
-    var aniA = _aniCon2.getAnimate(indexA);
-    var aniB = _aniCon2.getAnimate(indexB);
+    var aniA = _aniCon.getAnimate(indexA);
+    var aniB = _aniCon.getAnimate(indexB);
     switch (type) {
         case AnimateContainer.END_FRAME:
-            _aniCon2.setState(indexA,STATE[ID.MY_CAR].NEW,_player_ani.x,_player_ani.y);
+            _aniCon.setState(indexA,STATE[ID.MY_CAR].NEW,_player_ani.x,_player_ani.y);
         break;
         case AnimateContainer.NEXT_FRAME:
         break;

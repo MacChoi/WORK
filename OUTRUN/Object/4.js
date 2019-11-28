@@ -1,38 +1,38 @@
 OBJECT[ID.CARS] = {
-    IMG:1,
+    IMG:6,
     SOUND:1,
     NEW:[
-    [-7,-7,-7,-7,-7,-7,-7,-7,-8,-8],//image
+    [2,2,2,2,2,2,2,2,2,2,2,2],//image
     [NO_SOUND],//sound
-    [0,0,0,0,0,0,0,0,0,0,0],//x
-    [0,0,0,0,0,0,0,0,0,0,0],//y  
+    [0,0,0,0,0,0,0,0,0,0,0,0],//x
+    [9,9,9,9,9,9,9,9,9,9,9,9],//y
+    [5,5,5,5,5,5,5,5,5,5,5,5],//gravity power
     ],
-    RIGHT_TURN:[
-    [-8,-7,-8,-7,-6,-5,-4,-3,-2,-1,15,14,13,12,11,10,10,10],//image
-    [0],//sound
-    // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [-7,-1,-1,-2,-2,-2,-2,-1,-1,3,1,1,2,2,2,2,1,1],//x
-    [3,2,2,1,0,0,-1,-2,-2,-3,-2,-2,-1,0,0,1,2,2],//y
-    //[5,5,5,5]//gravity power
-    ],
-    MOVE:[
-    [10,10,10,10,10,10,10,10,10,10],//image
+    RIGHT:[
+    [5,5],//image
     [NO_SOUND],//sound
-    [-5,-5,-5,-5,-5,-5,-5,-5,-5,-5],//x
-    [1,1,1,1,1,1,1,1,1,1],//y
-    [5,5,5,5,5,5,5,5,5,5]//gravity power
-    ],
-    HOME:[
-    [9,10],//image
-    [NO_SOUND],//sound
-    [0,0],//x
+    [5,5],//x
     [0,0],//y
     ],
-    DIE:[
-    [-4,-4,-4,-4],//image
-    [NO_SOUND],//sound
-    [-5,-5,-5,-5],//x
-    [5,5,5,5],//y 
-    ],
 };
+
+function callbackCars(type,indexA,indexB){
+    var aniA = _aniCon.getAnimate(indexA);
+    switch (type) {
+        case AnimateContainer.COLLISION_DOWN:
+            _aniCon.setState(indexA,STATE[ID.CARS].NEW,300,10);
+        case AnimateContainer.END_FRAME:
+        break;
+    }    
+}
+
+function callbackCars2(type,indexA,indexB){
+    var aniA = _aniCon2.getAnimate(indexA);
+    switch (type) {
+        case AnimateContainer.COLLISION_DOWN:
+            _aniCon2.deleteAnimate(indexA);
+        break;
+        case AnimateContainer.END_FRAME:
+        break;
+    }    
+}

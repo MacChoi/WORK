@@ -17,19 +17,19 @@ body {
 
 .canvas-01 {
 	width: 550;
-	height: 0;
+	height: 50;
 }
 
 .canvas-02 {
 	display: block;
 	width: 550;
 	height: 540;
-	transform: rotateX(65deg);
+	transform: rotateX(50deg);
 }
 
 .perspective {
 	display: block;
 	/* 관찰자 시점을 설정 */
 	transform-style: preserve-3d;
-	perspective: 30px; 
+	perspective:200px; 
 }
