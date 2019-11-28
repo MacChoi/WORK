@@ -54,7 +54,7 @@ function initGame(){
     
    _aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,0,1,null,callbackRoad);
   
-   _sky_idx= _aniCon2.newAnimate(ID.BG,STATE[ID.BG].SKY,400,0,1,null,callbackSky);
+   _sky_idx= _aniCon2.newAnimate(ID.BG,STATE[ID.BG].SKY,300,0,1,null,callbackSky);
    _hills_idx=_aniCon2.newAnimate(ID.BG,STATE[ID.BG].HILLS,0,0,1,null,callbackHills);
 
     _aniCon2.newAnimate(ID.BG,STATE[ID.BG].ROAD_2,220,269,1,null,callbackRoad2);
