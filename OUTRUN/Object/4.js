@@ -1,5 +1,5 @@
-OBJECT[ID.ENEMY] = {
-    IMG:16,
+OBJECT[ID.CARS] = {
+    IMG:1,
     SOUND:1,
     NEW:[
     [-7,-7,-7,-7,-7,-7,-7,-7,-8,-8],//image

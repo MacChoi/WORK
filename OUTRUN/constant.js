@@ -9,10 +9,10 @@ class Enum{
 
 const ID = new Enum(
     ["BG",
-    "CAR",
+    "MY_CAR",
     "CAR_FX",
     "TREE",
-    "ENEMY",
+    "CARS",
     ]
 );
 

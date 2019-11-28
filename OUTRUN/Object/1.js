@@ -1,4 +1,4 @@
-OBJECT[ID.CAR] = {
+OBJECT[ID.MY_CAR] = {
     IMG:4,
     SOUND:0,
     NEW:[
@@ -29,7 +29,7 @@ function callbackCar(type,indexA,indexB){
     var aniB = _aniCon2.getAnimate(indexB);
     switch (type) {
         case AnimateContainer.END_FRAME:
-            _aniCon2.setState(indexA,STATE[ID.CAR].NEW,_player_ani.x,_player_ani.y);
+            _aniCon2.setState(indexA,STATE[ID.MY_CAR].NEW,_player_ani.x,_player_ani.y);
         break;
         case AnimateContainer.NEXT_FRAME:
         break;
