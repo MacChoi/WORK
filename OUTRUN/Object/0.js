@@ -72,7 +72,7 @@ OBJECT[ID.BG] = {
     [4,5,6],//image
     [NO_SOUND],//sound
     [0,0,0],//x
-    [20,20,20],//y
+    [0,0,0],//y
     ],
     SKY:[
     [3,3,3],//image
