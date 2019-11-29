@@ -52,12 +52,12 @@ function initGame(){
         _aniCon2.nextFrame(_engine2.getContext());
     });
     
-   _aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,-150,1,null,callbackRoad);
+    _aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,-150,1,null,callbackRoad);
   
-   _sky_idx= _aniCon2.newAnimate(ID.BG,STATE[ID.BG].SKY,300,0,1,null,callbackSky);
-   _hills_idx=_aniCon2.newAnimate(ID.BG,STATE[ID.BG].HILLS,0,0,1,null,callbackHills);
+    _sky_idx= _aniCon2.newAnimate(ID.BG,STATE[ID.BG].SKY,300,0,1,null,callbackSky);
+    _hills_idx=_aniCon2.newAnimate(ID.BG,STATE[ID.BG].HILLS,0,0,1,null,callbackHills);
 
-   _player_idx = _aniCon.newAnimate(ID.MY_CAR,STATE[ID.MY_CAR].NEW,220,250,1,null,callbackCar);
+    _player_idx = _aniCon.newAnimate(ID.MY_CAR,STATE[ID.MY_CAR].NEW,220,250,1,null,callbackCar);
     _player_ani = _aniCon.getAnimate(_player_idx);
 
     _aniCon2.newAnimate(ID.TREE,STATE[ID.TREE].NEW,150,110,-1,null,callbackTree);
