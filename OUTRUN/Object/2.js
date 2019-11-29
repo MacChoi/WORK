@@ -6,6 +6,12 @@ OBJECT[ID.CAR_FX] = {
     [0],//sound
     [-1,-2,-3,-4],//x
     [-1,-2,-3,-4],//y
+    ],
+    CRASH:[
+    [3,-3],//image
+    [0],//sound
+    [0,0],//x
+    [-3,-3],//y
     ]
 };
 
@@ -13,6 +19,7 @@ function callbackCarFx(type,indexA,indexB){
     switch (type) {
         case AnimateContainer.END_FRAME:
             _aniCon.deleteAnimate(indexA);
+            GEngine.LOOP_TIME = 60;
         break; 
     } 
 }

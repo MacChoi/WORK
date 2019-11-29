@@ -1,36 +1,63 @@
 OBJECT[ID.CARS] = {
     IMG:6,
     SOUND:1,
-    NEW:[
-    [2,2,2,2,2,2,2,2,2,2,2,2],//image
+    NEW_1:[
+    [1,1],//image
     [NO_SOUND],//sound
-    [0,0,0,0,0,0,0,0,0,0,0,0],//x
-    [9,9,9,9,9,9,9,9,9,9,9,9],//y
-    [5,5,5,5,5,5,5,5,5,5,5,5],//gravity power
+    [5,5],//x
+    [5,5],//y
+    [5,5],//gravity power
     ],
-    RIGHT:[
+    NEW_2:[
+    [2,2],//image
+    [NO_SOUND],//sound
+    [5,5],//x
+    [5,5],//y
+    [5,5],//gravity power
+    ],
+    NEW_3:[
+    [3,3],//image
+    [NO_SOUND],//sound
+    [5,5],//x
+    [5,5],//y
+    [5,5],//gravity power
+    ],
+    NEW_4:[
+    [4,4],//image
+    [NO_SOUND],//sound
+    [5,5],//x
+    [5,5],//y
+    [5,5],//gravity power
+    ],
+    NEW_5:[
     [5,5],//image
     [NO_SOUND],//sound
     [5,5],//x
-    [0,0],//y
+    [5,5],//y
+    [5,5],//gravity power
     ],
 };
 
 function callbackCars(type,indexA,indexB){
     var aniA = _aniCon.getAnimate(indexA);
+    var aniB = _aniCon.getAnimate(indexB);
     switch (type) {
         case AnimateContainer.COLLISION_DOWN:
-            _aniCon.setState(indexA,STATE[ID.CARS].NEW,300,10);
-        case AnimateContainer.END_FRAME:
+            _aniCon.deleteAnimate(indexA);
         break;
-    }    
-}
-
-function callbackCars2(type,indexA,indexB){
-    var aniA = _aniCon2.getAnimate(indexA);
-    switch (type) {
-        case AnimateContainer.COLLISION_DOWN:
-            _aniCon2.deleteAnimate(indexA);
+        case AnimateContainer.COLLISION_LEFT:
+        case AnimateContainer.COLLISION_RIGHT:
+            aniA.setReverseX(aniA.reverseX * -1);
+        break;
+        case AnimateContainer.COLLISION:
+            aniA.setReverseX(aniA.reverseX * -1);
+            if(aniB.id == ID.MY_CAR){
+                GEngine.LOOP_TIME = 500;
+                _aniCon.setState(indexB,STATE[ID.MY_CAR].CRASH,aniB.x,aniB.y);
+                _aniCon.newAnimate(ID.CAR_FX,STATE[ID.CAR_FX].CRASH,aniA.x,aniA.y+30,-1,null,callbackCarFx);  
+            }
+        break;
+        case AnimateContainer.NEXT_FRAME:
         break;
         case AnimateContainer.END_FRAME:
         break;

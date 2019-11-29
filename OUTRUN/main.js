@@ -32,7 +32,7 @@ function initGame(){
     _aniCon = new AnimateContainer();
     _aniCon.setGravityArray(_bg_data,_W,_H);
 
-    _engine2= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT,60,false);
+    _engine2= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT,1000,false);
     _aniCon2 = new AnimateContainer();
     _aniCon2.setGravityArray(_bg_data,_W,_H);
 
@@ -63,8 +63,7 @@ function initGame(){
     _aniCon2.newAnimate(ID.TREE,STATE[ID.TREE].NEW,150,110,-1,null,callbackTree);
     _aniCon2.newAnimate(ID.TREE,STATE[ID.TREE].NEW,300,110,1,null,callbackTree);
 
-    _aniCon.newAnimate(ID.CARS,STATE[ID.CARS].NEW,300,10,-1,null,callbackCars);
-    _aniCon.newAnimate(ID.CARS,STATE[ID.CARS].NEW,100,10,1,null,callbackCars);
+    GEngine.LOOP_TIME = 60;
 }
 
 function initInput(){
@@ -82,8 +81,10 @@ function initInput(){
                 drawSkyHillsTrees(STATE[ID.BG].SKY_LEFT,STATE[ID.BG].HILLS_LEFT,STATE[ID.BG].TREES_LEFT);
                 break;
             case GEngine.KEY_DOWN:
+                if(GEngine.LOOP_TIME < 500)GEngine.LOOP_TIME +=10;
             break;
             case GEngine.KEY_UP:
+                if(GEngine.LOOP_TIME > 60)GEngine.LOOP_TIME -=10;
             break;
             case GEngine.KEY_SPACE:
             break;
