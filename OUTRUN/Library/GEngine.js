@@ -32,8 +32,7 @@ class GEngine {
     }
 
     static debug = false;
-    constructor(width,height,loop_time,boolAppendChild) {
-        GEngine.LOOP_TIME = loop_time;
+    constructor(width,height,boolAppendChild) {
         this.canvas = GEngine.createCanvas(width,height,boolAppendChild);
         this.context= this.canvas.getContext('2d');
 
@@ -129,7 +128,8 @@ class GEngine {
     }
 
 
-    startLoop(callback){
+    startLoop(loop_time,callback){
+        GEngine.LOOP_TIME = loop_time;
         GEngine.loopCallback = callback;
         GEngine.loop();
     }

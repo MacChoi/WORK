@@ -9,7 +9,7 @@ var _sky_idx,_hills_idx,_trees_idx;
 
 window.onload = function(){
     _audio = new GAudio();
-    _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT-50,60,false);
+    _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT-50,false);
     _engine.loadImageFile(function (type,index) {
         if(GEngine.END_FILE == type){
             _audio.loadSoundFile(function (type, index) {
@@ -32,7 +32,7 @@ function initGame(){
     _aniCon = new AnimateContainer();
     _aniCon.setGravityArray(_bg_data,_W,_H);
 
-    _engine2= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT,1000,false);
+    _engine2= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT,false);
     _aniCon2 = new AnimateContainer();
     _aniCon2.setGravityArray(_bg_data,_W,_H);
 
@@ -44,7 +44,7 @@ function initGame(){
 
     _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
     _engine2.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
-    _engine.startLoop(function(){
+    _engine.startLoop(60,function(){
         _engine.draw();
         _aniCon.nextFrame(_engine.getContext());
 
@@ -62,8 +62,6 @@ function initGame(){
 
     _aniCon2.newAnimate(ID.TREE,STATE[ID.TREE].NEW,150,110,-1,null,callbackTree);
     _aniCon2.newAnimate(ID.TREE,STATE[ID.TREE].NEW,300,110,1,null,callbackTree);
-
-    GEngine.LOOP_TIME = 60;
 }
 
 function initInput(){
