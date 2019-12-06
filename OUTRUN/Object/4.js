@@ -1,6 +1,6 @@
 OBJECT[ID.CARS] = {
     IMG:6,
-    SOUND:1,
+    SOUND:0,
     NEW_1:[
     [1,1],//image
     [NO_SOUND],//sound
@@ -52,7 +52,6 @@ function callbackCars(type,indexA,indexB){
         case AnimateContainer.COLLISION:
             aniA.setReverseX(aniA.reverseX * -1);
             if(aniB.id == ID.MY_CAR){
-                GEngine.LOOP_TIME = 500;
                 _aniCon.setState(indexB,STATE[ID.MY_CAR].CRASH,aniB.x,aniB.y);
                 _aniCon.newAnimate(ID.CAR_FX,STATE[ID.CAR_FX].CRASH,aniA.x,aniA.y+30,-1,null,callbackCarFx);  
             }

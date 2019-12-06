@@ -39,7 +39,7 @@ function callbackCar(type,indexA,indexB){
             _aniCon.setState(indexA,STATE[ID.MY_CAR].NEW,_player_ani.x,_player_ani.y);
         break;
         case AnimateContainer.NEXT_FRAME:
-            var tableX = [100,300];
+            var tableX = [150,250];
             var tableReverseX = [1,-1];
             var tableCars = [STATE[ID.CARS].NEW_1,STATE[ID.CARS].NEW_2,STATE[ID.CARS].NEW_3,STATE[ID.CARS].NEW_4,STATE[ID.CARS].NEW_5];
             var idxTable = getRandom(0,2);

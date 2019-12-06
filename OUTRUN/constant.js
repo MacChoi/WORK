@@ -8,7 +8,8 @@ class Enum{
 }
 
 const ID = new Enum(
-    ["BG",
+    [
+    "BG",
     "MY_CAR",
     "CAR_FX",
     "TREE",

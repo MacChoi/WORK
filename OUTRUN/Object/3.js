@@ -12,11 +12,8 @@ OBJECT[ID.TREE] = {
 function callbackTree(type,indexA,indexB){
     var aniA = _aniCon2.getAnimate(indexA);
     switch (type) {
-        case AnimateContainer.COLLISION_DOWN:
-            _aniCon2.deleteAnimate(indexA);
-            break;
         case AnimateContainer.END_FRAME:
-            // if(_aniCon2.getCount(ID.TREE) < 25 & getRandom(0,2)==0){
+            if(_aniCon2.getCount(ID.TREE) < 10 & getRandom(0,2)==0){
                 if(aniA.reverseX == -1){
                     _aniCon2.newAnimate(ID.TREE,STATE[ID.TREE].NEW,210,160,-1,null,callbackTree);
                 }
@@ -24,7 +21,7 @@ function callbackTree(type,indexA,indexB){
                     _aniCon2.newAnimate(ID.TREE,STATE[ID.TREE].NEW,260,160,1,null,callbackTree);
                 }
                 _aniCon2.deleteAnimate(indexA);
-            // }
+            }
         break;
     }    
 }

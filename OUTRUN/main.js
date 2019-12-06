@@ -12,12 +12,12 @@ window.onload = function(){
     _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT-50,false);
     _engine.loadImageFile(function (type,index) {
         if(GEngine.END_FILE == type){
-            _audio.loadSoundFile(function (type, index) {
+            //_audio.loadSoundFile(function (type, index) {
                 if(GEngine.END_FILE == type){
                     initGame(); 
                     initInput();
                 }
-            });
+            //});
         }
     });
 }
@@ -44,7 +44,7 @@ function initGame(){
 
     _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
     _engine2.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
-    _engine.startLoop(60,function(){
+    _engine.startLoop(30,function(){
         _engine.draw();
         _aniCon.nextFrame(_engine.getContext());
 
@@ -79,10 +79,10 @@ function initInput(){
                 drawSkyHillsTrees(STATE[ID.BG].SKY_LEFT,STATE[ID.BG].HILLS_LEFT,STATE[ID.BG].TREES_LEFT);
                 break;
             case GEngine.KEY_DOWN:
-                if(GEngine.LOOP_TIME < 500)GEngine.LOOP_TIME +=10;
+                if(GEngine.LOOP_TIME < 200)GEngine.LOOP_TIME +=10;
             break;
             case GEngine.KEY_UP:
-                if(GEngine.LOOP_TIME > 60)GEngine.LOOP_TIME -=10;
+                if(GEngine.LOOP_TIME > 30)GEngine.LOOP_TIME -=10;
             break;
             case GEngine.KEY_SPACE:
             break;
