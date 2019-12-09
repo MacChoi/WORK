@@ -1,7 +1,5 @@
 var _engine,_engine2;
 var _aniCon,_aniCon2;
-var _audio;
-
 var _bg_obj,_bg_data,_W,_H;
 var _player_idx,_player_ani;
 var _sky_idx,_hills_idx,_trees_idx;
@@ -51,7 +49,7 @@ function initGame(){
 
     _player_idx = _aniCon.newAnimate(ID.MY_CAR,STATE[ID.MY_CAR].NEW,220,250,1,null,callbackCar);
     _player_ani = _aniCon.getAnimate(_player_idx);
-
+ 
     _aniCon2.newAnimate(ID.TREE,STATE[ID.TREE].NEW,150,110,-1,null,callbackTree);
     _aniCon2.newAnimate(ID.TREE,STATE[ID.TREE].NEW,300,110,1,null,callbackTree);
 }

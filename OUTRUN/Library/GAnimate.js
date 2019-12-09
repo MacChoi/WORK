@@ -1,6 +1,5 @@
 class Animate{
     static callbackSound;
-
     constructor(id,object,state,x,y,value,callback){
         this.id = id;
         this.object = object;
@@ -172,7 +171,6 @@ class AnimateContainer{
         var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y,value,callback))-1;
         var ani = this.getAnimate(index);
         ani.setReverseX(reverseX);
-        
         if(this.objectArray[index].objectState[1][0] != NO_SOUND){
             var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
             if(!isEmpty(sound)){
