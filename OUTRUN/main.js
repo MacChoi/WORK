@@ -87,7 +87,7 @@ function initInput(){
     });
 }
 
-function drawSkyHillsTrees(sky_state,hills_state,trees_state){
+function drawSkyHillsTrees(sky_state,hills_state){
     var _sky_ani = _aniCon2.getAnimate(_sky_idx);
     var _hills_ani = _aniCon2.getAnimate(_hills_idx);
     _aniCon2.setState(_sky_idx,sky_state,_sky_ani.x,_sky_ani.y);
