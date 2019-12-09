@@ -18,6 +18,7 @@ class Animate{
         this.reverseImg = 1;
 
         this.value = value;
+        this.isAniLoop = true;
 
         this.callback = function(){};
 
@@ -38,6 +39,14 @@ class Animate{
         }
     }
     
+    setValue(value){
+        this.value = value;
+    }
+
+    setAniLoop(bool){
+        this.isAniLoop = bool;
+    }
+
     setState(state,x,y){
         this.x = x;
         this.y = y;
@@ -94,6 +103,11 @@ class AnimateContainer{
     nextFrame(context){
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
+            if(this.objectArray[index].index == 0 & this.objectArray[index].isAniLoop == false){
+                log(this.objectArray[index].isAniLoop);
+                this.deleteAnimate(index);
+                continue;
+            }
 
             var element = this.objectArray[index];
             if(isEmpty(element))continue;
@@ -111,7 +125,6 @@ class AnimateContainer{
 
             if( idx_Y > 1 & !isEmpty(element.objectState[4]))
             if(this.gravityArray[idx_Y][idx_X_1] != 0 ){
-                //if(!isEmpty(element.objectState[4]))
                 if(element.objectState[4][element.index] !=0)
                 element.x = tmpx;
 
@@ -119,7 +132,6 @@ class AnimateContainer{
             }
             if( idx_Y > 1 & !isEmpty(element.objectState[4]))
             if(this.gravityArray[idx_Y][idx_X_2] != 0 ){
-                //if(!isEmpty(element.objectState[4]))
                 if(element.objectState[4][element.index] !=0)
                 //element.x = tmpx;
 
@@ -250,7 +262,6 @@ class AnimateContainer{
     setIndexStartXGravityArray(index){
         this.indexStartXGravityArray = index;   
     }
-
 
     allAddXY(x,y){
         for (var index = 0; index < this.objectArray.length; index++) {

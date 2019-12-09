@@ -7,7 +7,7 @@ var _sky_idx,_hills_idx,_trees_idx;
 GEngine.loadObjectFile(["BG","MY_CAR","CAR_FX","TREE","CARS"]);
 window.onload = function(){
     _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT-50,false);
-    _engine.loadImageFile(function (type,index) {
+    _engine.loadImageFile(function (type,count) {
         if(GEngine.END_FILE == type){
             initGame(); 
             initInput();  
@@ -60,12 +60,18 @@ function initInput(){
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
                 _aniCon.setState(_player_idx,STATE[ID.MY_CAR].LEFT,_player_ani.x,_player_ani.y);
-                _aniCon.newAnimate(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_player_ani.x,_player_ani.y+30,1,null,callbackCarFx);
+                var idx = _aniCon.newAnimate(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_player_ani.x,_player_ani.y+30,1,null,callbackCarFx);
+                var ani = _aniCon.getAnimate(idx);
+                ani.setAniLoop(false);
+                
                 drawSkyHillsTrees(STATE[ID.BG].SKY_RIGHT,STATE[ID.BG].HILLS_RIGHT,STATE[ID.BG].TREES_RIGHT);
                 break;
             case GEngine.KEY_RIGHT:
                 _aniCon.setState(_player_idx,STATE[ID.MY_CAR].RIGHT,_player_ani.x,_player_ani.y);
-                _aniCon.newAnimate(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_player_ani.x,_player_ani.y+30,-1,null,callbackCarFx);
+                var idx = _aniCon.newAnimate(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_player_ani.x,_player_ani.y+30,-1,null,callbackCarFx);
+                var ani = _aniCon.getAnimate(idx);
+                ani.setAniLoop(false);
+
                 drawSkyHillsTrees(STATE[ID.BG].SKY_LEFT,STATE[ID.BG].HILLS_LEFT,STATE[ID.BG].TREES_LEFT);
                 break;
             case GEngine.KEY_DOWN:

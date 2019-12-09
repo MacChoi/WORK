@@ -18,7 +18,7 @@ OBJECT[ID.CAR_FX] = {
 function callbackCarFx(type,indexA,indexB){
     switch (type) {
         case AnimateContainer.END_FRAME:
-            _aniCon.deleteAnimate(indexA);
+           //_aniCon.deleteAnimate(indexA);
         break; 
     } 
 }
