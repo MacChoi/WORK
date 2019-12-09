@@ -104,7 +104,6 @@ class AnimateContainer{
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
             if(this.objectArray[index].index == 0 & this.objectArray[index].isAniLoop == false){
-                log(this.objectArray[index].isAniLoop);
                 this.deleteAnimate(index);
                 continue;
             }
