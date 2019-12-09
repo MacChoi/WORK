@@ -66,14 +66,14 @@ class AnimateContainer{
     static COLLISION_UP = 5;
     static COLLISION_DOWN = 5;
     static SOUND_ENDED = 6;
+
+    collision = new GCollision();
+    gravityArray = null;
+    indexStartXGravityArray = 0;
+
+    _W = 0;
+    _H = 0;
     constructor(){
-        this.collision = new GCollision();
-        this.gravityArray = null;
-        this.indexStartXGravityArray = 0;
-
-        this._W = 0;
-        this._H = 0;
-
         this.objectArray = new Array(0);
         this.newObjectArray = new Array(0);
         this.scale = 1;

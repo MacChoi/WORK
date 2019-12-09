@@ -2,10 +2,10 @@ const NO_SOUND=-1;
 
 class GAudio {
     constructor(){}
-    static callback = function(){};
+    callback = function(){};
 
-    static loadSoundFile(callback){
-        GAudio.callback = callback;
+    loadSoundFile(callback){
+        this.setCallback(callback);
 
         this.soundCount = 0;
         for(var i = 0; i<SOUND.length; i++){
@@ -15,12 +15,6 @@ class GAudio {
                 this.soundCount++;
             }
         }
-
-        if(this.soundCount == 0){
-            GAudio.callback(GEngine.END_FILE,count);
-            return;
-        }
-
         log("GAudio.loadSoundFile() : " + this.soundCount);
         var count = 0;
         var soundMaxCount = this.soundCount;
@@ -30,13 +24,17 @@ class GAudio {
                 SOUND[i][j].loop = false;
 
                 SOUND[i][j].addEventListener('canplaythrough', function() { 
-                    GAudio.callback(GEngine.NEXT_FILE,count++);
-                    if(soundMaxCount == count)GAudio.callback(GEngine.END_FILE,count);
+                    callback(GEngine.NEXT_FILE,count++);
+                    if(soundMaxCount == count)callback(GEngine.END_FILE,count);
                  }, false);
 
                 log("SOUND[" + i + "][" + j + "] : " + SOUND[i][j].src);
             }
         } 
+    }
+
+    setCallback(callback){
+        this.callback  = callback;
     }
 
     getSoundCount(){

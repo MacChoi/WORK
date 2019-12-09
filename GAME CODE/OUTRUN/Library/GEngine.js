@@ -1,9 +1,3 @@
-var ID;
-var OBJECT;
-var IMAGE;
-var SOUND;
-var STATE;
-
 class GEngine {
     static END_FILE = 0;
     static NEXT_FILE = 1;
@@ -18,28 +12,27 @@ class GEngine {
     static KEY_S = 83;
 
     static loopCallback = null;
-    static callback = null;
     static LOOP_TIME = 1000;
 
-    static loadObjectFile(IDArray){
-        ID = new Enum(IDArray);
-        OBJECT = new Array(ID.length);
-        IMAGE = new Array(ID.length);
-        SOUND = new Array(ID.length);
-        STATE = new Array(ID.length);
+    scale = 1;
+    static loadObjectFile(length){
+        OBJECT = new Array(length);
+        IMAGE = new Array(length);
+        SOUND = new Array(length);
+        STATE = new Array(length);
 
-        log("GEngine.loadObjectFile() OBJECT : " + ID.length);
-        for(var i =0; i<ID.length; i++){
+        //log("GEngine.createCanvas() OBJECT : " + length);
+        for(var i =0; i<length; i++){
             var jscript = document.createElement('script');
             jscript.type = 'text/javascript';
             jscript.src = "./Object/" + i + ".js";
             document.head.appendChild( jscript );
-            log("OBJECT [" + i +"] : " +jscript.src);
+            //log("OBJECT [" + i +"] : " +jscript.src);
         }
     }
-    
+
+    static debug = false;
     constructor(width,height,boolAppendChild) {
-        this.scale = 1;
         this.canvas = GEngine.createCanvas(width,height,boolAppendChild);
         this.context= this.canvas.getContext('2d');
 
@@ -89,7 +82,7 @@ class GEngine {
                 this.imageCount++;
             }
         }
-        log("GEngine.loadImageFile() IMAGE : " + this.imageCount);
+        //log("GEngine.loadImageFile() IMAGE : " + this.imageCount);
         var count = 0;
         var imgMaxCount = this.imageCount;
         for(var i = 0; i<IMAGE.length; i++){
@@ -97,18 +90,13 @@ class GEngine {
                 IMAGE[i][j] = new Image();
                 IMAGE[i][j].src =  "./Image/" + i + "/" + j + ".png";
                 IMAGE[i][j].onload = function () {
-                    callback(GEngine.NEXT_FILE,count++);    
+                    callback(GEngine.NEXT_FILE,count++);
+                    if(imgMaxCount == count+1)callback(GEngine.END_FILE,count);
                 }
-                log("IMAGE[" + i + "][" + j + "] : " + IMAGE[i][j].src);
-            }
-        }
 
-        GAudio.loadSoundFile(function (type, index) {
-            callback(GEngine.NEXT_FILE,count++);
-            if(GEngine.END_FILE == type){
-                callback(GEngine.END_FILE,count);
+                //log("IMAGE[" + i + "][" + j + "] : " + IMAGE[i][j].src);
             }
-        });
+        } 
     }
 
     draw(){
@@ -118,6 +106,7 @@ class GEngine {
         }
         this.context.drawImage(this.bufferCanvas, 0, 0);
         this.context.restore();
+        //sleep(100);
     }
 
     drawMap(map,image,sizeW,sizeH){
@@ -138,6 +127,7 @@ class GEngine {
         } 
     }
 
+
     startLoop(loop_time,callback){
         GEngine.LOOP_TIME = loop_time;
         GEngine.loopCallback = callback;
@@ -150,4 +140,47 @@ class GEngine {
         var delay = new Date().getTime() - start ;
         setTimeout(GEngine.loop, GEngine.LOOP_TIME - delay);
     }
+}
+
+GEngine.debug = true;
+GEngine.loadObjectFile(ID.length);
+
+//help function
+function log(text){
+    if(GEngine.debug == false)return;
+    console.log(text);   
+}
+
+function sleep(delay){
+    var start =new Date().getTime();
+    while(new Date().getTime()< start + delay);
+}
+
+function objToString(obj){
+    JSON.stringify(obj);
+}
+
+function getRandom(a,b){
+    return Math.floor(Math.random() * b) + a;
+}
+
+function isEmpty(str){
+    if(typeof str == "undefined" || str == null || str == "")
+        return true;
+    else
+        return false ;
+}
+
+function getCircleXY(radius,angle,angleGap){
+    var arrayPosX = new Array(0);
+    var arrayPosY = new Array(0);
+    for (let index = angle; index > 0; index-=angleGap) {
+        var posX = radius * Math.sin(index * Math.PI/180);
+        var posY = radius * Math.cos(index * Math.PI/180);
+        
+        arrayPosX.push(parseInt(posX));
+        arrayPosY.push(parseInt(posY));
+    }
+    log("arrayPosX [" + arrayPosX.length +"] :" +  arrayPosX);
+    log("arrayPosY [" + arrayPosY.length +"] :" +  arrayPosY);
 }

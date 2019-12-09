@@ -4,16 +4,20 @@ var _audio;
 
 var _bg_obj,_bg_data,_W,_H;
 var _player_idx,_player_ani;
+
 var _sky_idx,_hills_idx,_trees_idx;
 
-GEngine.loadObjectFile(["BG","MY_CAR","CAR_FX","TREE","CARS"]);
-
 window.onload = function(){
+    _audio = new GAudio();
     _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT-50,false);
     _engine.loadImageFile(function (type,index) {
         if(GEngine.END_FILE == type){
-            initGame(); 
-            initInput();  
+            //_audio.loadSoundFile(function (type, index) {
+                if(GEngine.END_FILE == type){
+                    initGame(); 
+                    initInput();
+                }
+            //});
         }
     });
 }
@@ -32,8 +36,11 @@ function initGame(){
     _aniCon2 = new AnimateContainer();
     _aniCon2.setGravityArray(_bg_data,_W,_H);
 
-    appendDivChild("canvas2",_engine.canvas);
-    appendDivChild("canvas1",_engine2.canvas);
+    var div = document.getElementById("canvas2"); 
+    div.appendChild(_engine.canvas);
+
+    var div2 = document.getElementById("canvas1"); 
+    div2.appendChild(_engine2.canvas);
 
     _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
     _engine2.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
