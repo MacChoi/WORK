@@ -7,7 +7,6 @@ var _player_idx,_player_ani;
 var _sky_idx,_hills_idx,_trees_idx;
 
 GEngine.loadObjectFile(["BG","MY_CAR","CAR_FX","TREE","CARS"]);
-
 window.onload = function(){
     _engine= new GEngine(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT-50,false);
     _engine.loadImageFile(function (type,index) {

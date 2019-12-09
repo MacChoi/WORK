@@ -97,18 +97,19 @@ class GEngine {
                 IMAGE[i][j] = new Image();
                 IMAGE[i][j].src =  "./Image/" + i + "/" + j + ".png";
                 IMAGE[i][j].onload = function () {
-                    callback(GEngine.NEXT_FILE,count++);    
+                    callback(GEngine.NEXT_FILE,count++);   
+                    if(imgMaxCount == count+1){
+                        GAudio.loadSoundFile(function (type, index) {
+                            callback(GEngine.NEXT_FILE,count++);
+                            if(GEngine.END_FILE == type){
+                                callback(GEngine.END_FILE,count);
+                            }
+                        });
+                    }
                 }
                 log("IMAGE[" + i + "][" + j + "] : " + IMAGE[i][j].src);
             }
         }
-
-        GAudio.loadSoundFile(function (type, index) {
-            callback(GEngine.NEXT_FILE,count++);
-            if(GEngine.END_FILE == type){
-                callback(GEngine.END_FILE,count);
-            }
-        });
     }
 
     draw(){
