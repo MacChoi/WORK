@@ -38,12 +38,12 @@ class GEngine {
         }
     }
     
-    constructor(width,height,boolAppendChild) {
+    constructor(width,height) {
         this.scale = 1;
-        this.canvas = GEngine.createCanvas(width,height,boolAppendChild);
+        this.canvas = document.createElement( 'Canvas' );
         this.context= this.canvas.getContext('2d');
 
-        this.bufferCanvas = GEngine.createCanvas(width,height,false);
+        this.bufferCanvas = document.createElement( 'Canvas' );
         this.bufferContext= this.bufferCanvas.getContext('2d');
    
         for(var i =0; i<OBJECT.length; i++){
@@ -51,15 +51,15 @@ class GEngine {
         }
     }
 
-    static createCanvas(width,height,flag){
-        var canvas = document.createElement( 'Canvas' );
-        canvas.width=width;
-        canvas.height=height;
-       
-        if(flag)document.body.appendChild( canvas );
-        return canvas;
-    }
+    setCanvas(width,height){
+        this.canvas.width=width;
+        this.canvas.height=height;
 
+        this.bufferCanvas.width=width;
+        this.bufferCanvas.height=height;
+        return this;
+    }
+ 
     getCanvas(){
         return this.canvas;
     }
@@ -78,6 +78,7 @@ class GEngine {
 
     setScale(scaleX){
         this.scale = scaleX;
+        return this;
     }
 
     loadImageFile(callback){

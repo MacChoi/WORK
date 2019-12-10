@@ -20,9 +20,8 @@ class Animate{
         this.value = value;
         this.isAniLoop = true;
 
-        this.callback = function(){};
-
         if(!isEmpty(callback))this.callback = callback;
+        else this.callback = function(){};
     }
 
     nextFrame(ani_index){
@@ -41,10 +40,12 @@ class Animate{
     
     setValue(value){
         this.value = value;
+        return this;
     }
 
     setAniLoop(bool){
         this.isAniLoop = bool;
+        return this;
     }
 
     setState(state,x,y){
@@ -53,15 +54,22 @@ class Animate{
         this.state = state;
         this.index = 0;
         this.objectState = Object.values(this.object)[state];
+        return this;
     }
 
     setGlint(glint){
         this.glint = glint;
+        return this;
     }
 
     setReverseX(reverse){
         this.reverseX = reverse;
         this.reverseImg = reverse;
+        return this;
+    }
+
+    setCallback(callback){
+        this.callback = callback;
     }
 }
 
@@ -191,6 +199,34 @@ class AnimateContainer{
         }
         return index;
     }
+
+    newObject(id,state,x,y){
+        var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y))-1;
+        if(this.objectArray[index].objectState[1][0] != NO_SOUND){
+            var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
+            if(!isEmpty(sound)){
+                sound.currentTime = 0;
+                sound.play();
+            }
+        }
+        return this.getAnimate(index);
+    }
+
+
+    newAnimate(id,state,x,y,reverseX,value,callback){
+        var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y,value,callback))-1;
+        var ani = this.getAnimate(index);
+        ani.setReverseX(reverseX);
+        if(this.objectArray[index].objectState[1][0] != NO_SOUND){
+            var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
+            if(!isEmpty(sound)){
+                sound.currentTime = 0;
+                sound.play();
+            }
+        }
+        return index;
+    }
+
 
     deleteAnimate(index){
         this.objectArray[index].callback = function(){};
