@@ -2,32 +2,33 @@ var _engine;
 var _aniCon;
 var _bg_obj,_bg_data,_W,_H;
 var _obj_player;
-window.addEventListener('resize', function(event){
-    _engine.setRatioCanvas(4,3);
-    _aniCon.setScale(_engine.getScale());
-    _engine.drawMap(_bg_obj.DATA,IMAGE[ID.BG],_W,_H);
-});
-
 GEngine.loadObjectFile(["BG","MY_CAR","CAR_FX","TREE","CARS"]);
 window.onload = function(){
     _bg_obj = OBJECT[ID.BG];
     _W = _bg_obj.TILE_WIDTH;
     _H = _bg_obj.TILE_HEIGHT;
     
-    _aniCon = new AnimateContainer().setCollisonArray(_bg_obj.COLLISION_DATA,_W,_H);
-    _engine = new GEngine().appendBodyChild("id_canvas");
+    _engine = new GEngine().appendBodyChild();
     _engine.loadImageFile(function (type,count) {
         if(GEngine.END_FILE == type){
             initGame(); 
             initInput();
-            _engine.startLoop(30,function(){
-                _engine.draw();
-                _aniCon.nextFrame(_engine.getContext());
-            });
             window.dispatchEvent(new Event('resize'));
         }
     });
+
+    _aniCon = new AnimateContainer().setCollisonArray(_bg_obj.COLLISION_DATA,_W,_H);
+    _engine.startLoop(30,function(){
+        _engine.draw();
+        _aniCon.nextFrame(_engine.getContext());
+    });
 }
+
+window.addEventListener('resize', function(event){
+    _engine.setRatioCanvas(4,3);
+    _aniCon.setScale(_engine.getScale());
+    _engine.drawMap(_bg_obj.DATA,IMAGE[ID.BG],_W,_H);
+});
 
 function initGame(){
     _aniCon.newObject(ID.BG,STATE[ID.BG].ROAD,0,0).setReverseX(1);
