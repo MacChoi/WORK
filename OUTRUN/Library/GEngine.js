@@ -21,8 +21,6 @@ class GEngine {
     static callback = null;
     static LOOP_TIME = 1000;
 
-    static SCALE = 1;
-
     static loadObjectFile(IDArray){
         ID = new Enum(IDArray);
         OBJECT = new Array(ID.length);
@@ -39,7 +37,7 @@ class GEngine {
             log("OBJECT [" + i +"] : " +jscript.src);
         }
     }
-    
+
     constructor() {
         this.canvas = document.createElement( 'Canvas' );
         this.bufferCanvas = document.createElement( 'Canvas' );
@@ -50,23 +48,38 @@ class GEngine {
         for(var i =0; i<OBJECT.length; i++){
             STATE[i] = new Enum(Object.keys(OBJECT[i]));
         }
-
-        var w = window.innerWidth;
-        var h = w * 0.63;
-        this.setCanvas(w,h);
+        document.body.style.overflow = 'hidden';
+        document.body.style.margin  = '0 auto';
+        document.body.style.backgroundColor='black';
     }
 
-    setCanvas(width,height){
+    setCanvas(x,y,width,height){
         this.canvas.width=width;
         this.canvas.height=height;
-
         this.bufferCanvas.width=width;
         this.bufferCanvas.height=height;
 
-        this.setScale(width * 0.00205);
+        this.canvas.style.position = 'absolute';
+        this.canvas.style.left = x;
+        this.canvas.style.top = y;
+        this.canvas.style.backgroundColor='white';
+        this.canvas.style.margin  = '0 auto';
+        this.setScale(width * 0.00196);
         return this;
     }
 
+    setRatioCanvas(rH,rV){
+        var w = 0;
+        var h = 0;
+        while (w <= window.innerWidth && h <=window.innerHeight){
+            w+=rH;
+            h+=rV;
+        }
+        var x= (window.innerWidth - w)/2;
+        var y= (window.innerHeight - h)/2;
+        this.setCanvas(x,y,w,h);
+    }
+    
     appendBodyChild(){
         document.body.appendChild(this.canvas);
         return this;
@@ -75,6 +88,7 @@ class GEngine {
     appendDivChild(id){
         var div = document.getElementById(id); 
         div.appendChild(this.canvas);
+        return this;
     }
 
     getCanvas(){
@@ -93,10 +107,13 @@ class GEngine {
         return this.imageCount;
     }
 
-    setScale(scaleX){
-        this.scale = scaleX;
-        GEngine.SCALE = scaleX;
+    setScale(scale){
+        this.scale = scale;
         return this;
+    }
+
+    getScale(){
+        return this.scale;
     }
 
     loadImageFile(callback){
@@ -157,7 +174,6 @@ class GEngine {
                 this.bufferContext.drawImage(image[map[y][x]] ,dX + mX + x * sizeW,dY + mY + y * sizeH);   
             }
         } 
-
         return this;
     }
 

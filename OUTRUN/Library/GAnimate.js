@@ -95,7 +95,7 @@ class AnimateContainer{
         this.newObjectArray = new Array(0);
         
         var w = window.innerWidth;
-        this.scale = GEngine.SCALE;
+        this.scale = 1;
     }
 
     checkCollision(){
@@ -168,9 +168,7 @@ class AnimateContainer{
             }
 
             context.save();
-            if(this.scale > 1){   
-                context.scale(this.scale, this.scale);  
-            }
+            context.scale(this.scale, this.scale);  
             
             if(element.glint != 0){
                 if((element.glint % 2)==0)
@@ -285,8 +283,6 @@ class AnimateContainer{
     }
 
     flipHorizontally(context,img,x,y){     
-        //element.w = image.width;
-        //element.h = image.height;
         context.translate(x,y);
         context.scale(-1,1);
         context.drawImage(img,-(img.width*2),0);

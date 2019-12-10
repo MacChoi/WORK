@@ -60,8 +60,10 @@ function callbackCars(type,indexA,indexB){
             }
         break;
         case AnimateContainer.NEXT_FRAME:
+            
         break;
         case AnimateContainer.END_FRAME:
+            aniA.setReverseX(aniA.reverseX * -1);
         break;
     }    
 }
