@@ -9,22 +9,22 @@ body {
 }
 
 .wrapper {
-	/* width: 100%;
-	height: 100%; */
-	width:450;
-	height:405;
+	width: 100%;
+	height: 10%;
+	/* width:360;
+	height:405; */
 }
 
 .canvas-01 {
-	width: 550;
-	height: 50;
+	width: 100%;
+	height: 20%;
 }
 
 .canvas-02 {
 	display: block;
-	width: 550;
-	height: 540;
-	transform: rotateX(50deg);
+	width: 100%;
+	height: 65%;
+	transform: rotateX(45deg);
 }
 
 .perspective {

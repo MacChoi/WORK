@@ -1,8 +1,8 @@
-var ID;
-var OBJECT;
-var IMAGE;
-var SOUND;
-var STATE;
+let ID;
+let OBJECT;
+let IMAGE;
+let SOUND;
+let STATE;
 
 class GEngine {
     static END_FILE = 0;
@@ -21,6 +21,8 @@ class GEngine {
     static callback = null;
     static LOOP_TIME = 1000;
 
+    static SCALE = 1;
+
     static loadObjectFile(IDArray){
         ID = new Enum(IDArray);
         OBJECT = new Array(ID.length);
@@ -38,17 +40,20 @@ class GEngine {
         }
     }
     
-    constructor(width,height) {
-        this.scale = 1;
+    constructor() {
         this.canvas = document.createElement( 'Canvas' );
-        this.context= this.canvas.getContext('2d');
-
         this.bufferCanvas = document.createElement( 'Canvas' );
+
+        this.context= this.canvas.getContext('2d');
         this.bufferContext= this.bufferCanvas.getContext('2d');
    
         for(var i =0; i<OBJECT.length; i++){
             STATE[i] = new Enum(Object.keys(OBJECT[i]));
         }
+
+        var w = window.innerWidth;
+        var h = w * 0.63;
+        this.setCanvas(w,h);
     }
 
     setCanvas(width,height){
@@ -57,6 +62,8 @@ class GEngine {
 
         this.bufferCanvas.width=width;
         this.bufferCanvas.height=height;
+
+        this.setScale(width * 0.0022);
         return this;
     }
  
@@ -78,6 +85,7 @@ class GEngine {
 
     setScale(scaleX){
         this.scale = scaleX;
+        GEngine.SCALE = scaleX;
         return this;
     }
 
@@ -128,6 +136,7 @@ class GEngine {
                 this.bufferContext.drawImage(image[map[y][x]] , x * sizeW, y * sizeH);   
             }
         } 
+        return this;
     }
 
     drawMoveMap(map,image,sizeW,sizeH,startX,startY,sizeX,sizeY,dX,dY){
@@ -138,6 +147,8 @@ class GEngine {
                 this.bufferContext.drawImage(image[map[y][x]] ,dX + mX + x * sizeW,dY + mY + y * sizeH);   
             }
         } 
+
+        return this;
     }
 
     startLoop(loop_time,callback){

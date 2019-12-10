@@ -92,7 +92,9 @@ class AnimateContainer{
 
         this.objectArray = new Array(0);
         this.newObjectArray = new Array(0);
-        this.scale = 1;
+        
+        var w = window.innerWidth;
+        this.scale = GEngine.SCALE;
     }
 
     checkCollision(){
@@ -126,8 +128,8 @@ class AnimateContainer{
             element.x += element.objectState[2][element.index] * element.reverseX;
             element.y += element.objectState[3][element.index] * element.reverseY;
 
-            var idx_X_1=parseInt((element.x) /this._W) + this.indexStartXGravityArray;
-            var idx_X_2=parseInt((element.x+element.w) /this._W) + this.indexStartXGravityArray;
+            var idx_X_1=parseInt((element.x-(element.w/2)) /this._W) + this.indexStartXGravityArray;
+            var idx_X_2=parseInt((element.x+(element.w/2)) /this._W) + this.indexStartXGravityArray;
             var idx_Y=parseInt(element.y /this._H);
 
             if( idx_Y > 1 & !isEmpty(element.objectState[4]))
@@ -140,7 +142,7 @@ class AnimateContainer{
             if( idx_Y > 1 & !isEmpty(element.objectState[4]))
             if(this.gravityArray[idx_Y][idx_X_2] != 0 ){
                 if(element.objectState[4][element.index] !=0)
-                //element.x = tmpx;
+                element.x = tmpx;
 
                 this.objectArray[index].callback(AnimateContainer.COLLISION_RIGHT,index); 
             }
@@ -227,7 +229,6 @@ class AnimateContainer{
         return index;
     }
 
-
     deleteAnimate(index){
         this.objectArray[index].callback = function(){};
         this.objectArray.splice(index,1);
@@ -292,6 +293,8 @@ class AnimateContainer{
         this.gravityArray = gravityArray;
         this._W = _W;
         this._H = _H;
+
+        return this;s
     }
 
     setIndexStartXGravityArray(index){

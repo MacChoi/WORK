@@ -5,39 +5,29 @@ var _player_idx,_player_ani;
 var _sky_idx,_hills_idx,_trees_idx;
 
 GEngine.loadObjectFile(["BG","MY_CAR","CAR_FX","TREE","CARS"]);
+
 window.onload = function(){
-    _engine= new GEngine();
-    _engine.setCanvas(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT-50);
+    _bg_obj = OBJECT[ID.BG];
+    _bg_data = _bg_obj.DATA;
+    _bg_data2 = _bg_obj.DATA2;
+    _W = _bg_obj.TILE_WIDTH;
+    _H = _bg_obj.TILE_HEIGHT;
+    
+    _engine= new GEngine().setCanvas(_bg_obj.BG_WIDTH,_bg_obj.BG_HEIGHT-50);
     _engine.loadImageFile(function (type,count) {
         if(GEngine.END_FILE == type){
             initGame(); 
             initInput();  
         }
     });
-}
+    _engine2= new GEngine().setCanvas(_bg_obj.BG_WIDTH,_bg_obj.BG_HEIGHT);
 
-function initGame(){
-    _bg_obj = OBJECT[ID.BG];
-    _bg_data = _bg_obj.DATA;
-    _bg_data2 = _bg_obj.DATA2;
-    _W = _bg_obj.TILE_WIDTH;
-    _H = _bg_obj.TILE_HEIGHT;
-
-    _aniCon = new AnimateContainer();
-    _aniCon.setGravityArray(_bg_data,_W,_H);
-
-    _engine2= new GEngine();
-    _engine2.setCanvas(OBJECT[ID.BG].BG_WIDTH,OBJECT[ID.BG].BG_HEIGHT);
-
-    _aniCon2 = new AnimateContainer();
-    _aniCon2.setGravityArray(_bg_data,_W,_H);
+    _aniCon = new AnimateContainer().setGravityArray(_bg_data,_W,_H);
+    _aniCon2 = new AnimateContainer().setGravityArray(_bg_data,_W,_H);
 
     appendDivChild("canvas2",_engine.canvas);
-    appendDivChild("canvas1",_engine2.canvas);
+    //appendDivChild("canvas1",_engine2.canvas);
 
-    _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
-    _engine2.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
-    
     _engine.startLoop(30,function(){
         _engine.draw();
         _aniCon.nextFrame(_engine.getContext());
@@ -45,9 +35,13 @@ function initGame(){
         _engine2.draw();
         _aniCon2.nextFrame(_engine2.getContext());
     });
-    
+}
+
+function initGame(){
     //_aniCon.newAnimate(ID.BG,STATE[ID.BG].ROAD,220,-150,1,null,callbackRoad);
-  
+    _engine.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
+    _engine2.drawMap(_bg_data,IMAGE[ID.BG],_W,_H);
+    
     _aniCon.newObject(ID.BG,STATE[ID.BG].ROAD,220,-150)
     .setReverseX(1)
     .setValue(1)
@@ -56,7 +50,7 @@ function initGame(){
     _sky_idx= _aniCon2.newAnimate(ID.BG,STATE[ID.BG].SKY,300,0,1,null,callbackSky);
     _hills_idx=_aniCon2.newAnimate(ID.BG,STATE[ID.BG].HILLS,0,0,1,null,callbackHills);
 
-    _player_idx = _aniCon.newAnimate(ID.MY_CAR,STATE[ID.MY_CAR].NEW,220,250,1,null,callbackCar);
+    _player_idx = _aniCon.newAnimate(ID.MY_CAR,STATE[ID.MY_CAR].NEW,240,250,1,null,callbackCar);
     _player_ani = _aniCon.getAnimate(_player_idx);
  
     _aniCon2.newAnimate(ID.TREE,STATE[ID.TREE].NEW,150,110,-1,null,callbackTree);
