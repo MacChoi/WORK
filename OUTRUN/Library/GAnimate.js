@@ -70,6 +70,7 @@ class Animate{
 
     setCallback(callback){
         this.callback = callback;
+        return this;
     }
 }
 
@@ -162,7 +163,7 @@ class AnimateContainer{
             }
 
             if(element.y < 0){
-                element.y = idx_Y *this._H;
+                element.y = idx_Y * this._H;
                 this.objectArray[index].callback(AnimateContainer.COLLISION_UP,index);
             }
 
@@ -178,6 +179,7 @@ class AnimateContainer{
             }
 
             var gapX = element.w/2;
+            gapX = 0;
             if(element.objectState[0][element.index] * element.reverseImg >= 0)
                 context.drawImage(image, element.x - gapX , element.y);
             else
@@ -282,23 +284,33 @@ class AnimateContainer{
         return count;
     }
 
-    flipHorizontally(context,img,x,y){
-        context.translate(x+img.width,y);
+    flipHorizontally(context,img,x,y){     
+        //element.w = image.width;
+        //element.h = image.height;
+        context.translate(x,y);
         context.scale(-1,1);
-        context.drawImage(img,0,0);
-        context.setTransform(1,0,0,1,0,0);
+        context.drawImage(img,-(img.width*2),0);
+        //context.setTransform(1,0,0,1,0,0);
     }
 
-    setGravityArray(gravityArray,_W,_H){
+    flipVertically(context,img,x,y){
+        context.translate(x+img.width,y);
+        context.scale(1,-1);
+        context.drawImage(img,(img.height*2),0);
+        //context.setTransform(1,0,0,1,0,0);
+    }
+    
+    setCollisonArray(gravityArray,_W,_H){
         this.gravityArray = gravityArray;
         this._W = _W;
         this._H = _H;
 
-        return this;s
+        return this;
     }
 
-    setIndexStartXGravityArray(index){
-        this.indexStartXGravityArray = index;   
+    setIndexStartXCollisonArray(index){
+        this.indexStartXGravityArray = index;
+        return this;
     }
 
     allAddXY(x,y){
@@ -307,5 +319,6 @@ class AnimateContainer{
             element.x +=x;
             element.y +=y;
         }
+        return this;
     }
 }

@@ -36,7 +36,7 @@ function callbackCar(type,indexA,indexB){
     var aniB = _aniCon.getAnimate(indexB);
     switch (type) {
         case AnimateContainer.END_FRAME:
-            _aniCon.setState(indexA,STATE[ID.MY_CAR].NEW,_player_ani.x,_player_ani.y);
+            _aniCon.setState(indexA,STATE[ID.MY_CAR].NEW,_obj_player.x,_obj_player.y);
         break;
         case AnimateContainer.NEXT_FRAME:
             var tableX = [150,250];
@@ -47,8 +47,6 @@ function callbackCar(type,indexA,indexB){
             if(getRandom(0,50)==0){
                 _aniCon.newAnimate(ID.CARS,tableCars[getRandom(0,tableCars.length)],tableX[idxTable],10,tableReverseX[idxTable],null,callbackCars);
             }
-        break;
-        case AnimateContainer.COLLISION:
         break;
     }    
 }

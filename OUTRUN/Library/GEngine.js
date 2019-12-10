@@ -63,10 +63,20 @@ class GEngine {
         this.bufferCanvas.width=width;
         this.bufferCanvas.height=height;
 
-        this.setScale(width * 0.0022);
+        this.setScale(width * 0.00205);
         return this;
     }
- 
+
+    appendBodyChild(){
+        document.body.appendChild(this.canvas);
+        return this;
+    }
+
+    appendDivChild(id){
+        var div = document.getElementById(id); 
+        div.appendChild(this.canvas);
+    }
+
     getCanvas(){
         return this.canvas;
     }

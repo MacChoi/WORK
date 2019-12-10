@@ -54,3 +54,8 @@ function appendDivChild(id,view){
     var div = document.getElementById(id); 
     div.appendChild(view);
 }
+
+function appendBodyChild(canvas){
+    document.body.appendChild(canvas);
+    return this;
+}
