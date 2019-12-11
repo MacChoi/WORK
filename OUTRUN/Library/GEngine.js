@@ -50,7 +50,7 @@ class GEngine {
         }
         document.body.style.overflow = 'hidden';
         document.body.style.margin  = '0 auto';
-        document.body.style.backgroundColor='white';
+        document.body.style.backgroundColor='black';
     }
 
     setCanvas(x,y,width,height){
@@ -62,7 +62,7 @@ class GEngine {
         this.canvas.style.position = 'absolute';
         this.canvas.style.left = x;
         this.canvas.style.top = y;
-        this.canvas.style.backgroundColor='black';
+        this.canvas.style.backgroundColor='white';
         this.canvas.style.margin  = '0 auto';
         
         this.setScale(width * 0.00196);

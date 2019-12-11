@@ -6,18 +6,16 @@ class Animate{
         this.state = state;
         this.x = x;
         this.y = y;
-    
+        this.value = value;
+
         this.objectState = Object.values(object)[state];
         this.glint = 0;
         this.w = 0;
         this.h = 0;
         this.index =0;
-
         this.reverseX = 1;
         this.reverseY = 1;
         this.reverseImg = 1;
-
-        this.value = value;
         this.isAniLoop = true;
 
         if(!isEmpty(callback))this.callback = callback;
