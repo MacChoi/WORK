@@ -64,6 +64,7 @@ class GEngine {
         this.canvas.style.top = y;
         this.canvas.style.backgroundColor='white';
         this.canvas.style.margin  = '0 auto';
+        
         this.setScale(width * 0.00196);
         return this;
     }
@@ -78,6 +79,7 @@ class GEngine {
         var x= (window.innerWidth - w)/2;
         var y= (window.innerHeight - h)/2;
         this.setCanvas(x,y,w,h);
+        return this;
     }
     
     appendBodyChild(){
@@ -149,20 +151,22 @@ class GEngine {
     }
 
     draw(){
-        if(this.scale > 1.0){
-            this.context.save();
-            this.context.scale(this.scale, this.scale);
-        }
-        this.context.drawImage(this.bufferCanvas, 0, 0);
-        this.context.restore();
+       // if(this.scale > 1){
+            //this.context.save();
+            //this.context.scale(this.scale, this.scale);
+            this.context.drawImage(this.bufferCanvas, 0, 0);
+            //this.context.restore();
+        //}else this.context.drawImage(this.bufferCanvas, 0, 0);
     }
 
     drawMap(map,image,sizeW,sizeH){
         for(var x=0; x<map[0].length; x++) {
             for(var y=0; y<map.length; y++) {
-                this.bufferContext.drawImage(image[map[y][x]] , x * sizeW, y * sizeH);   
-            }
-        } 
+                this.bufferContext.drawImage(image[map[y][x]] , x * sizeW, y * sizeH, sizeW, sizeH);
+                this.bufferContext.strokeRect(x * sizeW, y * sizeH, sizeW, sizeH);
+                this.bufferContext.fillText("" + map[y][x], x * sizeW, y * sizeH, 10);
+           }
+        }
         return this;
     }
 
@@ -171,7 +175,7 @@ class GEngine {
         var mY = -(startY * sizeH);
         for(var x=startX; x<sizeX +startX ; x++) {
             for(var y=startY; y<sizeY +startY; y++) {
-                this.bufferContext.drawImage(image[map[y][x]] ,dX + mX + x * sizeW,dY + mY + y * sizeH);   
+                this.bufferContext.drawImage(image[map[y][x]] ,dX + mX + x * sizeW,dY + mY + y * sizeH);    
             }
         } 
         return this;

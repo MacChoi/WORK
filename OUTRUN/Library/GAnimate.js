@@ -94,7 +94,6 @@ class AnimateContainer{
         this.objectArray = new Array(0);
         this.newObjectArray = new Array(0);
         
-        var w = window.innerWidth;
         this.scale = 1;
     }
 
@@ -126,16 +125,18 @@ class AnimateContainer{
             element.w = image.width;
             element.h = image.height;
             var tmpx= element.x;
+            var tmpx2= element.x +element.w;
             element.x += element.objectState[2][element.index] * element.reverseX;
             element.y += element.objectState[3][element.index] * element.reverseY;
 
-            var idx_X_1=parseInt((element.x-(element.w/2)) /this._W) + this.indexStartXGravityArray;
-            var idx_X_2=parseInt((element.x+(element.w/2)) /this._W) + this.indexStartXGravityArray;
+            var idx_X_1=parseInt((element.x) /this._W) + this.indexStartXGravityArray;
+            var idx_X_2=parseInt((element.x+element.w) /this._W) + this.indexStartXGravityArray;
             var idx_Y=parseInt(element.y /this._H);
 
             if( idx_Y > 1 & !isEmpty(element.objectState[4]))
             if(this.gravityArray[idx_Y][idx_X_1] != 0 ){
                 if(element.objectState[4][element.index] !=0)
+                if(tmpx >= element.x)
                 element.x = tmpx;
 
                 this.objectArray[index].callback(AnimateContainer.COLLISION_LEFT,index); 
@@ -143,7 +144,8 @@ class AnimateContainer{
             if( idx_Y > 1 & !isEmpty(element.objectState[4]))
             if(this.gravityArray[idx_Y][idx_X_2] != 0 ){
                 if(element.objectState[4][element.index] !=0)
-                element.x = tmpx;
+                if(tmpx2 <= element.x)
+                element.x = tmpx2;
 
                 this.objectArray[index].callback(AnimateContainer.COLLISION_RIGHT,index); 
             }

@@ -39,14 +39,14 @@ function callbackCar(type,indexA,indexB){
             _aniCon.setState(indexA,STATE[ID.MY_CAR].NEW,_obj_player.x,_obj_player.y);
         break;
         case AnimateContainer.NEXT_FRAME:
-            var tableX = [150,250];
-            var tableReverseX = [1,-1];
-            var tableCars = [STATE[ID.CARS].NEW_1,STATE[ID.CARS].NEW_2,STATE[ID.CARS].NEW_3,STATE[ID.CARS].NEW_4,STATE[ID.CARS].NEW_5];
-            var idxTable = getRandom(0,2);
+            // var tableX = [150,250];
+            // var tableReverseX = [1,-1];
+            // var tableCars = [STATE[ID.CARS].NEW_1,STATE[ID.CARS].NEW_2,STATE[ID.CARS].NEW_3,STATE[ID.CARS].NEW_4,STATE[ID.CARS].NEW_5];
+            // var idxTable = getRandom(0,2);
             
-            if(getRandom(0,50)==0){
-                _aniCon.newAnimate(ID.CARS,tableCars[getRandom(0,tableCars.length)],tableX[idxTable],10,tableReverseX[idxTable],null,callbackCars);
-            }
+            // if(getRandom(0,50)==0){
+            //     _aniCon.newAnimate(ID.CARS,tableCars[getRandom(0,tableCars.length)],tableX[idxTable],10,tableReverseX[idxTable],null,callbackCars);
+            // }
         break;
     }    
 }

@@ -53,14 +53,10 @@ function callbackCars(type,indexA,indexB){
             aniA.setReverseX(aniA.reverseX * -1);
             if(aniB.id == ID.MY_CAR){
                 _aniCon.setState(indexB,STATE[ID.MY_CAR].CRASH,aniB.x,aniB.y);
-
-                var idx = _aniCon.newAnimate(ID.CAR_FX,STATE[ID.CAR_FX].CRASH,aniA.x,aniA.y+30,-1,null,callbackCarFx);
-                var ani = _aniCon.getAnimate(idx);
-                ani.setAniLoop(false);
+                _aniCon.newObject(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,aniA.x,aniA.y+30).setReverseX(-1).setAniLoop(false);
             }
         break;
         case AnimateContainer.NEXT_FRAME:
-            
         break;
         case AnimateContainer.END_FRAME:
             aniA.setReverseX(aniA.reverseX * -1);

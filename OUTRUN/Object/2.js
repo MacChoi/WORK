@@ -14,11 +14,3 @@ OBJECT[ID.CAR_FX] = {
     [-3,-3],//y 
     ]
 };
-
-function callbackCarFx(type,indexA,indexB){
-    switch (type) {
-        case AnimateContainer.END_FRAME:
-           //_aniCon.deleteAnimate(indexA);
-        break; 
-    } 
-}
