@@ -85,7 +85,7 @@ class AnimateContainer{
     static SOUND_ENDED = 6;
     constructor(){
         this.collision = new GCollision();
-        this.gravityArray = null;
+        this.collisionArray = null;
         this.indexStartXGravityArray = 0;
 
         this._W = 0;
@@ -134,7 +134,7 @@ class AnimateContainer{
             var idx_Y=parseInt(element.y /this._H);
 
             if( idx_Y > 1 & !isEmpty(element.objectState[4]))
-            if(this.gravityArray[idx_Y][idx_X_1] != 0 ){
+            if(this.collisionArray[idx_Y][idx_X_1] != 0 ){
                 if(element.objectState[4][element.index] !=0)
                 if(tmpx >= element.x)
                 element.x = tmpx;
@@ -142,10 +142,11 @@ class AnimateContainer{
                 this.objectArray[index].callback(AnimateContainer.COLLISION_LEFT,index); 
             }
             if( idx_Y > 1 & !isEmpty(element.objectState[4]))
-            if(this.gravityArray[idx_Y][idx_X_2] != 0 ){
+            if(this.collisionArray[idx_Y][idx_X_2] != 0 ){
                 if(element.objectState[4][element.index] !=0)
-                if(tmpx2 <= element.x)
-                element.x = tmpx2;
+                element.x = tmpx;
+                // if(tmpx2 <= element.x)
+                // element.x = tmpx2;
 
                 this.objectArray[index].callback(AnimateContainer.COLLISION_RIGHT,index); 
             }
@@ -154,9 +155,9 @@ class AnimateContainer{
             var idx_X_2_10=parseInt((element.x+element.w-10) /this._W) + this.indexStartXGravityArray;
             if(!isEmpty(element.objectState[4])){
                 element.y += element.objectState[4][element.index];
-                if(!isEmpty(this.gravityArray)){
-                    if(this.gravityArray[idx_Y+1][idx_X_1_10] != 0 |
-                        this.gravityArray[idx_Y+1][idx_X_2_10] != 0){
+                if(!isEmpty(this.collisionArray)){
+                    if(this.collisionArray[idx_Y+1][idx_X_1_10] != 0 |
+                        this.collisionArray[idx_Y+1][idx_X_2_10] != 0){
                             
                         element.y = idx_Y *this._H;
                         this.objectArray[index].callback(AnimateContainer.COLLISION_DOWN,index); 
@@ -298,8 +299,8 @@ class AnimateContainer{
         //context.setTransform(1,0,0,1,0,0);
     }
     
-    setCollisonArray(gravityArray,_W,_H){
-        this.gravityArray = gravityArray;
+    setCollisonArray(collisionArray,_W,_H){
+        this.collisionArray = collisionArray;
         this._W = _W;
         this._H = _H;
 

@@ -10,7 +10,7 @@ window.addEventListener('resize', function(event){
     _W = ((_engine.getCanvas().width)/ _obj_bg.COLLISION_DATA[0].length);
     _H = ((_engine.getCanvas().height)/ _obj_bg.COLLISION_DATA.length);
     
-    _aniCon.setCollisonArray(_obj_bg.COLLISION_DATA,20,20);
+    _aniCon.setCollisonArray(_obj_bg.COLLISION_DATA,34,22);
     _aniCon.setScale(_engine.getScale());
 
     _engine.drawMap(_obj_bg.COLLISION_DATA,IMAGE[ID.BG],_W,_H);
