@@ -10,11 +10,11 @@ window.addEventListener('resize', function(event){
     _W = ((_engine.getCanvas().width)/ _obj_bg.COLLISION_DATA[0].length);
     _H = ((_engine.getCanvas().height)/ _obj_bg.COLLISION_DATA.length);
     
-    _aniCon.setCollisonArray(_obj_bg.COLLISION_DATA,34,19.5);
+    _aniCon.setCollisonArray(_obj_bg.COLLISION_DATA,34,20);
     _aniCon.setScale(_engine.getScale());
 
     _aniCon.drawMap(_obj_bg.COLLISION_DATA,IMAGE[ID.BG],_W,_H);
-    _aniCon.drawGrid(_obj_bg.COLLISION_DATA,IMAGE[ID.BG],_W,_H);
+    _aniCon.drawGrid(_obj_bg.COLLISION_DATA,_W,_H);
 });
 
 window.onload = function(){
@@ -31,14 +31,14 @@ window.onload = function(){
 
     _aniCon = new AnimateContainer().setCanvas(_engine.getCanvas()).setBufferCanvas(_engine.getBufferCanvas());
 
-    _engine.startLoop(30,function(){
+    _engine.startLoop(20,function(){
         _aniCon.drawNextFrame();
     });
 }
 
 function initGame(){
-    //_aniCon.newObject(ID.BG,STATE[ID.BG].ROAD,0,0).setReverseX(1);
-   _obj_player = _aniCon.newObject(ID.MY_CAR,STATE[ID.MY_CAR].NEW,150,100).setCallback(callbackCar); 
+    _aniCon.newObject(ID.BG,STATE[ID.BG].ROAD,15,-70).setReverseX(1);
+   _obj_player = _aniCon.newObject(ID.MY_CAR,STATE[ID.MY_CAR].NEW,150,330).setCallback(callbackCar); 
 }
 
 function initInput(){

@@ -221,25 +221,25 @@ class AnimateContainer{
         }
         return this.getAnimate(index);
     }
-
-
-    newAnimate(id,state,x,y,reverseX,value,callback){
-        var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y,value,callback))-1;
-        var ani = this.getAnimate(index);
-        ani.setReverseX(reverseX);
-        if(this.objectArray[index].objectState[1][0] != NO_SOUND){
-            var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
-            if(!isEmpty(sound)){
-                sound.currentTime = 0;
-                sound.play();
-            }
-        }
-        return index;
-    }
+    
+    // newAnimate(id,state,x,y,reverseX,value,callback){
+    //     var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y,value,callback))-1;
+    //     var ani = this.getAnimate(index);
+    //     ani.setReverseX(reverseX);
+    //     if(this.objectArray[index].objectState[1][0] != NO_SOUND){
+    //         var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
+    //         if(!isEmpty(sound)){
+    //             sound.currentTime = 0;
+    //             sound.play();
+    //         }
+    //     }
+    //     return index;
+    // }
 
     deleteAnimate(index){
         this.objectArray[index].callback = function(){};
         this.objectArray.splice(index,1);
+        return this;
     }
 
     deleteAllAnimate(id){
@@ -253,6 +253,7 @@ class AnimateContainer{
 
     setScale(scale){
         this.scale = scale;
+        return this;
     }
 
     setState(index,state,x,y){
@@ -273,6 +274,7 @@ class AnimateContainer{
     
     setGlint(index,glint){
         this.objectArray[index].setGlint(glint);
+        return this;
     }
 
     getIndex(id){
@@ -308,7 +310,6 @@ class AnimateContainer{
         this.collisionArray = collisionArray;
         this._W = _W;
         this._H = _H;
-
         return this;
     }
 
@@ -347,11 +348,11 @@ class AnimateContainer{
         return this;
     }
 
-    drawGrid(map,image,sizeW,sizeH){
+    drawGrid(map,sizeW,sizeH){
         for(var x=0; x<map[0].length; x++) {
             for(var y=0; y<map.length; y++) {
                 this.bufferContext.strokeRect(x * sizeW, y * sizeH, sizeW, sizeH);
-                this.bufferContext.fillText("" + map[y][x], x * sizeW, y * sizeH, 10);
+                this.bufferContext.fillText("" + map[y][x], (x * sizeW)+sizeW/2, (y * sizeH)+sizeH/2, 10);
            }
         }
         return this;
