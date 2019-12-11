@@ -28,13 +28,13 @@ class GEngine {
         SOUND = new Array(ID.length);
         STATE = new Array(ID.length);
 
-        log("GEngine.loadObjectFile() OBJECT : " + ID.length);
+        //log("GEngine.loadObjectFile() OBJECT : " + ID.length);
         for(var i =0; i<ID.length; i++){
             var jscript = document.createElement('script');
             jscript.type = 'text/javascript';
             jscript.src = "./Object/" + i + ".js";
             document.head.appendChild( jscript );
-            log("OBJECT [" + i +"] : " +jscript.src);
+            //log("OBJECT [" + i +"] : " +jscript.src);
         }
     }
 
@@ -50,7 +50,7 @@ class GEngine {
         }
         document.body.style.overflow = 'hidden';
         document.body.style.margin  = '0 auto';
-        document.body.style.backgroundColor='black';
+        document.body.style.backgroundColor='white';
     }
 
     setCanvas(x,y,width,height){
@@ -62,7 +62,7 @@ class GEngine {
         this.canvas.style.position = 'absolute';
         this.canvas.style.left = x;
         this.canvas.style.top = y;
-        this.canvas.style.backgroundColor='white';
+        this.canvas.style.backgroundColor='black';
         this.canvas.style.margin  = '0 auto';
         
         this.setScale(width * 0.00196);
@@ -131,7 +131,7 @@ class GEngine {
                 this.imageCount++;
             }
         }
-        log("GEngine.loadImageFile() IMAGE : " + this.imageCount);
+        //log("GEngine.loadImageFile() IMAGE : " + this.imageCount);
         var count = 0;
         var imgMaxCount = this.imageCount;
         for(var i = 0; i<IMAGE.length; i++){
@@ -149,7 +149,7 @@ class GEngine {
                         });
                     }
                 }
-                log("IMAGE[" + i + "][" + j + "] : " + IMAGE[i][j].src);
+                //log("IMAGE[" + i + "][" + j + "] : " + IMAGE[i][j].src);
             }
         }
     }

@@ -13,8 +13,8 @@ window.addEventListener('resize', function(event){
     _aniCon.setCollisonArray(_obj_bg.COLLISION_DATA,34,19.5);
     _aniCon.setScale(_engine.getScale());
 
-    _aniCon.setCanvas(_engine.getCanvas()).setBufferCanvas(_engine.getBufferCanvas());
     _aniCon.drawMap(_obj_bg.COLLISION_DATA,IMAGE[ID.BG],_W,_H);
+    _aniCon.drawGrid(_obj_bg.COLLISION_DATA,IMAGE[ID.BG],_W,_H);
 });
 
 window.onload = function(){
@@ -29,13 +29,10 @@ window.onload = function(){
         }
     });
 
-    _aniCon = new AnimateContainer();
-    log(_engine.getCanvas());
-    
-    //_aniCon.setBufferCanvas(_engine.getBufferContext());
+    _aniCon = new AnimateContainer().setCanvas(_engine.getCanvas()).setBufferCanvas(_engine.getBufferCanvas());
 
     _engine.startLoop(30,function(){
-        _aniCon.nextFrame(_engine.getContext());
+        _aniCon.drawNextFrame();
     });
 }
 

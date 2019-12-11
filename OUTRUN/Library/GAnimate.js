@@ -114,7 +114,8 @@ class AnimateContainer{
         }
     }
 
-    nextFrame(){
+    drawNextFrame(){
+        this.context.drawImage(this.bufferCanvas, 0, 0);
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
             if(this.objectArray[index].index == 0 & this.objectArray[index].isAniLoop == false){
@@ -174,7 +175,6 @@ class AnimateContainer{
                 this.objectArray[index].callback(AnimateContainer.COLLISION_UP,index);
             }
 
-            
             this.context.save();
             this.context.scale(this.scale, this.scale);  
             
@@ -342,6 +342,14 @@ class AnimateContainer{
         for(var x=0; x<map[0].length; x++) {
             for(var y=0; y<map.length; y++) {
                 this.bufferContext.drawImage(image[map[y][x]] , x * sizeW, y * sizeH, sizeW, sizeH);
+            }
+        }
+        return this;
+    }
+
+    drawGrid(map,image,sizeW,sizeH){
+        for(var x=0; x<map[0].length; x++) {
+            for(var y=0; y<map.length; y++) {
                 this.bufferContext.strokeRect(x * sizeW, y * sizeH, sizeW, sizeH);
                 this.bufferContext.fillText("" + map[y][x], x * sizeW, y * sizeH, 10);
            }
