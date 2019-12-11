@@ -174,7 +174,7 @@ class AnimateContainer{
                 this.objectArray[index].callback(AnimateContainer.COLLISION_UP,index);
             }
 
-            this.context.drawImage(this.bufferCanvas, 0, 0);
+            
             this.context.save();
             this.context.scale(this.scale, this.scale);  
             
