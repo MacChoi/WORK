@@ -6,14 +6,15 @@ var _obj_player;
 GEngine.loadObjectFile(["BG","MY_CAR","CAR_FX","TREE","CARS"]);
 window.addEventListener('resize', function(event){
     _engine.setRatioCanvas(4,3);
-
+    
     _W = ((_engine.getCanvas().width)/ _obj_bg.COLLISION_DATA[0].length);
     _H = ((_engine.getCanvas().height)/ _obj_bg.COLLISION_DATA.length);
     
-    _aniCon.setCollisonArray(_obj_bg.COLLISION_DATA,34,22);
+    _aniCon.setCollisonArray(_obj_bg.COLLISION_DATA,34,19.5);
     _aniCon.setScale(_engine.getScale());
 
-    _engine.drawMap(_obj_bg.COLLISION_DATA,IMAGE[ID.BG],_W,_H);
+    _aniCon.setCanvas(_engine.getCanvas()).setBufferCanvas(_engine.getBufferCanvas());
+    _aniCon.drawMap(_obj_bg.COLLISION_DATA,IMAGE[ID.BG],_W,_H);
 });
 
 window.onload = function(){
@@ -29,8 +30,11 @@ window.onload = function(){
     });
 
     _aniCon = new AnimateContainer();
+    log(_engine.getCanvas());
+    
+    //_aniCon.setBufferCanvas(_engine.getBufferContext());
+
     _engine.startLoop(30,function(){
-        _engine.draw();
         _aniCon.nextFrame(_engine.getContext());
     });
 }

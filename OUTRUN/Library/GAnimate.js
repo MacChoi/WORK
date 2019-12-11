@@ -85,16 +85,20 @@ class AnimateContainer{
     static SOUND_ENDED = 6;
     constructor(){
         this.collision = new GCollision();
-        this.collisionArray = null;
-        this.indexStartXGravityArray = 0;
-
-        this._W = 0;
-        this._H = 0;
-
         this.objectArray = new Array(0);
         this.newObjectArray = new Array(0);
         
-        this.scale = 1;
+        this._W = 0;
+        this._H = 0;
+        this.scale = 0;
+
+        this.collisionArray = null;
+        this.indexStartXGravityArray = 0;
+
+        this.canvas 
+        this.context
+        this.bufferCanvas
+        this.bufferContext
     }
 
     checkCollision(){
@@ -110,7 +114,7 @@ class AnimateContainer{
         }
     }
 
-    nextFrame(context){
+    nextFrame(){
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
             if(this.objectArray[index].index == 0 & this.objectArray[index].isAniLoop == false){
@@ -170,23 +174,24 @@ class AnimateContainer{
                 this.objectArray[index].callback(AnimateContainer.COLLISION_UP,index);
             }
 
-            context.save();
-            context.scale(this.scale, this.scale);  
+            this.context.drawImage(this.bufferCanvas, 0, 0);
+            this.context.save();
+            this.context.scale(this.scale, this.scale);  
             
             if(element.glint != 0){
                 if((element.glint % 2)==0)
-                context.globalAlpha = 0.1;
-                else context.globalAlpha = 1.0;
+                this.context.globalAlpha = 0.1;
+                else this.context.globalAlpha = 1.0;
             }
 
             var gapX = element.w/2;
             gapX = 0;
             if(element.objectState[0][element.index] * element.reverseImg >= 0)
-                context.drawImage(image, element.x - gapX , element.y);
+                this.context.drawImage(image, element.x - gapX , element.y);
             else
-                this.flipHorizontally(context,image, element.x - element.w + gapX  , element.y);
+                this.flipHorizontally(image, element.x - element.w + gapX  , element.y);
             
-            context.restore();
+            this.context.restore();
         }
         this.checkCollision();
     }
@@ -285,18 +290,18 @@ class AnimateContainer{
         return count;
     }
 
-    flipHorizontally(context,img,x,y){     
-        context.translate(x,y);
-        context.scale(-1,1);
-        context.drawImage(img,-(img.width*2),0);
-        //context.setTransform(1,0,0,1,0,0);
+    flipHorizontally(img,x,y){     
+        this.context.translate(x,y);
+        this.context.scale(-1,1);
+        this.context.drawImage(img,-(img.width*2),0);
+        //this.context.setTransform(1,0,0,1,0,0);
     }
 
-    flipVertically(context,img,x,y){
-        context.translate(x+img.width,y);
-        context.scale(1,-1);
-        context.drawImage(img,(img.height*2),0);
-        //context.setTransform(1,0,0,1,0,0);
+    flipVertically(img,x,y){
+        this.context.translate(x+img.width,y);
+        this.context.scale(1,-1);
+        this.context.drawImage(img,(img.height*2),0);
+        //this.context.setTransform(1,0,0,1,0,0);
     }
     
     setCollisonArray(collisionArray,_W,_H){
@@ -317,6 +322,29 @@ class AnimateContainer{
             var element = this.objectArray[index];
             element.x +=x;
             element.y +=y;
+        }
+        return this;
+    }
+
+    setCanvas(canvas){
+        this.canvas = canvas;
+        this.context = this.canvas.getContext('2d');
+        return this;
+    }
+
+    setBufferCanvas(canvas){
+        this.bufferCanvas = canvas;
+        this.bufferContext = canvas.getContext('2d');
+        return this;
+    }
+
+    drawMap(map,image,sizeW,sizeH){
+        for(var x=0; x<map[0].length; x++) {
+            for(var y=0; y<map.length; y++) {
+                this.bufferContext.drawImage(image[map[y][x]] , x * sizeW, y * sizeH, sizeW, sizeH);
+                this.bufferContext.strokeRect(x * sizeW, y * sizeH, sizeW, sizeH);
+                this.bufferContext.fillText("" + map[y][x], x * sizeW, y * sizeH, 10);
+           }
         }
         return this;
     }

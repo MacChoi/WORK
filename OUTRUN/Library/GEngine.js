@@ -97,6 +97,10 @@ class GEngine {
         return this.canvas;
     }
 
+    getBufferCanvas(){
+        return this.bufferCanvas;
+    }
+
     getContext(){
         return this.context;
     }
@@ -151,12 +155,7 @@ class GEngine {
     }
 
     draw(){
-       // if(this.scale > 1){
-            //this.context.save();
-            //this.context.scale(this.scale, this.scale);
-            this.context.drawImage(this.bufferCanvas, 0, 0);
-            //this.context.restore();
-        //}else this.context.drawImage(this.bufferCanvas, 0, 0);
+        this.context.drawImage(this.bufferCanvas, 0, 0);
     }
 
     drawMap(map,image,sizeW,sizeH){
