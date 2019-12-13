@@ -21,7 +21,7 @@ window.onload = function(){
 
 function initGame(){
     //_ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].ROAD,15,0).setReverseX(1);
-    _PLAYER = _ANIMATE_CONTAINER.newObject(ID.MY_CAR,STATE[ID.MY_CAR].NEW,150,0).setCallback(callbackCar); 
+    _PLAYER = _ANIMATE_CONTAINER.newObject(ID.MY_CAR,STATE[ID.MY_CAR].NEW,150,30).setCallback(callbackCar); 
 }
 
 function initInput(){
@@ -45,5 +45,5 @@ window.addEventListener('resize', function(event){
     _GMAE_ENGINE.setRatioCanvas(4,3).setCollisonArray(_COLLISION_DATA);
     _ANIMATE_CONTAINER.setCollisonArray(_COLLISION_DATA,34,20).setScale(_GMAE_ENGINE.getScale());
     _ANIMATE_CONTAINER.drawMap(_COLLISION_DATA,IMAGE[ID.BG],_GMAE_ENGINE.getUnitWidth(),_GMAE_ENGINE.getUnitHeight());
-    _ANIMATE_CONTAINER.drawGrid(_COLLISION_DATA,_GMAE_ENGINE.getUnitWidth(),_GMAE_ENGINE.getUnitHeight());
+    //_ANIMATE_CONTAINER.drawCollisionArray(_COLLISION_DATA,IMAGE[ID.BG],true);
 });

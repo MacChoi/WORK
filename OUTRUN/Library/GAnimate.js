@@ -301,8 +301,10 @@ class AnimateContainer{
     
     setCollisonArray(collisionArray,_W,_H){
         this.collisionArray = collisionArray;
+      
         this._W = _W;
         this._H = _H;
+
         return this;
     }
 
@@ -337,7 +339,7 @@ class AnimateContainer{
         this.setBufferCanvas(engine.getBufferCanvas());
         return this;
     }
-
+  
     drawMap(map,image,sizeW,sizeH){
         for(var x=0; x<map[0].length; x++) {
             for(var y=0; y<map.length; y++) {
@@ -354,6 +356,15 @@ class AnimateContainer{
                 this.bufferContext.fillText("" + map[y][x], (x * sizeW)+sizeW/2, (y * sizeH)+sizeH/2, 10);
            }
         }
+        return this;
+    }
+
+    drawCollisionArray(map,image,isGrid){
+        var W =this.canvas.width / map[0].length;
+        var H = this.canvas.height / map.length;
+        this.drawMap(map,image,W,H);
+        if(isGrid)
+        this.drawGrid(map,W,H);
         return this;
     }
 }
