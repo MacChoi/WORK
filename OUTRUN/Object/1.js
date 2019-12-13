@@ -32,21 +32,13 @@ OBJECT[ID.MY_CAR] = {
 };
 
 function callbackCar(type,indexA,indexB){
-    var aniA = _aniCon.getAnimate(indexA);
-    var aniB = _aniCon.getAnimate(indexB);
+    var aniA = _ANIMATE_CONTAINER.getAnimate(indexA);
+    var aniB = _ANIMATE_CONTAINER.getAnimate(indexB);
     switch (type) {
         case AnimateContainer.END_FRAME:
-            _aniCon.setState(indexA,STATE[ID.MY_CAR].NEW,_obj_player.x,_obj_player.y);
+            _ANIMATE_CONTAINER.setState(indexA,STATE[ID.MY_CAR].NEW,_PLAYER.x,_PLAYER.y);
         break;
         case AnimateContainer.NEXT_FRAME:
-            // var tableX = [150,250];
-            // var tableReverseX = [1,-1];
-            // var tableCars = [STATE[ID.CARS].NEW_1,STATE[ID.CARS].NEW_2,STATE[ID.CARS].NEW_3,STATE[ID.CARS].NEW_4,STATE[ID.CARS].NEW_5];
-            // var idxTable = getRandom(0,2);
-            
-            // if(getRandom(0,50)==0){
-            //     _aniCon.newAnimate(ID.CARS,tableCars[getRandom(0,tableCars.length)],tableX[idxTable],10,tableReverseX[idxTable],null,callbackCars);
-            // }
         break;
     }    
 }

@@ -64,8 +64,15 @@ class GEngine {
         this.canvas.style.top = y;
         this.canvas.style.backgroundColor='white';
         this.canvas.style.margin  = '0 auto';
-        
+
         this.setScale(width * 0.00196);
+        return this;
+    }
+    
+    setCanvas3D(transform,perspective){
+        this.canvas.style.transform ='rotateX(' +transform +'deg)';
+        document.body.style.perspective=perspective +"px";
+        document.body.style.transformStyle = 'preserve-3d';
         return this;
     }
 
@@ -118,8 +125,21 @@ class GEngine {
         return this;
     }
 
+    setCollisonArray(collisionArray){
+        this.collisionArray = collisionArray;
+        return this;
+    }
+
     getScale(){
         return this.scale;
+    }
+
+    getUnitWidth(){
+        return this.canvas.width / this.collisionArray[0].length;
+    }
+
+    getUnitHeight(){
+        return this.canvas.height / this.collisionArray.length;
     }
 
     loadImageFile(callback){
@@ -152,6 +172,7 @@ class GEngine {
                 //log("IMAGE[" + i + "][" + j + "] : " + IMAGE[i][j].src);
             }
         }
+        return this;
     }
 
     draw(){

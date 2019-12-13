@@ -128,7 +128,6 @@ class AnimateContainer{
             element.w = image.width;
             element.h = image.height;
             var tmpx= element.x;
-            var tmpx2= element.x +element.w;
             element.x += element.objectState[2][element.index] * element.reverseX;
             element.y += element.objectState[3][element.index] * element.reverseY;
 
@@ -148,9 +147,7 @@ class AnimateContainer{
             if(this.collisionArray[idx_Y][idx_X_2] != 0 ){
                 if(element.objectState[4][element.index] !=0)
                 element.x = tmpx;
-                // if(tmpx2 <= element.x)
-                // element.x = tmpx2;
-
+              
                 this.objectArray[index].callback(AnimateContainer.COLLISION_RIGHT,index); 
             }
 
@@ -294,14 +291,12 @@ class AnimateContainer{
         this.context.translate(x,y);
         this.context.scale(-1,1);
         this.context.drawImage(img,-(img.width*2),0);
-        //this.context.setTransform(1,0,0,1,0,0);
     }
 
     flipVertically(img,x,y){
         this.context.translate(x+img.width,y);
         this.context.scale(1,-1);
         this.context.drawImage(img,(img.height*2),0);
-        //this.context.setTransform(1,0,0,1,0,0);
     }
     
     setCollisonArray(collisionArray,_W,_H){
@@ -334,6 +329,12 @@ class AnimateContainer{
     setBufferCanvas(canvas){
         this.bufferCanvas = canvas;
         this.bufferContext = canvas.getContext('2d');
+        return this;
+    }
+
+    setEngine(engine){
+        this.setCanvas(engine.getCanvas());
+        this.setBufferCanvas(engine.getBufferCanvas());
         return this;
     }
 

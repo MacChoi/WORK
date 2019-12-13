@@ -1,30 +1,27 @@
-var _engine;
-var _aniCon;
-var _obj_bg,_W,_H;
-var _obj_player;
+var _GMAE_ENGINE;
+var _ANIMATE_CONTAINER;
+var _COLLISION_DATA;
+var _PLAYER;
 
-GEngine.loadObjectFile(["BG","MY_CAR","CAR_FX","TREE","CARS"]);
+GEngine.loadObjectFile(["BG","MY_CAR","CAR_FX"]);
 window.onload = function(){
-    _obj_bg = OBJECT[ID.BG];
-    _engine = new GEngine().appendBodyChild();
-    _aniCon = new AnimateContainer().setCanvas(_engine.getCanvas()).setBufferCanvas(_engine.getBufferCanvas());
-
-    _engine.loadImageFile(function (type,count) {
+    _COLLISION_DATA = OBJECT[ID.BG].COLLISION_DATA;
+    _GMAE_ENGINE = new GEngine().appendBodyChild();
+    _ANIMATE_CONTAINER = new AnimateContainer().setEngine(_GMAE_ENGINE);
+    _GMAE_ENGINE.loadImageFile(function (type,count) {
         if(GEngine.END_FILE == type){
             initGame(); 
             initInput();
             window.dispatchEvent(new Event('resize'));
         }
-    });
-
-    _engine.startLoop(20,function(){
-        _aniCon.drawNextFrame();
+    }).startLoop(20,function(){
+        _ANIMATE_CONTAINER.drawNextFrame();
     });
 }
 
 function initGame(){
-    //_aniCon.newObject(ID.BG,STATE[ID.BG].ROAD,15,-70).setReverseX(1);
-   _obj_player = _aniCon.newObject(ID.MY_CAR,STATE[ID.MY_CAR].NEW,150,330).setCallback(callbackCar); 
+    //_ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].ROAD,15,0).setReverseX(1);
+    _PLAYER = _ANIMATE_CONTAINER.newObject(ID.MY_CAR,STATE[ID.MY_CAR].NEW,150,0).setCallback(callbackCar); 
 }
 
 function initInput(){
@@ -32,12 +29,12 @@ function initInput(){
         //log("e.keyCode: " + e.keyCode);
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
-                _obj_player.setState(STATE[ID.MY_CAR].LEFT,_obj_player.x,_obj_player.y);
-                _aniCon.newObject(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_obj_player.x,_obj_player.y+30).setAniLoop(false);
+                _PLAYER.setState(STATE[ID.MY_CAR].LEFT,_PLAYER.x,_PLAYER.y);
+                _ANIMATE_CONTAINER.newObject(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_PLAYER.x,_PLAYER.y+30).setAniLoop(false);
                 break;
             case GEngine.KEY_RIGHT:
-                _obj_player.setState(STATE[ID.MY_CAR].RIGHT,_obj_player.x,_obj_player.y);
-                _aniCon.newObject(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_obj_player.x,_obj_player.y+30).setReverseX(-1).setAniLoop(false);
+                _PLAYER.setState(STATE[ID.MY_CAR].RIGHT,_PLAYER.x,_PLAYER.y);
+                _ANIMATE_CONTAINER.newObject(ID.CAR_FX,STATE[ID.CAR_FX].LEFT,_PLAYER.x,_PLAYER.y+30).setReverseX(-1).setAniLoop(false);
                 break;
         }
         e.preventDefault();
@@ -45,14 +42,8 @@ function initInput(){
 }
 
 window.addEventListener('resize', function(event){
-    _engine.setRatioCanvas(4,3);
-    
-    _W = ((_engine.getCanvas().width)/ _obj_bg.COLLISION_DATA[0].length);
-    _H = ((_engine.getCanvas().height)/ _obj_bg.COLLISION_DATA.length);
-    
-    _aniCon.setCollisonArray(_obj_bg.COLLISION_DATA,34,20);
-    _aniCon.setScale(_engine.getScale());
-
-    _aniCon.drawMap(_obj_bg.COLLISION_DATA,IMAGE[ID.BG],_W,_H);
-    _aniCon.drawGrid(_obj_bg.COLLISION_DATA,_W,_H);
+    _GMAE_ENGINE.setRatioCanvas(4,3).setCollisonArray(_COLLISION_DATA);
+    _ANIMATE_CONTAINER.setCollisonArray(_COLLISION_DATA,34,20).setScale(_GMAE_ENGINE.getScale());
+    _ANIMATE_CONTAINER.drawMap(_COLLISION_DATA,IMAGE[ID.BG],_GMAE_ENGINE.getUnitWidth(),_GMAE_ENGINE.getUnitHeight());
+    _ANIMATE_CONTAINER.drawGrid(_COLLISION_DATA,_GMAE_ENGINE.getUnitWidth(),_GMAE_ENGINE.getUnitHeight());
 });
