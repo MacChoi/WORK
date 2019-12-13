@@ -25,8 +25,8 @@ function objToString(obj){
     JSON.stringify(obj);
 }
 
-function getRandom(a,b){
-    return Math.floor(Math.random() * b) + a;
+function getRandom(min,max){
+    return Math.floor(Math.random() * (max - min+1)) + min;
 }
 
 function isEmpty(str){

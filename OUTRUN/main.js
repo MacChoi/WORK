@@ -21,7 +21,7 @@ window.onload = function(){
 
 function initGame(){
     //_ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].ROAD,15,0).setReverseX(1);
-    _PLAYER = _ANIMATE_CONTAINER.newObject(ID.MY_CAR,STATE[ID.MY_CAR].NEW,150,30).setCallback(callbackCar); 
+    _PLAYER = _ANIMATE_CONTAINER.newObject(ID.MY_CAR,STATE[ID.MY_CAR].NEW,150,320).setCallback(callbackCar); 
 }
 
 function initInput(){
