@@ -128,6 +128,11 @@ class GEngine {
     getScale(){
         return this.scale;
     }
+
+    setResizeCallback(callback){
+        window.addEventListener('resize', callback);
+        window.dispatchEvent(new Event('resize'));
+    }
     
     loadImageFile(callback){
         this.imageCount = 0;
