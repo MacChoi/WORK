@@ -4,6 +4,7 @@ var _COLLISION_DATA;
 var _PLAYER;
 
 GEngine.loadObjectFile(["BG","MY_CAR","CAR_FX"]);
+
 window.onload = function(){
     _COLLISION_DATA = OBJECT[ID.BG].COLLISION_DATA;
     _GMAE_ENGINE = new GEngine().appendBodyChild();
@@ -20,9 +21,7 @@ window.onload = function(){
 window.addEventListener('resize', function(event){
     _GMAE_ENGINE.setRatioCanvas(4,3);
     _ANIMATE_CONTAINER.setCollisonArray(_COLLISION_DATA);
-
-    log(_ANIMATE_CONTAINER.getUnitWidth())
-    _ANIMATE_CONTAINER.drawMap(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
+    //_ANIMATE_CONTAINER.drawMap(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
     _ANIMATE_CONTAINER.drawCollisionArray(_COLLISION_DATA,IMAGE[ID.BG],true);
 });
 
