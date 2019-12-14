@@ -314,7 +314,7 @@ class AnimateContainer{
     }
 
     getUnitHeight(){
-        return (this.engine.canvas.height / this.collisionArray.length)/this.engine.scale;
+        return (this.engine.canvas.height / this.collisionArray.length)/(this.engine.scale + 0.1);
     }
 
     setIndexStartXCollisonArray(index){

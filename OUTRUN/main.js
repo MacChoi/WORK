@@ -20,6 +20,8 @@ window.onload = function(){
 window.addEventListener('resize', function(event){
     _GMAE_ENGINE.setRatioCanvas(4,3);
     _ANIMATE_CONTAINER.setCollisonArray(_COLLISION_DATA);
+
+    log(_ANIMATE_CONTAINER.getUnitWidth())
     _ANIMATE_CONTAINER.drawMap(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
     _ANIMATE_CONTAINER.drawCollisionArray(_COLLISION_DATA,IMAGE[ID.BG],true);
 });
