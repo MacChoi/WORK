@@ -193,7 +193,7 @@ class GEngine {
         return this;
     }
 
-    startLoop(loop_time,callback){
+    startTimeLoop(loop_time,callback){
         GEngine.LOOP_TIME = loop_time;
         GEngine.loopCallback = callback;
         GEngine.loop();
