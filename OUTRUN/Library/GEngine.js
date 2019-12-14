@@ -125,23 +125,10 @@ class GEngine {
         return this;
     }
 
-    setCollisonArray(collisionArray){
-        this.collisionArray = collisionArray;
-        return this;
-    }
-
     getScale(){
         return this.scale;
     }
-
-    getUnitWidth(){
-        return this.canvas.width / this.collisionArray[0].length;
-    }
-
-    getUnitHeight(){
-        return this.canvas.height / this.collisionArray.length;
-    }
-
+    
     loadImageFile(callback){
         this.imageCount = 0;
         for(var i = 0; i<IMAGE.length; i++){

@@ -88,15 +88,17 @@ class AnimateContainer{
         
         this._W = 0;
         this._H = 0;
-        this.scale = 0;
+        this.scale = 1;
 
         this.collisionArray = null;
         this.indexStartXGravityArray = 0;
 
-        this.canvas 
-        this.context
-        this.bufferCanvas
-        this.bufferContext
+        this.canvas;
+        this.context;
+        this.bufferCanvas;
+        this.bufferContext;
+
+        this.engine;
     }
 
     checkCollision(){
@@ -159,7 +161,7 @@ class AnimateContainer{
                     if(this.collisionArray[idx_Y+1][idx_X_1_10] != 0 |
                         this.collisionArray[idx_Y+1][idx_X_2_10] != 0){
                             
-                        element.y = idx_Y *this._H;
+                        element.y = idx_Y * this._H;
                         this.objectArray[index].callback(AnimateContainer.COLLISION_DOWN,index); 
                     }
                 }
@@ -299,13 +301,20 @@ class AnimateContainer{
         this.context.drawImage(img,(img.height*2),0);
     }
     
-    setCollisonArray(collisionArray,_W,_H){
+    setCollisonArray(collisionArray){
         this.collisionArray = collisionArray;
-      
-        this._W = _W;
-        this._H = _H;
-
+        this._W = this.getUnitWidth();
+        this._H = this.getUnitHeight();
+        this.setScale(this.engine.getScale());
         return this;
+    }
+
+    getUnitWidth(){
+        return (this.engine.canvas.width / this.collisionArray[0].length)/this.engine.scale;
+    }
+
+    getUnitHeight(){
+        return (this.engine.canvas.height / this.collisionArray.length)/this.engine.scale;
     }
 
     setIndexStartXCollisonArray(index){
@@ -335,6 +344,7 @@ class AnimateContainer{
     }
 
     setEngine(engine){
+        this.engine = engine;
         this.setCanvas(engine.getCanvas());
         this.setBufferCanvas(engine.getBufferCanvas());
         return this;
