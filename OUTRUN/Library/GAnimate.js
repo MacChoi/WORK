@@ -351,27 +351,29 @@ class AnimateContainer{
     }
   
     drawMap(map,image,sizeW,sizeH){
+        var W =sizeW *this.scale;
+        var H = sizeH *this.scale;
         for(var x=0; x<map[0].length; x++) {
             for(var y=0; y<map.length; y++) {
-                this.bufferContext.drawImage(image[map[y][x]] , x * sizeW, y * sizeH, sizeW, sizeH);
+                this.bufferContext.drawImage(image[map[y][x]] , x * W, y * H, W, H);
             }
         }
         return this;
     }
 
     drawGrid(map,sizeW,sizeH){
+        var W =sizeW *this.scale;
+        var H = sizeH *this.scale;
         for(var x=0; x<map[0].length; x++) {
             for(var y=0; y<map.length; y++) {
-                this.bufferContext.strokeRect(x * sizeW, y * sizeH, sizeW, sizeH);
-                this.bufferContext.fillText("" + map[y][x], (x * sizeW)+sizeW/2, (y * sizeH)+sizeH/2, 10);
+                this.bufferContext.strokeRect(x * W, y * H, W, H);
+                this.bufferContext.fillText("" + map[y][x], (x * W)+W/2, (y * H)+H/2, 10);
            }
         }
         return this;
     }
 
-    drawCollisionArray(map,image,isGrid){
-        var W =this.canvas.width / map[0].length;
-        var H = this.canvas.height / map.length;
+    drawCollisionArray(map,image,W,H,isGrid){
         this.drawMap(map,image,W,H);
         if(isGrid)
         this.drawGrid(map,W,H);
