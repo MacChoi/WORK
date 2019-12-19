@@ -6,7 +6,7 @@ OBJECT[ID.MY_CAR] = {
     [NO_SOUND],//sound
     [0],//x
     [0],//y
-    [5]//gravity power
+    [10]//gravity power
     ],
     LEFT:[
     [2,2,2,2],//image
