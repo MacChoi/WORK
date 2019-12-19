@@ -373,9 +373,8 @@ class AnimateContainer{
         return this;
     }
 
-    drawCollisionArray(map,image,W,H,isGrid){
+    drawCollisionArray(map,image,W,H){
         this.drawMap(map,image,W,H);
-        if(isGrid)
         this.drawGrid(map,W,H);
         return this;
     }
