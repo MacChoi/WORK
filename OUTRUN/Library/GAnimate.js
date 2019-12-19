@@ -86,8 +86,8 @@ class AnimateContainer{
         this.objectArray = new Array(0);
         this.newObjectArray = new Array(0);
         
-        this._W = 0;
-        this._H = 0;
+        this._unitW = 0;
+        this._unitH = 0;
         this.scale = 1;
 
         this.collisionArray = null;
@@ -133,9 +133,9 @@ class AnimateContainer{
             element.x += element.objectState[2][element.index] * element.reverseX;
             element.y += element.objectState[3][element.index] * element.reverseY;
 
-            var idx_X_1=parseInt((element.x) /this._W) + this.indexStartXGravityArray;
-            var idx_X_2=parseInt((element.x+element.w) /this._W) + this.indexStartXGravityArray;
-            var idx_Y=parseInt((element.y + element.h) /this._H);
+            var idx_X_1=parseInt((element.x) /this._unitW) + this.indexStartXGravityArray;
+            var idx_X_2=parseInt((element.x+element.w) /this._unitW) + this.indexStartXGravityArray;
+            var idx_Y=parseInt((element.y + element.h) /this._unitH);
 
             if( idx_Y > 1 & !isEmpty(element.objectState[4]))
             if(this.collisionArray[idx_Y][idx_X_1] != 0 ){
@@ -153,22 +153,22 @@ class AnimateContainer{
                 this.objectArray[index].callback(AnimateContainer.COLLISION_RIGHT,index); 
             }
 
-            var idx_X_1_10=parseInt((element.x+10) /this._W) + this.indexStartXGravityArray;
-            var idx_X_2_10=parseInt((element.x+element.w-10) /this._W) + this.indexStartXGravityArray;
+            var idx_X_1_10=parseInt((element.x+10) /this._unitW) + this.indexStartXGravityArray;
+            var idx_X_2_10=parseInt((element.x+element.w-10) /this._unitW) + this.indexStartXGravityArray;
             if(!isEmpty(element.objectState[4])){
                 element.y += element.objectState[4][element.index];
                 if(!isEmpty(this.collisionArray)){
                     if(this.collisionArray[idx_Y+1][idx_X_1_10] != 0 |
                         this.collisionArray[idx_Y+1][idx_X_2_10] != 0){
-                        element.y = ((idx_Y) * this._H);
-                        element.y -= element.h -this._H +1;
+                        element.y = ((idx_Y) * this._unitH);
+                        element.y -= element.h -this._unitH +1;
                         this.objectArray[index].callback(AnimateContainer.COLLISION_DOWN,index); 
                     }
                 }
             }
 
             if(element.y < 0){
-                element.y = idx_Y * this._H;
+                element.y = idx_Y * this._unitH;
                 this.objectArray[index].callback(AnimateContainer.COLLISION_UP,index);
             }
 
@@ -302,19 +302,19 @@ class AnimateContainer{
     }
     
     setCollisonArray(collisionArray){
-        this.collisionArray = collisionArray;
-        this._W = this.getUnitWidth();
-        this._H = this.getUnitHeight();
         this.setScale(this.engine.getScale());
+        this.collisionArray = collisionArray;
+        this._unitW = (this.engine.canvas.width / this.collisionArray[0].length)/this.engine.scale;
+        this._unitH = (this.engine.canvas.height / this.collisionArray.length)/this.engine.scale;
         return this;
     }
 
     getUnitWidth(){
-        return (this.engine.canvas.width / this.collisionArray[0].length)/this.engine.scale;
+        return this._unitW;
     }
 
     getUnitHeight(){
-        return (this.engine.canvas.height / this.collisionArray.length)/this.engine.scale;
+        return this._unitH;
     }
 
     setIndexStartXCollisonArray(index){
@@ -351,8 +351,9 @@ class AnimateContainer{
     }
   
     drawMap(map,image,sizeW,sizeH){
-        var W =sizeW *this.scale;
+        var W = sizeW *this.scale;
         var H = sizeH *this.scale;
+
         for(var x=0; x<map[0].length; x++) {
             for(var y=0; y<map.length; y++) {
                 this.bufferContext.drawImage(image[map[y][x]] , x * W, y * H, W, H);
@@ -362,7 +363,7 @@ class AnimateContainer{
     }
 
     drawGrid(map,sizeW,sizeH){
-        var W =sizeW *this.scale;
+        var W = sizeW *this.scale;
         var H = sizeH *this.scale;
         for(var x=0; x<map[0].length; x++) {
             for(var y=0; y<map.length; y++) {

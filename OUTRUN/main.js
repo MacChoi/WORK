@@ -21,7 +21,7 @@ function initGame(){
         _ANIMATE_CONTAINER.setCollisonArray(_COLLISION_DATA);
         _ANIMATE_CONTAINER.drawMap(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
 
-        //_ANIMATE_CONTAINER.drawCollisionArray(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
+        _ANIMATE_CONTAINER.drawCollisionArray(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
     });
 
     _GMAE_ENGINE.startTimeLoop(25,function(){
