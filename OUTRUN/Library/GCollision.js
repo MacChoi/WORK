@@ -12,7 +12,8 @@ class GCollision {
     //원형 충돌
     hitCircle(circle1, circle2) { 
         // 원의 중심 좌표로부터 벡터 x, y 계산 
-        var vx = circle1.centerX() - circle2.centerX(); var vy = circle1.centerY() - circle2.centerY(); 
+        var vx = circle1.centerX() - circle2.centerX(); 
+        var vy = circle1.centerY() - circle2.centerY(); 
         // 원 사이의 거리 
         var d = Math.sqrt(vx * vx + vy * vy); 
         // 반지름의 합 
@@ -21,7 +22,20 @@ class GCollision {
         var hit = magnitude <= totalRadii; 
         return hit; 
     }
+
+    //원형 충돌2
+    hitCircle2(ballA, ballB) {
+        var squareX = Math.pow(Math.abs(ballA.x - ballB.x), 2);
+        var squareY = Math.pow(Math.abs(ballA.y - ballB.y), 2);
+        var hypothenuse = Math.sqrt(squareX + squareY);
+        var distance = hypothenuse - ballA.r - ballB.r;
     
+        if (distance >= 0) {
+            return true;
+        }
+        return false;
+    }
+
     //사각 충돌 위치
     hitRectangleSide(rect1, rect2) { 
         // 충돌 위치 
@@ -43,5 +57,37 @@ class GCollision {
                 collisionSide = vx > 0 ? 'left' : 'right'; 
             } 
         } return collisionSide; 
+    }
+
+    //Circle and Rectangle
+    hitCircleRectangle(player,rect){
+        var distX = Math.abs(circle.x - rect.x - rect.w/2);
+        var distY = Math.abs(circle.y - rect.y - rect.h/2);
+    
+        if (distX > (rect.w/2 + circle.r)) { return false; }
+        if (distY > (rect.h/2 + circle.r)) { return false; }
+    
+        if (distX <= (rect.w/2)) { return true; } 
+        if (distY <= (rect.h/2)) { return true; }
+    
+        // also test for corner collisions
+        var dx=distX-rect.w/2;
+        var dy=distY-rect.h/2;
+        return (dx*dx+dy*dy<=(circle.r*circle.r));
+    }
+
+    //angle
+    getAngle(cx, cy, cx2, cy2) {
+        var dy = cy2 - cy;
+        var dx = cx2 - cx;
+        var theta = Math.atan2(dy, dx);
+        theta *= 180 / Math.PI; 
+        return theta;
+    }
+
+    //공충돌 반응 각 (ex.당구공 충돌 반응 각도)
+    angleReflect(incidenceAngle, surfaceAngle){
+        var a = surfaceAngle * 2 - incidenceAngle;
+        return a >= 360 ? a - 360 : a < 0 ? a + 360 : a;
     }
 }
