@@ -81,7 +81,7 @@ class AnimateContainer{
     static COLLISION_UP = 5;
     static COLLISION_DOWN = 5;
     static SOUND_ENDED = 6;
-    constructor(){
+    constructor(engine){
         this.collision = new GCollision();
         this.objectArray = new Array(0);
         this.newObjectArray = new Array(0);
@@ -99,6 +99,7 @@ class AnimateContainer{
         this.bufferContext;
 
         this.engine;
+        this.setEngine(engine);
     }
 
     checkCollision(){
