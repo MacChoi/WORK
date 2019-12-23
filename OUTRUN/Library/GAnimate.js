@@ -182,12 +182,10 @@ class AnimateContainer{
                 else this.context.globalAlpha = 1.0;
             }
 
-            var gapX = element.w/2;
-            gapX = 0;
             if(element.objectState[0][element.index] * element.reverseImg >= 0)
-                this.context.drawImage(image, element.x - gapX , element.y);
+                this.context.drawImage(image, element.x , element.y);
             else
-                this.flipHorizontally(image, element.x - element.w + gapX  , element.y);
+                this.flipHorizontally(image, element.x - element.w , element.y);
             
             this.context.restore();
         }
