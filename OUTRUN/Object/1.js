@@ -31,7 +31,7 @@ OBJECT[ID.MY_CAR] = {
     ]
 };
 
-function callbackCar(type,indexA,indexB){
+function callbackCar(type,indexA,indexB,angle){
     var aniA = _ANIMATE_CONTAINER.getAnimate(indexA);
     var aniB = _ANIMATE_CONTAINER.getAnimate(indexB);
     switch (type) {
@@ -40,5 +40,11 @@ function callbackCar(type,indexA,indexB){
         break;
         case AnimateContainer.NEXT_FRAME:
         break;
+
+        case AnimateContainer.COLLISION:
+            if(aniB.id == ID.BG)
+            log("angle : " +angle);
+
+            break;
     }    
 }

@@ -82,7 +82,9 @@ class GCollision {
         var dx = cx2 - cx;
         var theta = Math.atan2(dy, dx);
         theta *= 180 / Math.PI; 
-        return theta;
+        //return theta;
+
+        return theta >= 360 ? theta - 360 : theta < 0 ? theta + 360 : theta;
     }
 
     //공충돌 반응 각 (ex.당구공 충돌 반응 각도)

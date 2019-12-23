@@ -109,7 +109,12 @@ class AnimateContainer{
                 if(isEmpty(this.objectArray[i]))continue;
                 if(isEmpty(this.objectArray[j]))continue;
                 if(this.collision.hitRectangle(this.objectArray[i],this.objectArray[j])){
-                    this.objectArray[i].callback(AnimateContainer.COLLISION,i,j); 
+                    var w = this.objectArray[i].w / 2;
+                    var h = this.objectArray[i].h / 2;
+                    var w2 = this.objectArray[j].w / 2;
+                    var h2 = this.objectArray[j].h / 2;
+                    var angle = this.collision.getAngle(this.objectArray[i].x +w,this.objectArray[i].y + h,this.objectArray[j].x + w2,this.objectArray[j].y + h2);
+                    this.objectArray[i].callback(AnimateContainer.COLLISION,i,j,angle); 
                 }
             }  
         }
