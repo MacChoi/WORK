@@ -57,5 +57,4 @@ function appendDivChild(id,view){
 
 function appendBodyChild(canvas){
     document.body.appendChild(canvas);
-    return this;
 }

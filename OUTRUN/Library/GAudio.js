@@ -2,8 +2,9 @@ const NO_SOUND=-1;
 
 class GAudio {
     constructor(){}
-    static callback = function(){};
 
+    static callback = function(){};
+    static isOn = true;
     static loadSoundFile(callback){
         GAudio.callback = callback;
 
@@ -41,5 +42,13 @@ class GAudio {
 
     getSoundCount(){
         return this.soundCount;
+    }
+
+    static setOn(isOn){
+        return GAudio.isOn = isOn;
+    }
+    
+    static isOn(){
+        return GAudio.isOn;
     }
 }

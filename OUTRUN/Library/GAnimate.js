@@ -201,6 +201,9 @@ class AnimateContainer{
         var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y,value,callback))-1;
         var ani = this.getAnimate(index);
         ani.setReverseX(reverseX);
+
+        if(GAudio.isOn == false)return index;
+
         if(this.objectArray[index].objectState[1][0] != NO_SOUND){
             var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
             if(!isEmpty(sound)){
@@ -213,9 +216,12 @@ class AnimateContainer{
 
     newObject(id,state,x,y){
         var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y))-1;
+
+        if(GAudio.isOn == false)return this.getAnimate(index);
+
         if(this.objectArray[index].objectState[1][0] != NO_SOUND){
             var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
-            if(!isEmpty(sound)){
+            if(!isEmpty(sound) & isOn()){
                 sound.currentTime = 0;
                 sound.play();
             }
@@ -260,6 +266,7 @@ class AnimateContainer{
     setState(index,state,x,y){
         this.objectArray[index].setState(state,x,y);
 
+        if(GAudio.isOn == false)return;
         if(this.objectArray[index].objectState[1][0] != NO_SOUND){
             var sound = SOUND[this.objectArray[index].id][this.objectArray[index].objectState[1][0]];
     
