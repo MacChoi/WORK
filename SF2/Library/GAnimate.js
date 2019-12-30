@@ -166,8 +166,8 @@ class AnimateContainer{
                 if(!isEmpty(this.collisionArray)){
                     if(this.collisionArray[idx_Y+1][idx_X_1_10] != 0 |
                         this.collisionArray[idx_Y+1][idx_X_2_10] != 0){
-                        element.y = ((idx_Y) * this._unitH);
-                        element.y -= element.h -this._unitH +1;
+                        element.y = ((idx_Y) * this._unitH)-element.h;
+                        //element.y -= element.h -this._unitH +1;
                         this.objectArray[index].callback(AnimateContainer.COLLISION_DOWN,index); 
                     }
                 }

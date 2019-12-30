@@ -28,7 +28,7 @@ function initGame(){
     });
     
     _BG = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_BG,0,0);
-    _VIEW = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,350).setCallback(callbackView);
+    _VIEW = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,330).setCallback(callbackView);
     _RYU = _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,150,270).setCallback(callbackRyu);
 }
 
@@ -38,9 +38,11 @@ function initInput(){
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
                 _RYU.setState(STATE[ID.RYU].LEFT,_RYU.x,_RYU.y);
+                _VIEW.setState(STATE[ID.BG].VIEW_LEFT,_VIEW.x,_VIEW.y);
                 break;
             case GEngine.KEY_RIGHT:
                 _RYU.setState(STATE[ID.RYU].RIGHT,_RYU.x,_RYU.y);
+                _VIEW.setState(STATE[ID.BG].VIEW_RIGHT,_VIEW.x,_VIEW.y);
                 break;
         }
         e.preventDefault();
