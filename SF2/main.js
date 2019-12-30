@@ -13,7 +13,7 @@ window.onload = function(){
             initInput();
         }
     });
-    _GMAE_ENGINE.startTimeLoop(25,function(){
+    _GMAE_ENGINE.startTimeLoop(60,function(){
         _ANIMATE_CONTAINER.drawNextFrame();
     });
 }

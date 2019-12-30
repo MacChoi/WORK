@@ -9,14 +9,14 @@ OBJECT[ID.RYU] = {
     [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],//y
     ],
     LEFT:[
-    [3,3,3,3,3],//image
+    [1,2,3,4,5],//image
     [NO_SOUND],//sound
     [-5,-5,-5,-5,-5],//x
     [0,0,0,0,0],//y
     [5,5,5,5,5]//gravity
     ],
     RIGHT:[
-    [3,3,3,3,3],//image
+    [1,2,3,4,5],//image
     [NO_SOUND],//sound
     [5,5,5,5,5],//x
     [0,0,0,0,0],//y
@@ -32,7 +32,6 @@ function callbackRyu(type,indexA,indexB,angle){
             _ANIMATE_CONTAINER.setState(indexA,STATE[ID.RYU].NEW,aniA.x,aniA.y);
         break;
         case AnimateContainer.NEXT_FRAME:
-            //_VIEW.setState(STATE[ID.BG].NEW_VIEW,aniA.x,_VIEW.y);
         break;
         case AnimateContainer.COLLISION:
         break;
