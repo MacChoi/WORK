@@ -5,12 +5,13 @@ class GAudio {
 
     static set callback(CB){this.CB = CB};
     static get callback(){return this.CB};
-    static set isOn(isOn){this.isOn = isOn};
-    static get isOn(){return this.isOn};
+    static set isOn(isAudioOn){this.isAudioOn = isAudioOn};
+    static get isOn(){return this.isAudioOn};
 
     static loadSoundFile(callback){
         GAudio.callback = callback;
-
+        GAudio.isOn = true;
+        
         this.soundCount = 0;
         for(var i = 0; i<SOUND.length; i++){
             SOUND[i] = new Array(OBJECT[i].SOUND);
@@ -25,7 +26,7 @@ class GAudio {
             return;
         }
 
-        log("GAudio.loadSoundFile() : " + this.soundCount);
+        //log("GAudio.loadSoundFile() : " + this.soundCount);
         var count = 0;
         var soundMaxCount = this.soundCount;
         for(var i = 0; i<SOUND.length; i++){
@@ -38,20 +39,12 @@ class GAudio {
                     if(soundMaxCount == count)GAudio.callback(GEngine.END_FILE,count);
                  }, false);
 
-                log("SOUND[" + i + "][" + j + "] : " + SOUND[i][j].src);
+                //log("SOUND[" + i + "][" + j + "] : " + SOUND[i][j].src);
             }
         } 
     }
 
     getSoundCount(){
         return this.soundCount;
-    }
-
-    static setOn(isOn){
-        return GAudio.isOn = isOn;
-    }
-    
-    static isOn(){
-        return GAudio.isOn;
     }
 }

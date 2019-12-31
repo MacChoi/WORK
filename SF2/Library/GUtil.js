@@ -8,8 +8,8 @@ class Enum{
 }
 
 class Debug{
-    static set hide(isHide) {this.hide = isHide};
-    static get hide() {return this.hide};
+    static set hide(isHide) {this.isHide = isHide};
+    static get hide() {return this.isHide};
 }
 
 function log(text){
