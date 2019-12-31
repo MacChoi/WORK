@@ -2,13 +2,13 @@ class Animate{
     static set callbackSound(callbackSound){this.callbackSound = callbackSound};
     static get callbackSound(){return this.callbackSound};
 
-    constructor(id,object,state,x,y,value,callback){
+    constructor(id,object,state,x,y){
         this.id = id;
         this.object = object;
         this.state = state;
         this.x = x;
         this.y = y;
-        this.value = value;
+        this.value = 0;
 
         this.objectState = Object.values(object)[state];
         this.glint = 0;
@@ -20,8 +20,7 @@ class Animate{
         this.reverseImg = 1;
         this.isAniLoop = true;
 
-        if(!isEmpty(callback))this.callback = callback;
-        else this.callback = function(){};
+        this.callback = function(){};
     }
 
     nextFrame(ani_index){
@@ -138,7 +137,7 @@ class AnimateContainer{
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
             if(this.objectArray[index].index == 0 & this.objectArray[index].isAniLoop == false){
-                this.deleteAnimate(index);
+                this.deleteObject(index);
                 continue;
             }
 
@@ -210,27 +209,10 @@ class AnimateContainer{
         this.checkCollision();
     }
    
-    newAnimate(id,state,x,y,reverseX,value,callback){
-        var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y,value,callback))-1;
-        var ani = this.getAnimate(index);
-        ani.setReverseX(reverseX);
-
-        if(GAudio.isOn == false)return index;
-
-        if(this.objectArray[index].objectState[1][0] != NO_SOUND){
-            var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
-            if(!isEmpty(sound)){
-                sound.currentTime = 0;
-                sound.play();
-            }
-        }
-        return index;
-    }
-
     newObject(id,state,x,y){
         var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y))-1;
 
-        if(GAudio.isOn == false)return this.getAnimate(index);
+        if(GAudio.isOn == false)return this.getObject(index);
 
         if(this.objectArray[index].objectState[1][0] != NO_SOUND){
             var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
@@ -239,41 +221,7 @@ class AnimateContainer{
                 sound.play();
             }
         }
-        return this.getAnimate(index);
-    }
-    
-    // newAnimate(id,state,x,y,reverseX,value,callback){
-    //     var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y,value,callback))-1;
-    //     var ani = this.getAnimate(index);
-    //     ani.setReverseX(reverseX);
-    //     if(this.objectArray[index].objectState[1][0] != NO_SOUND){
-    //         var sound = SOUND[id][this.objectArray[index].objectState[1][0]];
-    //         if(!isEmpty(sound)){
-    //             sound.currentTime = 0;
-    //             sound.play();
-    //         }
-    //     }
-    //     return index;
-    // }
-
-    deleteAnimate(index){
-        this.objectArray[index].callback = function(){};
-        this.objectArray.splice(index,1);
-        return this;
-    }
-
-    deleteAllAnimate(id){
-        var count = -1;
-        for (var index = 0; index < this.objectArray.length; index++) {
-            if(this.objectArray[index].id == id)this.deleteAnimate(index);
-            count++;
-        }
-        return count;
-    }
-
-    setScale(scale){
-        this.scale = scale;
-        return this;
+        return this.getObject(index);
     }
 
     setState(index,state,x,y){
@@ -292,7 +240,27 @@ class AnimateContainer{
         return this;
     }
     
-    getAnimate(index){
+    deleteObject(index){
+        this.objectArray[index].callback = function(){};
+        this.objectArray.splice(index,1);
+        return this;
+    }
+
+    deleteAllObject(id){
+        var count = -1;
+        for (var index = 0; index < this.objectArray.length; index++) {
+            if(this.objectArray[index].id == id)this.deleteObject(index);
+            count++;
+        }
+        return count;
+    }
+
+    setScale(scale){
+        this.scale = scale;
+        return this;
+    }
+    
+    getObject(index){
         return this.objectArray[index];
     }
     

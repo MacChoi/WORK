@@ -25,11 +25,11 @@ OBJECT[ID.RYU] = {
 };
 
 function callbackRyu(type,indexA,indexB,angle){
-    var aniA = _ANIMATE_CONTAINER.getAnimate(indexA);
-    var aniB = _ANIMATE_CONTAINER.getAnimate(indexB);
+    var objA = _ANIMATE_CONTAINER.getObject(indexA);
+    var objB = _ANIMATE_CONTAINER.getObject(indexB);
     switch (type) {
         case AnimateContainer.END_FRAME:
-            _ANIMATE_CONTAINER.setState(indexA,STATE[ID.RYU].NEW,aniA.x,aniA.y);
+            _ANIMATE_CONTAINER.setState(indexA,STATE[ID.RYU].NEW,objA.x,objA.y);
         break;
         case AnimateContainer.NEXT_FRAME:
         break;

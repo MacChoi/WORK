@@ -51,14 +51,14 @@ OBJECT[ID.BG] = {
 };
 
 function callbackView(type,indexA,indexB,angle){
-    var aniA = _ANIMATE_CONTAINER.getAnimate(indexA);
-    var aniB = _ANIMATE_CONTAINER.getAnimate(indexB);
+    var objA = _ANIMATE_CONTAINER.getObject(indexA);
+    var objB = _ANIMATE_CONTAINER.getObject(indexB)
     switch (type) {
         case AnimateContainer.END_FRAME:
-            _ANIMATE_CONTAINER.setState(indexA,STATE[ID.BG].NEW_VIEW,aniA.x,aniA.y);
+            _ANIMATE_CONTAINER.setState(indexA,STATE[ID.BG].NEW_VIEW,objA.x,objA.y);
         break;
         case AnimateContainer.NEXT_FRAME:
-            _BG.setState(STATE[ID.BG].NEW_BG,aniA.x-500,_BG.y);
+            _BG.setState(STATE[ID.BG].NEW_BG,objA.x-500,_BG.y);
         break;
         case AnimateContainer.COLLISION:
         break;

@@ -30,6 +30,10 @@ function getRandom(min,max){
     return Math.floor(Math.random() * (max - min+1)) + min;
 }
 
+function getUniqueID(){
+    return Date.now() + ( (Math.random()*100000).toFixed());
+}
+
 function isEmpty(str){
     if(typeof str == "undefined" || str == null || str == "")
         return true;

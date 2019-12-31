@@ -1,19 +1,20 @@
-var _GMAE_ENGINE;
+var _GAME_ENGINE;
 var _ANIMATE_CONTAINER;
 var _BG,_VIEW;
 var _RYU;
 
 GEngine.loadObjectFile(["BG","RYU"]);
 window.onload = function(){
-    _GMAE_ENGINE = new GEngine().appendBodyChild();
-    _ANIMATE_CONTAINER = new AnimateContainer(_GMAE_ENGINE);
-    _GMAE_ENGINE.loadImageFile(function (type,count){
+    _GAME_ENGINE = new GEngine().appendBodyChild();
+    _ANIMATE_CONTAINER = new AnimateContainer(_GAME_ENGINE);
+    _GAME_ENGINE.loadImageFile(function (type,count){
         if(GEngine.END_FILE == type){
-            _GMAE_ENGINE.setResizeCallback(function(event){
-                _GMAE_ENGINE.setRatioCanvas(4,3);
+            _GAME_ENGINE.setResizeCallback(function(event){
+                _GAME_ENGINE.setRatioCanvas(4,3);
+                var COLLISION_DATA = OBJECT[ID.BG].COLLISION_DATA;
                 _ANIMATE_CONTAINER.setCollisonArray(OBJECT[ID.BG].COLLISION_DATA);
-                // _ANIMATE_CONTAINER.drawMap(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
-                // _ANIMATE_CONTAINER.drawCollisionArray(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
+                _ANIMATE_CONTAINER.drawMap(COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
+                _ANIMATE_CONTAINER.drawCollisionArray(COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
             });
 
             initGame(); 
