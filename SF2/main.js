@@ -9,24 +9,22 @@ window.onload = function(){
     _ANIMATE_CONTAINER = new AnimateContainer(_GMAE_ENGINE);
     _GMAE_ENGINE.loadImageFile(function (type,count){
         if(GEngine.END_FILE == type){
+            _GMAE_ENGINE.setResizeCallback(function(event){
+                _GMAE_ENGINE.setRatioCanvas(4,3);
+                _ANIMATE_CONTAINER.setCollisonArray(OBJECT[ID.BG].COLLISION_DATA);
+                // _ANIMATE_CONTAINER.drawMap(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
+                // _ANIMATE_CONTAINER.drawCollisionArray(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
+            });
+
             initGame(); 
             initInput();
         }
-    });
-    _GMAE_ENGINE.startTimeLoop(60,function(){
+    }).startTimeLoop(60,function(){
         _ANIMATE_CONTAINER.drawNextFrame();
     });
 }
 
 function initGame(){
-    var _COLLISION_DATA = OBJECT[ID.BG].COLLISION_DATA;
-    _GMAE_ENGINE.setResizeCallback(function(event){
-        _GMAE_ENGINE.setRatioCanvas(4,3);
-        _ANIMATE_CONTAINER.setCollisonArray(_COLLISION_DATA);
-        _ANIMATE_CONTAINER.drawMap(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
-        _ANIMATE_CONTAINER.drawCollisionArray(_COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
-    });
-    
     _BG = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_BG,0,0);
     _VIEW = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,360).setCallback(callbackView);
     _RYU = _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,150,270).setCallback(callbackRyu);
