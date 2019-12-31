@@ -103,7 +103,8 @@ class AnimateContainer{
         this.scale = 1;
 
         this.collisionArray = null;
-        this.indexStartXGravityArray = 0;
+        this.indexStartXCollisionArray = 0;
+        this.indexStartYCollisionArray = 0;
 
         this.canvas;
         this.context;
@@ -151,9 +152,9 @@ class AnimateContainer{
             element.x += element.objectState[2][element.index] * element.reverseX;
             element.y += element.objectState[3][element.index] * element.reverseY;
 
-            var idx_X_1=parseInt((element.x) /this._unitW) + this.indexStartXGravityArray;
-            var idx_X_2=parseInt((element.x+element.w) /this._unitW) + this.indexStartXGravityArray;
-            var idx_Y=parseInt((element.y + element.h) /this._unitH);
+            var idx_X_1=parseInt((element.x) /this._unitW) + this.indexStartXCollisionArray;
+            var idx_X_2=parseInt((element.x+element.w) /this._unitW) + this.indexStartXCollisionArray;
+            var idx_Y=parseInt((element.y + element.h) /this._unitH) + this.indexStartYCollisionArray;
 
             if( idx_Y > 1 & !isEmpty(element.objectState[4]))
             if(this.collisionArray[idx_Y-1][idx_X_1] != 0 ){
@@ -171,15 +172,15 @@ class AnimateContainer{
                 this.objectArray[index].callback(AnimateContainer.COLLISION_RIGHT,index); 
             }
 
-            var idx_X_1_10=parseInt((element.x+10) /this._unitW) + this.indexStartXGravityArray;
-            var idx_X_2_10=parseInt((element.x+element.w-10) /this._unitW) + this.indexStartXGravityArray;
+            var idx_X_1_10=parseInt((element.x+10) /this._unitW) + this.indexStartXCollisionArray;
+            var idx_X_2_10=parseInt((element.x+element.w-10) /this._unitW) + this.indexStartXCollisionArray;
             if(!isEmpty(element.objectState[4])){
                 element.y += element.objectState[4][element.index];
                 if(!isEmpty(this.collisionArray)){
                     if(this.collisionArray[idx_Y][idx_X_1_10] != 0 |
                         this.collisionArray[idx_Y][idx_X_2_10] != 0){
                         element.y = ((idx_Y) * this._unitH)-element.h ;
-                        //element.y -= element.h -this._unitH +1;
+
                         this.objectArray[index].callback(AnimateContainer.COLLISION_DOWN,index); 
                     }
                 }
@@ -304,17 +305,22 @@ class AnimateContainer{
         return this;
     }
 
+    setIndexStartXCollisonArray(index){
+        this.indexStartXCollisionArray = index;
+        return this;
+    }
+
+    setIndexStartYCollisonArray(index){
+        this.indexStartYCollisionArray = index;
+        return this;
+    }
+
     getUnitWidth(){
         return this._unitW;
     }
 
     getUnitHeight(){
         return this._unitH;
-    }
-
-    setIndexStartXCollisonArray(index){
-        this.indexStartXGravityArray = index;
-        return this;
     }
 
     allAddXY(x,y){
@@ -348,10 +354,11 @@ class AnimateContainer{
     drawMap(map,image,sizeW,sizeH){
         var W = sizeW *this.scale;
         var H = sizeH *this.scale;
-
-        for(var x=0; x<map[0].length; x++) {
-            for(var y=0; y<map.length; y++) {
-                this.bufferContext.drawImage(image[map[y][x]] , x * W, y * H, W, H);
+        var maxY = map.length - this.indexStartYCollisionArray;
+        var minY = map.length < maxY ?map.length:maxY;
+        for(var y=0; y<minY; y++) {
+            for(var x=0; x<map[0].length; x++) {
+                this.bufferContext.drawImage(image[map[y +this.indexStartYCollisionArray][x +this.indexStartXCollisionArray]] , x * W, y * H, W, H);
             }
         }
         return this;
@@ -360,10 +367,13 @@ class AnimateContainer{
     drawGrid(map,sizeW,sizeH){
         var W = sizeW *this.scale;
         var H = sizeH *this.scale;
-        for(var x=0; x<map[0].length; x++) {
-            for(var y=0; y<map.length; y++) {
+        var maxY = map.length - this.indexStartYCollisionArray;
+        var minY = map.length < maxY ?map.length:maxY;
+        for(var y=0; y<minY; y++) {
+            for(var x=0; x<map[0].length; x++) {
+            
                 this.bufferContext.strokeRect(x * W, y * H, W, H);
-                this.bufferContext.fillText("" + map[y][x], (x * W)+W/2, (y * H)+H/2, 10);
+                this.bufferContext.fillText("" + map[y +this.indexStartYCollisionArray][x +this.indexStartXCollisionArray], (x * W)+W/2, (y * H)+H/2, 10);
            }
         }
         return this;
