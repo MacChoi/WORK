@@ -375,7 +375,6 @@ class AnimateContainer{
         var minY = map.length < maxY ?map.length:maxY;
         for(var y=0; y<minY; y++) {
             for(var x=0; x<map[0].length- this.indexStartXCollisionArray; x++) {
-            
                 this.bufferContext.strokeRect(x * W, y * H, W, H);
                 this.bufferContext.fillText("" + map[y +this.indexStartYCollisionArray][x +this.indexStartXCollisionArray], (x * W)+W/2, (y * H)+H/2, 10);
            }
