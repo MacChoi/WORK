@@ -1,5 +1,9 @@
 class Animate{
-    static callbackSound;
+   // static callbackSound;
+
+    static set callbackSound(callbackSound){this.callbackSound = callbackSound};
+    static get callbackSound(){return this.callbackSound};
+
     constructor(id,object,state,x,y,value,callback){
         this.id = id;
         this.object = object;
@@ -73,14 +77,14 @@ class Animate{
 }
 
 class AnimateContainer{
-    static END_FRAME = 0;
-    static NEXT_FRAME = 1;
-    static COLLISION = 2;
-    static COLLISION_LEFT = 3;
-    static COLLISION_RIGHT = 4;
-    static COLLISION_UP = 5;
-    static COLLISION_DOWN = 5;
-    static SOUND_ENDED = 6;
+    static get END_FRAME(){return 0;};
+    static get NEXT_FRAME(){return 1;};
+    static get COLLISION(){return 2;};
+    static get COLLISION_LEFT(){return 3;};
+    static get COLLISION_RIGHT(){return 4;};
+    static get COLLISION_UP(){return 5;};
+    static get COLLISION_DOWN(){return 6;};
+    static get SOUND_ENDED (){return 7;};
     constructor(engine){
         this.collision = new GCollision();
         this.objectArray = new Array(0);

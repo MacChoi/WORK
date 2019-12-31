@@ -5,21 +5,26 @@ let SOUND;
 let STATE;
 
 class GEngine {
-    static END_FILE = 0;
-    static NEXT_FILE = 1;
+    static get END_FILE(){return 0;};
+    static get NEXT_FILE(){return 1;};
 
-    static KEY_LEFT = 37;
-    static KEY_UP = 38;
-    static KEY_RIGHT = 39;
-    static KEY_DOWN = 40;
-    static KEY_SPACE = 32;
-    static KEY_ALT = 18;
-    static KEY_A = 65;
-    static KEY_S = 83;
+    static get KEY_LEFT(){return 37;};
+    static get KEY_UP(){return 38;};
+    static get KEY_RIGHT(){return 39;};
+    static get KEY_DOWN(){return 40;};
+    static get KEY_SPACE(){return 32;};
+    static get KEY_ALT(){return 18;};
+    static get KEY_A(){return 65;};
+    static get KEY_S(){return 83;};
 
-    static loopCallback = null;
-    static callback = null;
-    static LOOP_TIME = 1000;
+    static set loopCallback(loopCB){this.loopCB = loopCB};
+    static get loopCallback(){return this.loopCB};
+
+    static set callback(CB){this.CB = CB};
+    static get callback(){return this.CB};
+
+    static set LOOP_TIME(loopTime){this.loopTime = loopTime};
+    static get LOOP_TIME(){return this.loopTime};
 
     static loadObjectFile(IDArray){
         ID = new Enum(IDArray);
@@ -39,6 +44,7 @@ class GEngine {
     }
 
     constructor() {
+        this.LOOP_TIME = 1000;
         this.canvas = document.createElement( 'Canvas' );
         this.bufferCanvas = document.createElement( 'Canvas' );
 

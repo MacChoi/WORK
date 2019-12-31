@@ -3,8 +3,11 @@ const NO_SOUND=-1;
 class GAudio {
     constructor(){}
 
-    static callback = function(){};
-    static isOn = true;
+    static set callback(CB){this.CB = CB};
+    static get callback(){return this.CB};
+    static set isOn(isOn){this.isOn = isOn};
+    static get isOn(){return this.isOn};
+
     static loadSoundFile(callback){
         GAudio.callback = callback;
 
