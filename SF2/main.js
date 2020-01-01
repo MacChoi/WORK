@@ -34,6 +34,7 @@ function initGame(){
 function initInput(){
     window.addEventListener( 'keydown', function(e) {
         //log("e.keyCode: " + e.keyCode);
+        if(_RYU.state != STATE[ID.RYU].NEW)return;
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
                 _RYU.setState(STATE[ID.RYU].LEFT,_RYU.x,_RYU.y);
@@ -43,6 +44,15 @@ function initInput(){
                 _RYU.setState(STATE[ID.RYU].RIGHT,_RYU.x,_RYU.y);
                 _VIEW.setState(STATE[ID.BG].VIEW_RIGHT,_VIEW.x,_VIEW.y);
                 break;
+            case GEngine.KEY_UP:
+                _RYU.setState(STATE[ID.RYU].JUMP,_RYU.x,_RYU.y);
+                break;
+            case GEngine.KEY_A:
+                _RYU.setState(STATE[ID.RYU].PUNCH,_RYU.x,_RYU.y);
+                break;
+            case GEngine.KEY_S:
+                _RYU.setState(STATE[ID.RYU].KICK,_RYU.x,_RYU.y);
+                break; 
         }
         e.preventDefault();
     });
