@@ -168,20 +168,20 @@ class AnimateContainer{
             var idx_X_2=parseInt((element.x+element.w) /this._unitW) + this.indexStartXCollisionArray;
             var idx_Y=parseInt((element.y + element.h) /this._unitH) + this.indexStartYCollisionArray;
 
-            if( idx_Y > 1 & !isEmpty(element.objectState[4]))
-            if(this.collisionArray[idx_Y-1][idx_X_1] != 0 ){
-                if(element.objectState[4][element.index] !=0)
-                if(tmpx >= element.x)
-                element.x = tmpx;
+            if( idx_Y > 1 & !isEmpty(element.objectState[4])){
+                if(this.collisionArray[idx_Y-1][idx_X_1] != 0 ){
+                    if(element.objectState[4][element.index] !=0)
+                    if(tmpx >= element.x)
+                    element.x = tmpx;
 
-                this.objectArray[index].callback(AnimateContainer.COLLISION_LEFT,index); 
-            }
-            if( idx_Y > 1 & !isEmpty(element.objectState[4]))
-            if(this.collisionArray[idx_Y-1][idx_X_2] != 0 ){
-                if(element.objectState[4][element.index] !=0)
-                element.x = tmpx;
-              
-                this.objectArray[index].callback(AnimateContainer.COLLISION_RIGHT,index); 
+                    this.objectArray[index].callback(AnimateContainer.COLLISION_LEFT,index); 
+                }
+                else if(this.collisionArray[idx_Y-1][idx_X_2] != 0 ){
+                    if(element.objectState[4][element.index] !=0)
+                    element.x = tmpx;
+                
+                    this.objectArray[index].callback(AnimateContainer.COLLISION_RIGHT,index); 
+                }
             }
 
             var idx_X_1_10=parseInt((element.x+10) /this._unitW) + this.indexStartXCollisionArray;

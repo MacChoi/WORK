@@ -12,6 +12,24 @@ class Debug{
     static get hide() {return this.isHide};
 }
 
+class Queue{
+    constructor(){
+        this.queue = "";
+    }
+
+    append(value){
+        this.queue += "" + value;
+    }
+
+    get(){
+        return this.queue;
+    }
+
+    clear(){
+        this.queue = "";
+    }
+}
+
 function log(text){
     if(Debug.hide == true)return;
     console.log(text);   

@@ -5,8 +5,8 @@ OBJECT[ID.RYU] = {
     [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5],//image
     [NO_SOUND],//sound
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//x
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//y
-    [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],//gravity
+    [0,0,0,0,0,0,0,0,0,-3,0,3,0,0,0],//y
+    [5,5,5,0,5,0,5,5,5,0,5,0,5,5,5],//gravity
     ],
     LEFT:[
     [17,16,15,14,13,12],//image
@@ -35,10 +35,16 @@ OBJECT[ID.RYU] = {
     [0,0,0,0,0],//y
     [20,20,20,20,20]//gravity
     ],
+    JUMP_LEFT:[
+    [30,30,30,29,29,29,28,28,28,27,27,27,26,26,26,25,25,25],//image
+    [NO_SOUND],//sound
+    [0,-10,-10,-10,-10,-10,0,0,0,0,0,-10,0,0,0,0,0,0],//x
+    [-10,0,0,0,0,-50,0,0,0,0,0,0,0,0,0,0,0,0],//y
+    ],
     JUMP_RIGHT:[
     [25,25,25,26,26,26,27,27,27,28,28,28,29,29,29,30,30,30],//image
     [NO_SOUND],//sound
-    [0,0,0,0,0,10,0,0,0,0,0,10,0,0,0,10,10,0],//x
+    [0,10,10,10,10,10,0,0,0,0,0,10,0,0,0,0,0,0],//x
     [-10,0,0,0,0,-50,0,0,0,0,0,0,0,0,0,0,0,0],//y
     ], 
     PUNCH:[
@@ -65,11 +71,17 @@ function callbackRyu(type,indexA,indexB,angle){
             _ANIMATE_CONTAINER.setState(indexA,STATE[ID.RYU].NEW,objA.x,objA.y);
         break;
         case AnimateContainer.NEXT_FRAME:
+            
         break;
         case AnimateContainer.COLLISION:
         break;
+
+        case AnimateContainer.COLLISION_LEFT:
+            objA.x =30;
+        break;
+
         case AnimateContainer.COLLISION_RIGHT:
-            objA.x =420;
+            objA.x =400;
         break;
     }    
 }
