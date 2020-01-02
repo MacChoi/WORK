@@ -9,7 +9,8 @@ class Animate{
         this.x = x;
         this.y = y;
         this.value = 0;
-
+        this.uniID = getUniqueID();
+        
         this.objectState = Object.values(object)[state];
         this.glint = 0;
         this.w = 0;

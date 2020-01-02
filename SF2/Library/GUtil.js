@@ -17,20 +17,16 @@ class Queue{
         this.beforValues = "";
         this.queue = "";
     }
-
     append(value){
         this.beforValues = "" + value;
         this.queue += "" + value;
     }
-
     get(){
         return this.queue;
     }
-
     clear(){
         this.queue = "";
     }
-
     getBeforValues(){
         return this.beforValues;
     }
@@ -41,21 +37,17 @@ class KeyQueue{
         this.beforValues = 0;
         this.queue = 0;
     }
-
     append(value){
         this.beforValues = value;
         this.queue += value;
     }
-
     get(){
         return this.queue;
     }
-
     clear(){
         this.queue = 0;
         this.beforValues = 0;
     }
-
     getBeforValues(){
         return this.beforValues;
     }
