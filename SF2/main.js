@@ -31,13 +31,15 @@ function initGame(){
     _INPUT_KEY_QUEUE = new KeyQueue();
     _BG = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_BG,0,0);
     _VIEW = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,360).setCallback(callbackView);
-    _RYU = _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,350,270).setCallback(callbackRyu);
+    _RYU = _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,130,270).setCallback(callbackRyu);
+
+    _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,350,270).setReverseX(-1).setCallback(callbackRyu);
 }
 
 function initInput(){
     window.addEventListener( 'keydown', function(e) {
         //log("e.keyCode: " + e.keyCode);
-        if(comboKeyCheck(e) == true){
+        if(isComboKey(e) == true){
             _INPUT_KEY_QUEUE.clear();
             return;
         }
@@ -68,28 +70,30 @@ function initInput(){
     });
 }
 
-function comboKeyCheck(e){
+function isComboKey(e){
     if(_INPUT_KEY_QUEUE.getBeforValues() != e.keyCode){
         _INPUT_KEY_QUEUE.append(e.keyCode);
     }
-    log("_INPUT_KEY_QUEUE.get() " +_INPUT_KEY_QUEUE.get());
+    //log("_INPUT_KEY_QUEUE.get() " +_INPUT_KEY_QUEUE.get());
 
     switch (_INPUT_KEY_QUEUE.get()){
-        case GEngine.KEY_UP ^ GEngine.KEY_LEFT :
+        case GEngine.KEY_UP + GEngine.KEY_LEFT :
             if(_RYU.state != STATE[ID.RYU].JUMP & _RYU.state != STATE[ID.RYU].JUMP_LEFT & _RYU.state != STATE[ID.RYU].JUMP_RIGHT){
                 _RYU.setState(STATE[ID.RYU].JUMP_LEFT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN); 
                 return true;
             }
         break;
-        case GEngine.KEY_UP ^ GEngine.KEY_RIGHT :
+        case GEngine.KEY_UP + GEngine.KEY_RIGHT :
             if(_RYU.state != STATE[ID.RYU].JUMP & _RYU.state != STATE[ID.RYU].JUMP_LEFT & _RYU.state != STATE[ID.RYU].JUMP_RIGHT){
                 _RYU.setState(STATE[ID.RYU].JUMP_RIGHT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
                 return true;
             }
         break;
-        case GEngine.KEY_RIGHT ^ GEngine.KEY_DOWN ^ GEngine.KEY_A^ GEngine.KEY_RIGHT :
-            
-log("OK")
+        case GEngine.KEY_RIGHT + GEngine.KEY_DOWN + GEngine.KEY_A + GEngine.KEY_RIGHT:
+            if(_RYU.state != STATE[ID.RYU].JUMP & _RYU.state != STATE[ID.RYU].JUMP_LEFT & _RYU.state != STATE[ID.RYU].JUMP_RIGHT){
+                _RYU.setState(STATE[ID.RYU].JUMP_RIGHT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
+                return true;
+            }
             return true;
         break;
     }

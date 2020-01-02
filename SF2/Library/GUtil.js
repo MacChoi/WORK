@@ -44,15 +44,16 @@ class KeyQueue{
 
     append(value){
         this.beforValues = value;
-        this.queue ^= value;
+        this.queue += value;
     }
 
     get(){
-        return this.queue == 0 ? -1:this.queue;
+        return this.queue;
     }
 
     clear(){
         this.queue = 0;
+        this.beforValues = 0;
     }
 
     getBeforValues(){
