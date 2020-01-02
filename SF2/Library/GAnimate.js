@@ -21,6 +21,8 @@ class Animate{
         this.isAniLoop = true;
 
         this.callback = function(){};
+
+        this.nextState = null;
     }
 
     nextFrame(ani_index){
@@ -28,8 +30,12 @@ class Animate{
         if(this.index < this.objectState[0].length-1){
             this.index++;
         }else{
-            this.index=0;
-            if(!isEmpty(this.callback))this.callback(AnimateContainer.END_FRAME,ani_index);
+            //this.index=0;
+            if(!isEmpty(this.nextState)){
+                this.setState(this.nextState,this.x,this.y);
+                this.nextState = null;
+            }
+            else if(!isEmpty(this.callback))this.callback(AnimateContainer.END_FRAME,ani_index);
         }
         if(!isEmpty(this.callback))this.callback(AnimateContainer.NEXT_FRAME,ani_index);
         if(this.glint > 0){
@@ -51,6 +57,7 @@ class Animate{
         this.x = x;
         this.y = y;
         this.state = state;
+        this.nextState = state;
         this.index = 0;
         this.objectState = Object.values(this.object)[state];
 
@@ -64,6 +71,11 @@ class Animate{
             }
         }
 
+        return this;
+    }
+
+    setNextState(state){
+        this.nextState = state;
         return this;
     }
 
@@ -243,6 +255,11 @@ class AnimateContainer{
             }
         }
 
+        return this;
+    }
+
+    setNextState(index,state){
+        this.setState(index,state,this.objectArray[index].x,this.objectArray[index].y);
         return this;
     }
     

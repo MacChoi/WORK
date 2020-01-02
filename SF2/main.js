@@ -28,7 +28,7 @@ window.onload = function(){
 function initGame(){
     _BG = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_BG,0,0);
     _VIEW = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,360).setCallback(callbackView);
-    _RYU = _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,150,270).setCallback(callbackRyu);
+    _RYU = _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,350,270).setCallback(callbackRyu);
 }
 
 function initInput(){
@@ -45,7 +45,7 @@ function initInput(){
                 _VIEW.setState(STATE[ID.BG].VIEW_RIGHT,_VIEW.x,_VIEW.y);
                 break;
             case GEngine.KEY_UP:
-                _RYU.setState(STATE[ID.RYU].JUMP,_RYU.x,_RYU.y);
+                _RYU.setState(STATE[ID.RYU].JUMP_RIGHT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
                 break;
             case GEngine.KEY_A:
                 _RYU.setState(STATE[ID.RYU].PUNCH,_RYU.x,_RYU.y);
