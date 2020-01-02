@@ -4,8 +4,7 @@ var _BG,_VIEW;
 var _RYU;
 
 var _INPUT_KEY_QUEUE;
-
-GEngine.loadObjectFile(["BG","RYU"]);
+GEngine.loadObjectFile(["BG","RYU","FX"]);
 window.onload = function(){
     _GAME_ENGINE = new GEngine().appendBodyChild();
     _ANIMATE_CONTAINER = new AnimateContainer(_GAME_ENGINE);
@@ -28,6 +27,8 @@ window.onload = function(){
 }
 
 function initGame(){
+    GAudio.isOn=false;
+    
     _INPUT_KEY_QUEUE = new KeyQueue();
     _BG = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_BG,0,0);
     _VIEW = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,360).setCallback(callbackView);
@@ -58,11 +59,11 @@ function initInput(){
                 _RYU.setState(STATE[ID.RYU].JUMP,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
                 break;
             case GEngine.KEY_A:
-                _RYU.setState(STATE[ID.RYU].PUNCH,_RYU.x,_RYU.y);
+                _RYU.setState(STATE[ID.RYU].PUNCH,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].NEW);;
                 _INPUT_KEY_QUEUE.clear();
                 break;
             case GEngine.KEY_S:
-                _RYU.setState(STATE[ID.RYU].KICK,_RYU.x,_RYU.y);
+                _RYU.setState(STATE[ID.RYU].KICK,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].NEW);
                 _INPUT_KEY_QUEUE.clear();
                 break; 
         }
@@ -89,9 +90,10 @@ function isComboKey(e){
                 return true;
             }
         break;
-        case GEngine.KEY_RIGHT + GEngine.KEY_DOWN + GEngine.KEY_A + GEngine.KEY_RIGHT:
-            if(_RYU.state != STATE[ID.RYU].JUMP & _RYU.state != STATE[ID.RYU].JUMP_LEFT & _RYU.state != STATE[ID.RYU].JUMP_RIGHT){
-                _RYU.setState(STATE[ID.RYU].JUMP_RIGHT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
+        case GEngine.KEY_RIGHT + GEngine.KEY_DOWN + GEngine.KEY_A + GEngine.KEY_RIGHT:   
+        if(_RYU.state != STATE[ID.RYU].SKILL_1){
+                _RYU.setState(STATE[ID.RYU].SKILL_1,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].NEW);
+                _ANIMATE_CONTAINER.newObject(ID.FX,STATE[ID.FX].NEW,_RYU.x,_RYU.y+15).setCallback(callbackFX);
                 return true;
             }
         break;
