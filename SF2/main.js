@@ -38,14 +38,14 @@ function initInput(){
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
                 _RYU.setState(STATE[ID.RYU].LEFT,_RYU.x,_RYU.y);
-                _VIEW.setState(STATE[ID.BG].VIEW_LEFT,_VIEW.x,_VIEW.y);
+                _VIEW.setState(STATE[ID.BG].VIEW_RIGHT,_VIEW.x,_VIEW.y);
                 break;
             case GEngine.KEY_RIGHT:
                 _RYU.setState(STATE[ID.RYU].RIGHT,_RYU.x,_RYU.y);
-                _VIEW.setState(STATE[ID.BG].VIEW_RIGHT,_VIEW.x,_VIEW.y);
+                _VIEW.setState(STATE[ID.BG].VIEW_LEFT,_VIEW.x,_VIEW.y);
                 break;
             case GEngine.KEY_UP:
-                _RYU.setState(STATE[ID.RYU].JUMP_RIGHT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
+                _RYU.setState(STATE[ID.RYU].JUMP,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
                 break;
             case GEngine.KEY_A:
                 _RYU.setState(STATE[ID.RYU].PUNCH,_RYU.x,_RYU.y);

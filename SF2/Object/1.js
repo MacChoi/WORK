@@ -69,7 +69,7 @@ function callbackRyu(type,indexA,indexB,angle){
         case AnimateContainer.COLLISION:
         break;
         case AnimateContainer.COLLISION_RIGHT:
-            objA.x =425;
+            objA.x =420;
         break;
     }    
 }
