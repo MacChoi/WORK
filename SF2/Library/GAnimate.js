@@ -31,7 +31,7 @@ class Animate{
         if(this.index < this.objectState[0].length-1){
             this.index++;
         }else{
-            //this.index=0;
+            this.index=0;
             if(!isEmpty(this.nextState)){
                 this.setState(this.nextState,this.x,this.y);
                 this.nextState = null;
@@ -58,7 +58,7 @@ class Animate{
         this.x = x;
         this.y = y;
         this.state = state;
-        this.nextState = state;
+        this.nextState = null;
         this.index = 0;
         this.objectState = Object.values(this.object)[state];
 
