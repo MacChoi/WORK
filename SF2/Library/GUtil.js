@@ -14,10 +14,12 @@ class Debug{
 
 class Queue{
     constructor(){
+        this.beforValues = "";
         this.queue = "";
     }
 
     append(value){
+        this.beforValues = "" + value;
         this.queue += "" + value;
     }
 
@@ -27,6 +29,34 @@ class Queue{
 
     clear(){
         this.queue = "";
+    }
+
+    getBeforValues(){
+        return this.beforValues;
+    }
+}
+
+class KeyQueue{
+    constructor(){
+        this.beforValues = 0;
+        this.queue = 0;
+    }
+
+    append(value){
+        this.beforValues = value;
+        this.queue ^= value;
+    }
+
+    get(){
+        return this.queue == 0 ? -1:this.queue;
+    }
+
+    clear(){
+        this.queue = 0;
+    }
+
+    getBeforValues(){
+        return this.beforValues;
     }
 }
 

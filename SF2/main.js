@@ -28,7 +28,7 @@ window.onload = function(){
 }
 
 function initGame(){
-    _INPUT_KEY_QUEUE = new Queue();
+    _INPUT_KEY_QUEUE = new KeyQueue();
     _BG = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_BG,0,0);
     _VIEW = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,360).setCallback(callbackView);
     _RYU = _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,350,270).setCallback(callbackRyu);
@@ -36,42 +36,63 @@ function initGame(){
 
 function initInput(){
     window.addEventListener( 'keydown', function(e) {
-        //log("e.keyCode: " + e.keyCode);    
+        //log("e.keyCode: " + e.keyCode);
+        if(comboKeyCheck(e) == true){
+            _INPUT_KEY_QUEUE.clear();
+            return;
+        }
+
+        if(_RYU.state != STATE[ID.RYU].NEW)return;
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
-                if(_RYU.state != STATE[ID.RYU].NEW)return;
                 _RYU.setState(STATE[ID.RYU].LEFT,_RYU.x,_RYU.y);
                 _VIEW.setState(STATE[ID.BG].VIEW_RIGHT,_VIEW.x,_VIEW.y);
                 break;
             case GEngine.KEY_RIGHT:
-                if(_RYU.state != STATE[ID.RYU].NEW)return;
                 _RYU.setState(STATE[ID.RYU].RIGHT,_RYU.x,_RYU.y);
                 _VIEW.setState(STATE[ID.BG].VIEW_LEFT,_VIEW.x,_VIEW.y);
                 break;
             case GEngine.KEY_UP:
-                if(_RYU.state == STATE[ID.RYU].JUMP_DOWN)return;
-                if(_RYU.state == STATE[ID.RYU].JUMP)return;
-                if(_RYU.state == STATE[ID.RYU].JUMP_RIGHT)return;
-
-                if(_RYU.state == STATE[ID.RYU].RIGHT)
-                _RYU.setState(STATE[ID.RYU].JUMP_RIGHT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
-                else if(_RYU.state == STATE[ID.RYU].LEFT)
-                _RYU.setState(STATE[ID.RYU].JUMP_LEFT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
-                else{
-                    if(_RYU.state != STATE[ID.RYU].NEW)return;
-                    _RYU.setState(STATE[ID.RYU].JUMP,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
-                }
+                _RYU.setState(STATE[ID.RYU].JUMP,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
                 break;
             case GEngine.KEY_A:
-                if(_RYU.state != STATE[ID.RYU].NEW)return;
                 _RYU.setState(STATE[ID.RYU].PUNCH,_RYU.x,_RYU.y);
+                _INPUT_KEY_QUEUE.clear();
                 break;
             case GEngine.KEY_S:
-                if(_RYU.state != STATE[ID.RYU].NEW)return;
                 _RYU.setState(STATE[ID.RYU].KICK,_RYU.x,_RYU.y);
+                _INPUT_KEY_QUEUE.clear();
                 break; 
         }
-          
         e.preventDefault();
     });
+}
+
+function comboKeyCheck(e){
+    if(_INPUT_KEY_QUEUE.getBeforValues() != e.keyCode){
+        _INPUT_KEY_QUEUE.append(e.keyCode);
+    }
+    log("_INPUT_KEY_QUEUE.get() " +_INPUT_KEY_QUEUE.get());
+
+    switch (_INPUT_KEY_QUEUE.get()){
+        case GEngine.KEY_UP ^ GEngine.KEY_LEFT :
+            if(_RYU.state != STATE[ID.RYU].JUMP & _RYU.state != STATE[ID.RYU].JUMP_LEFT & _RYU.state != STATE[ID.RYU].JUMP_RIGHT){
+                _RYU.setState(STATE[ID.RYU].JUMP_LEFT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN); 
+                return true;
+            }
+        break;
+        case GEngine.KEY_UP ^ GEngine.KEY_RIGHT :
+            if(_RYU.state != STATE[ID.RYU].JUMP & _RYU.state != STATE[ID.RYU].JUMP_LEFT & _RYU.state != STATE[ID.RYU].JUMP_RIGHT){
+                _RYU.setState(STATE[ID.RYU].JUMP_RIGHT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
+                return true;
+            }
+        break;
+        case GEngine.KEY_RIGHT ^ GEngine.KEY_DOWN ^ GEngine.KEY_A^ GEngine.KEY_RIGHT :
+            
+log("OK")
+            return true;
+        break;
+    }
+
+    return false;
 }
