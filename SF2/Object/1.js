@@ -1,6 +1,6 @@
 OBJECT[ID.RYU] = {
     IMG:60,
-    SOUND:0,
+    SOUND:3,
     NEW:[
     [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5],//image
     [NO_SOUND],//sound
@@ -68,6 +68,18 @@ OBJECT[ID.RYU] = {
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//y
     [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]//gravity
     ],
+    SKILL_2:[
+    [40,41,42,43,44,45,46,47,44,45 ,46,47,44,45,46,47,44,45,46,47, 44,45,46,47,44,45,46,47,48,49],//image
+    [1],//sound
+    [20,0,0,0,0,20,0,0,0,0,20,0,0,0,0,20,0,0,0,0,20,0,0,0,0,20,0,0,0,0],//x
+    [0,-50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//y
+    ],
+    SKILL_3:[
+    [50,51,52,53,54,55,56],//image
+    [2],//sound
+    [20,0,0,0,0,20,0],//x
+    [0,-10,-20,-20,-20,-20,0],//y
+    ],
 };
 
 function callbackRyu(type,indexA,indexB,angle){
@@ -85,11 +97,11 @@ function callbackRyu(type,indexA,indexB,angle){
         break;
 
         case AnimateContainer.COLLISION_LEFT:
-            objA.x =30;
+            objA.x =30;objA.y =270;
         break;
 
         case AnimateContainer.COLLISION_RIGHT:
-            objA.x =400;
+            objA.x =400;objA.y =270;
         break;
     }    
 }

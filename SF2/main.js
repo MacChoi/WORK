@@ -90,10 +90,22 @@ function isComboKey(e){
                 return true;
             }
         break;
-        case GEngine.KEY_RIGHT + GEngine.KEY_DOWN + GEngine.KEY_RIGHT + GEngine.KEY_A:   
+        case GEngine.KEY_DOWN + GEngine.KEY_DOWN + GEngine.KEY_RIGHT + GEngine.KEY_RIGHT + GEngine.KEY_A:   
             if(_RYU.state != STATE[ID.RYU].SKILL_1){
                 _RYU.setState(STATE[ID.RYU].SKILL_1,_RYU.x,_RYU.y);
                 _ANIMATE_CONTAINER.newObject(ID.FX,STATE[ID.FX].NEW,_RYU.x,_RYU.y+15).setCallback(callbackFX);
+                return true;
+            }
+        break;
+        case GEngine.KEY_DOWN + GEngine.KEY_LEFT + GEngine.KEY_DOWN  + GEngine.KEY_S:   
+            if(_RYU.state != STATE[ID.RYU].SKILL_2){
+                _RYU.setState(STATE[ID.RYU].SKILL_2,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
+                return true;
+            }
+        break;
+        case GEngine.KEY_KEY_LEFT + GEngine.KEY_DOWN + GEngine.KEY_RIGHT  + GEngine.KEY_A:   
+            if(_RYU.state != STATE[ID.RYU].SKILL_3){
+                _RYU.setState(STATE[ID.RYU].SKILL_3,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
                 return true;
             }
         break;
