@@ -16,6 +16,9 @@ class GEngine {
     static get KEY_ALT(){return 18;};
     static get KEY_A(){return 65;};
     static get KEY_S(){return 83;};
+    static get KEY_1(){return 49;};
+    static get KEY_2(){return 50;};
+    static get KEY_3(){return 51;};
 
     static set loopCallback(loopCB){this.loopCB = loopCB};
     static get loopCallback(){return this.loopCB};

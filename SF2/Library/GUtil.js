@@ -14,42 +14,16 @@ class Debug{
 
 class Queue{
     constructor(){
-        this.beforValues = "";
-        this.queue = "";
+        this.queue = new Array(0);
     }
     append(value){
-        this.beforValues = "" + value;
-        this.queue += "" + value;
+        this.queue.push(value);
     }
-    get(){
-        return this.queue;
-    }
-    clear(){
-        this.queue = "";
-    }
-    getBeforValues(){
-        return this.beforValues;
-    }
-}
-
-class KeyQueue{
-    constructor(){
-        this.beforValues = 0;
-        this.queue = 0;
-    }
-    append(value){
-        this.beforValues = value;
-        this.queue += value;
-    }
-    get(){
-        return this.queue;
+    get(key){
+        return this.queue[key];
     }
     clear(){
-        this.queue = 0;
-        this.beforValues = 0;
-    }
-    getBeforValues(){
-        return this.beforValues;
+        this.queue = new Array(0);
     }
 }
 

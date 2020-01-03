@@ -88,7 +88,6 @@ function callbackRyu(type,indexA,indexB,angle){
     switch (type) {
         case AnimateContainer.END_FRAME:
             _ANIMATE_CONTAINER.setState(indexA,STATE[ID.RYU].NEW,objA.x,objA.y);
-            _INPUT_KEY_QUEUE.clear();
         break;
         case AnimateContainer.NEXT_FRAME:
             
