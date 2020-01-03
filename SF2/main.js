@@ -39,9 +39,7 @@ var _KEY_MAP = new Map();
 function initInput(){
     window.addEventListener( 'keydown', function(e) {
         //log("e.keyCode: " + e.keyCode);
-        _KEY_MAP.set(e.keyCode, true);
-        if(isComboKey())return;
-
+        if(isComboKey(e.keyCode))return;
         if(_RYU.state != STATE[ID.RYU].NEW)return;
         switch (e.keyCode){
             case GEngine.KEY_LEFT:
@@ -75,13 +73,13 @@ function initInput(){
         e.preventDefault();
     });
 
-
     window.addEventListener( 'keyup', function(e) {
         _KEY_MAP.clear();
     });
 }
 
-function isComboKey(){
+function isComboKey(keyCode){
+    _KEY_MAP.set(keyCode, true);
     if(_RYU.state == STATE[ID.RYU].JUMP 
         || _RYU.state == STATE[ID.RYU].JUMP_DOWN 
         || _RYU.state == STATE[ID.RYU].JUMP_LEFT 
