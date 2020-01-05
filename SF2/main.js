@@ -26,13 +26,13 @@ window.onload = function(){
 }
 
 function initGame(){
-    GAudio.isOn=false;
+    //GAudio.isOn=false;
     
     _BG = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_BG,0,0);
     _VIEW = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,360).setCallback(callbackView);
     _RYU = _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,130,270).setCallback(callbackRyu);
 
-    //_ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,350,270).setReverseX(-1).setCallback(callbackRyu);
+    _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,350,270).setReverseX(-1).setCallback(callbackRyu);
 }
 
 var _KEY_MAP = new Map();
@@ -99,8 +99,8 @@ function isComboKey(keyCode){
         _RYU.setState(STATE[ID.RYU].SKILL_3,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
         return true;
     }else if (_KEY_MAP.has(GEngine.KEY_DOWN)  && _KEY_MAP.has(GEngine.KEY_RIGHT) && _KEY_MAP.has(GEngine.KEY_A)) {
-        _RYU.setState(STATE[ID.RYU].SKILL_1,_RYU.x,_RYU.y);
-        _ANIMATE_CONTAINER.newObject(ID.FX,STATE[ID.FX].NEW,_RYU.x,_RYU.y+15).setCallback(callbackFX);
+        var uniId = _RYU.setState(STATE[ID.RYU].SKILL_1,_RYU.x,_RYU.y).getUniqueID();
+        _ANIMATE_CONTAINER.newObject(ID.FX,STATE[ID.FX].NEW,_RYU.x,_RYU.y+15).setCallback(callbackFX).setValue(uniId);
         return true;
     }else if (_KEY_MAP.has(GEngine.KEY_DOWN)  && _KEY_MAP.has(GEngine.KEY_LEFT) && _KEY_MAP.has(GEngine.KEY_S)) {
         _RYU.setState(STATE[ID.RYU].SKILL_2,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);

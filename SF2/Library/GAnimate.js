@@ -95,6 +95,18 @@ class Animate{
         this.callback = callback;
         return this;
     }
+
+    getUniqueID(){
+       return this.uniID; 
+    }
+
+    setValue(value){
+        this.value= value;
+    }
+
+    getValue(){
+        return this.value;
+    }
 }
 
 class AnimateContainer{

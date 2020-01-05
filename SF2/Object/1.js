@@ -1,6 +1,6 @@
 OBJECT[ID.RYU] = {
     IMG:60,
-    SOUND:3,
+    SOUND:4,
     NEW:[
     [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5],//image
     [NO_SOUND],//sound
@@ -80,6 +80,12 @@ OBJECT[ID.RYU] = {
     [20,0,0,0,0,20,0],//x
     [0,-10,-20,-20,-20,-20,0],//y
     ],
+    GET_BLOW:[
+    [57,58,59],//image
+    [3],//sound
+    [0,0,0],//x
+    [0,0,0],//y
+    ],
 };
 
 function callbackRyu(type,indexA,indexB,angle){
@@ -93,14 +99,19 @@ function callbackRyu(type,indexA,indexB,angle){
             
         break;
         case AnimateContainer.COLLISION:
+            if(objB.id == ID.RYU )
+                if(objA.state == STATE[ID.RYU].KICK
+                ||objA.state == STATE[ID.RYU].PUNCH
+                ||objA.state == STATE[ID.RYU].SKILL_2
+                ||objA.state == STATE[ID.RYU].SKILL_3)
+            objB.setState(STATE[ID.RYU].GET_BLOW,objB.x,objB.y);
+            
         break;
-
         case AnimateContainer.COLLISION_LEFT:
-            objA.x =30;objA.y =270;
+            objA.x = objA.w;
         break;
-
         case AnimateContainer.COLLISION_RIGHT:
-            objA.x =400;objA.y =270;
+            objA.x = (_GAME_ENGINE.canvas.width/_GAME_ENGINE.getScale()) - objA.w-50;
         break;
     }    
 }
