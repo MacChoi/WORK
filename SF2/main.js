@@ -14,7 +14,7 @@ window.onload = function(){
                 var COLLISION_DATA = OBJECT[ID.BG].COLLISION_DATA;
                 _ANIMATE_CONTAINER.setCollisonArray(OBJECT[ID.BG].COLLISION_DATA);
                 //_ANIMATE_CONTAINER.drawMap(COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
-                //_ANIMATE_CONTAINER.drawCollisionArray(COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
+                _ANIMATE_CONTAINER.drawCollisionArray(COLLISION_DATA,IMAGE[ID.BG],_ANIMATE_CONTAINER.getUnitWidth(),_ANIMATE_CONTAINER.getUnitHeight());
             });
 
             initGame(); 
@@ -30,7 +30,7 @@ function initGame(){
     
     _BG = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_BG,0,0);
     _VIEW = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,360).setCallback(callbackView);
-    _RYU = _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,130,270).setCallback(callbackRyu);
+    _RYU = _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,150,270).setCallback(callbackRyu);
 
     _RYU2 =_ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,350,270).setReverseX(-1).setCallback(callbackRyu);
 }
@@ -72,8 +72,8 @@ function initInput(){
                 _RYU.setState(STATE[ID.RYU].KICK,_RYU.x,_RYU.y);
                 break;
             case GEngine.KEY_1:
-                _RYU.setState(STATE[ID.RYU].SKILL_1,_RYU.x,_RYU.y);
-                _ANIMATE_CONTAINER.newObject(ID.FX,STATE[ID.FX].NEW,_RYU.x,_RYU.y+15).setCallback(callbackFX).setReverseX(_RYU.getReverseX());
+                var uniId = _RYU.setState(STATE[ID.RYU].SKILL_1,_RYU.x,_RYU.y).setReverseX(_RYU.getReverseX()).getUniqueID();
+                _ANIMATE_CONTAINER.newObject(ID.FX,STATE[ID.FX].NEW,_RYU.x,_RYU.y+15).setReverseX(_RYU.getReverseX()).setCallback(callbackFX).setValue(uniId);
                 break;
             case GEngine.KEY_2:
                 _RYU.setState(STATE[ID.RYU].SKILL_2,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);

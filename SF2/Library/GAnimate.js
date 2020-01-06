@@ -14,6 +14,7 @@ class Animate{
         this.objectState = Object.values(object)[state];
         this.glint = 0;
         this.w = 0;
+        this.pre_w = 0;
         this.h = 0;
         this.index =0;
         this.reverseX = 1;
@@ -175,6 +176,9 @@ class AnimateContainer{
             if(isEmpty(element))continue;
             var image = IMAGE[element.id][Math.abs(element.objectState[0][element.index])];
             if(isEmpty(image))continue;
+
+            element.pre_w = element.w;
+
             element.w = image.width;
             element.h = image.height;
             var tmpx= element.x;
@@ -236,9 +240,11 @@ class AnimateContainer{
 
             if(element.objectState[0][element.index] * element.reverseImg >= 0)
                 this.context.drawImage(image, element.x , element.y);
-            else
-                this.flipHorizontally(image, element.x - element.w , element.y);
-            
+            else{
+                element.x +=  element.pre_w - element.w;
+                this.flipHorizontally(image, element.x , element.y);
+            }
+                
             this.context.restore();
         }
         this.checkCollision();
@@ -325,16 +331,17 @@ class AnimateContainer{
     }
 
     flipHorizontally(img,x,y){     
-        this.context.translate(x,y);
+        this.context.translate(x+img.width,y);
         this.context.scale(-1,1);
-        this.context.drawImage(img,-(img.width*2),0);
+        this.context.drawImage(img,0,0);
+        this.context.setTransform(1,0,0,1,0,0);
     }
 
-    flipVertically(img,x,y){
-        this.context.translate(x+img.width,y);
-        this.context.scale(1,-1);
-        this.context.drawImage(img,(img.height*2),0);
-    }
+    // flipVertically(img,x,y){
+    //     this.context.translate(x+img.width,y);
+    //     this.context.scale(1,-1);
+    //     this.context.drawImage(img,0,img.height);
+    // }
     
     setCollisonArray(collisionArray){
         this.setScale(this.engine.getScale());

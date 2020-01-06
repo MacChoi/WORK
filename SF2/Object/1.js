@@ -109,8 +109,7 @@ function callbackRyu(type,indexA,indexB,angle){
                 ||objA.state == STATE[ID.RYU].PUNCH
                 ||objA.state == STATE[ID.RYU].SKILL_2
                 ||objA.state == STATE[ID.RYU].SKILL_3)
-            objB.setState(STATE[ID.RYU].GET_BLOW,objB.x -30,objB.y);
-            
+            objB.setState(STATE[ID.RYU].GET_BLOW,objB.x +(10 *_RYU.getReverseX()),objB.y);
         break;
         case AnimateContainer.COLLISION_LEFT:
             objA.x = objA.w;

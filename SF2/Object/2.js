@@ -16,18 +16,10 @@ function callbackFX(type,indexA,indexB,angle){
         case AnimateContainer.END_FRAME:
             _ANIMATE_CONTAINER.setState(indexA,STATE[ID.FX].NEW,objA.x,objA.y);
         break;
-        case AnimateContainer.NEXT_FRAME:
-            
-        break;
         case AnimateContainer.COLLISION:
             if(objB.id == ID.RYU && objA.getValue() != objB.getUniqueID())
             objB.setState(STATE[ID.RYU].GET_BLOW,objB.x,objB.y);
         break;
-
-        case AnimateContainer.COLLISION_LEFT:
-            
-        break;
-
         case AnimateContainer.COLLISION_RIGHT:
             _ANIMATE_CONTAINER.deleteObject(indexA);
         break;
