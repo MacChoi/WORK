@@ -91,6 +91,10 @@ class Animate{
         return this;
     }
 
+    getReverseX(){
+        return this.reverseX;
+    }
+
     setCallback(callback){
         this.callback = callback;
         return this;

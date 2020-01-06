@@ -27,6 +27,7 @@ OBJECT[ID.RYU] = {
     [NO_SOUND],//sound
     [0,0,0,0,0,0,0],//x
     [-0,-10,-20,-30,-20,-10,-0],//y
+    [0,0,0,0,0,0,0],//gravity
     ],
     JUMP_DOWN:[
     [24,24,24,5,5],//image
@@ -40,12 +41,14 @@ OBJECT[ID.RYU] = {
     [NO_SOUND],//sound
     [0,-10,-10,-10,-10,-10,0,0,0,0,0,-10,0,0,0,0,0,0],//x
     [-10,0,0,0,0,-50,0,0,0,0,0,0,0,0,0,0,0,0],//y
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//gravity
     ],
     JUMP_RIGHT:[
     [25,25,25,26,26,26,27,27,27,28,28,28,29,29,29,30,30,30],//image
     [NO_SOUND],//sound
     [0,0,0,10,10,10,10,10,0,0,0,10,0,0,0,0,0,0],//x
     [-10,0,0,0,0,-50,0,0,0,0,0,0,0,0,0,0,0,0],//y
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//gravity
     ], 
     PUNCH:[
     [31,31,31,32,32],//image
@@ -96,7 +99,9 @@ function callbackRyu(type,indexA,indexB,angle){
             _ANIMATE_CONTAINER.setState(indexA,STATE[ID.RYU].NEW,objA.x,objA.y);
         break;
         case AnimateContainer.NEXT_FRAME:
-            
+            if(_RYU.x > _RYU2.x)_RYU.setReverseX(-1);
+            else _RYU.setReverseX(1);
+            _RYU2.setReverseX(_RYU.getReverseX() * -1);
         break;
         case AnimateContainer.COLLISION:
             if(objB.id == ID.RYU )
@@ -104,14 +109,14 @@ function callbackRyu(type,indexA,indexB,angle){
                 ||objA.state == STATE[ID.RYU].PUNCH
                 ||objA.state == STATE[ID.RYU].SKILL_2
                 ||objA.state == STATE[ID.RYU].SKILL_3)
-            objB.setState(STATE[ID.RYU].GET_BLOW,objB.x,objB.y);
+            objB.setState(STATE[ID.RYU].GET_BLOW,objB.x -30,objB.y);
             
         break;
         case AnimateContainer.COLLISION_LEFT:
             objA.x = objA.w;
         break;
         case AnimateContainer.COLLISION_RIGHT:
-            objA.x = (_GAME_ENGINE.canvas.width/_GAME_ENGINE.getScale()) - objA.w-50;
+            objA.x = (_GAME_ENGINE.canvas.width/_GAME_ENGINE.getScale()) - objA.w-30;
         break;
     }    
 }

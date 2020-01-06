@@ -1,7 +1,7 @@
 var _GAME_ENGINE;
 var _ANIMATE_CONTAINER;
 var _BG,_VIEW;
-var _RYU;
+var _RYU,_RYU2;
 
 GEngine.loadObjectFile(["BG","RYU","FX"]);
 window.onload = function(){
@@ -32,16 +32,28 @@ function initGame(){
     _VIEW = _ANIMATE_CONTAINER.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,360).setCallback(callbackView);
     _RYU = _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,130,270).setCallback(callbackRyu);
 
-    _ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,350,270).setReverseX(-1).setCallback(callbackRyu);
+    _RYU2 =_ANIMATE_CONTAINER.newObject(ID.RYU,STATE[ID.RYU].NEW,350,270).setReverseX(-1).setCallback(callbackRyu);
 }
 
 var _KEY_MAP = new Map();
 function initInput(){
     window.addEventListener( 'keydown', function(e) {
         //log("e.keyCode: " + e.keyCode);
-        if(isComboKey(e.keyCode))return;
+        var keyCode = e.keyCode;
+        if(_RYU.getReverseX() == -1){
+            switch (keyCode){
+                case GEngine.KEY_LEFT:
+                    keyCode = GEngine.KEY_RIGHT;
+                    break;
+                case GEngine.KEY_RIGHT:
+                    keyCode = GEngine.KEY_LEFT;
+                    break;
+            }
+        }
+
+        if(isComboKey(keyCode))return;
         if(_RYU.state != STATE[ID.RYU].NEW)return;
-        switch (e.keyCode){
+        switch (keyCode){
             case GEngine.KEY_LEFT:
                 _RYU.setState(STATE[ID.RYU].LEFT,_RYU.x,_RYU.y);
                 _VIEW.setState(STATE[ID.BG].VIEW_RIGHT,_VIEW.x,_VIEW.y);
@@ -61,7 +73,7 @@ function initInput(){
                 break;
             case GEngine.KEY_1:
                 _RYU.setState(STATE[ID.RYU].SKILL_1,_RYU.x,_RYU.y);
-                _ANIMATE_CONTAINER.newObject(ID.FX,STATE[ID.FX].NEW,_RYU.x,_RYU.y+15).setCallback(callbackFX);
+                _ANIMATE_CONTAINER.newObject(ID.FX,STATE[ID.FX].NEW,_RYU.x,_RYU.y+15).setCallback(callbackFX).setReverseX(_RYU.getReverseX());
                 break;
             case GEngine.KEY_2:
                 _RYU.setState(STATE[ID.RYU].SKILL_2,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
@@ -90,20 +102,20 @@ function isComboKey(keyCode){
         )return false;
 
     if (_KEY_MAP.has(GEngine.KEY_UP) && _KEY_MAP.has(GEngine.KEY_LEFT)) {
-        _RYU.setState(STATE[ID.RYU].JUMP_LEFT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
+        _RYU.setState(STATE[ID.RYU].JUMP_LEFT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN).setReverseX(_RYU.getReverseX());
         return true;
     }else if (_KEY_MAP.has(GEngine.KEY_UP) && _KEY_MAP.has(GEngine.KEY_RIGHT)) {
-        _RYU.setState(STATE[ID.RYU].JUMP_RIGHT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
+        _RYU.setState(STATE[ID.RYU].JUMP_RIGHT,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN).setReverseX(_RYU.getReverseX());
         return true;
     }else if (_KEY_MAP.has(GEngine.KEY_DOWN)  && _KEY_MAP.has(GEngine.KEY_LEFT) && _KEY_MAP.has(GEngine.KEY_RIGHT) && _KEY_MAP.has(GEngine.KEY_A)) {
-        _RYU.setState(STATE[ID.RYU].SKILL_3,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
+        _RYU.setState(STATE[ID.RYU].SKILL_3,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN).setReverseX(_RYU.getReverseX());
         return true;
     }else if (_KEY_MAP.has(GEngine.KEY_DOWN)  && _KEY_MAP.has(GEngine.KEY_RIGHT) && _KEY_MAP.has(GEngine.KEY_A)) {
-        var uniId = _RYU.setState(STATE[ID.RYU].SKILL_1,_RYU.x,_RYU.y).getUniqueID();
-        _ANIMATE_CONTAINER.newObject(ID.FX,STATE[ID.FX].NEW,_RYU.x,_RYU.y+15).setCallback(callbackFX).setValue(uniId);
+        var uniId = _RYU.setState(STATE[ID.RYU].SKILL_1,_RYU.x,_RYU.y).setReverseX(_RYU.getReverseX()).getUniqueID();
+        _ANIMATE_CONTAINER.newObject(ID.FX,STATE[ID.FX].NEW,_RYU.x,_RYU.y+15).setReverseX(_RYU.getReverseX()).setCallback(callbackFX).setValue(uniId);
         return true;
     }else if (_KEY_MAP.has(GEngine.KEY_DOWN)  && _KEY_MAP.has(GEngine.KEY_LEFT) && _KEY_MAP.has(GEngine.KEY_S)) {
-        _RYU.setState(STATE[ID.RYU].SKILL_2,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
+        _RYU.setState(STATE[ID.RYU].SKILL_2,_RYU.x,_RYU.y).setReverseX(_RYU.getReverseX()).setNextState(STATE[ID.RYU].JUMP_DOWN);
         return true;
     }
     return false;
