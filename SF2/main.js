@@ -13,8 +13,8 @@ window.onload = function(){
 }
 
 function initGame(){
-    // _BG = _ENGINE.newObject(ID.BG,STATE[ID.BG].NEW_BG,0,0);
-    // _VIEW = _ENGINE.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,360).setCallback(callbackView);
+    _BG = _ENGINE.newObject(ID.BG,STATE[ID.BG].NEW_BG,0,0);
+    _VIEW = _ENGINE.newObject(ID.BG,STATE[ID.BG].NEW_VIEW,250,360).setCallback(callbackView);
     _RYU = _ENGINE.newObject(ID.RYU,STATE[ID.RYU].NEW,150,270).setCallback(callbackRyu);
     _RYU2 =_ENGINE.newObject(ID.RYU,STATE[ID.RYU].NEW,350,270).setReverseX(-1).setCallback(callbackRyu);
 }
