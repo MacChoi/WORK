@@ -351,11 +351,12 @@ class AnimateContainer{
         this.engine.context.setTransform(1,0,0,1,0,0);
     }
 
-    // flipVertically(img,x,y){
-    //     this.context.translate(x+img.width,y);
-    //     this.context.scale(1,-1);
-    //     this.context.drawImage(img,0,img.height);
-    // }
+    flipVertically(img,x,y){
+        this.context.translate(x,y+img.height);
+        this.context.scale(1,-1);
+        this.context.drawImage(img,0,0);
+        this.engine.context.setTransform(1,0,0,1,0,0);
+    }
     
     setCollisonArray(collisionArray){
         this.setScale(this.engine.getScale());

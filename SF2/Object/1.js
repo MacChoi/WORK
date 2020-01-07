@@ -113,10 +113,8 @@ function callbackRyu(type,indexA,indexB,angle){
             objB.setState(STATE[ID.RYU].GET_BLOW,objB.x +(5 *_RYU.getReverseX()),objB.y);
         break;
         case AnimateContainer.COLLISION_LEFT:
-            //objA.x +=5;  
         break;
         case AnimateContainer.COLLISION_RIGHT:
-            //objA.x -=5;  
         break;
     }    
 }
