@@ -202,6 +202,7 @@ class GEngine {
     draw(){
         this.context.drawImage(this.bufferCanvas, 0, 0);
     }
+    
     startTimeLoop(loop_time,callback){
         GEngine.LOOP_TIME = loop_time;
         GEngine.loopCallback = callback;
