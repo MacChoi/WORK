@@ -3,7 +3,6 @@ let OBJECT;
 let IMAGE;
 let SOUND;
 let STATE;
-let ENGINE;
 
 class GEngine {
     static get END_FILE(){return 0;};
@@ -30,9 +29,6 @@ class GEngine {
     static set LOOP_TIME(loopTime){this.loopTime = loopTime};
     static get LOOP_TIME(){return this.loopTime};
 
-    static set engine(eng){this.eng = eng};
-    static get engine(){return this.eng};
-
     static loadObjectFile(IDArray){
         ID = new Enum(IDArray);
         OBJECT = new Array(ID.length);
@@ -48,20 +44,22 @@ class GEngine {
             document.head.appendChild( jscript );
             //log("OBJECT [" + i +"] : " +jscript.src);
         }
-        GEngine.engine = new GEngine(new AnimateContainer());
-        return GEngine.engine;
     }
 
-    constructor(animateContainer) {
+    constructor() {
         this.LOOP_TIME = 1000;
         this.canvas = document.createElement( 'Canvas' );
         this.bufferCanvas = document.createElement( 'Canvas' );
 
         this.context= this.canvas.getContext('2d');
         this.bufferContext= this.bufferCanvas.getContext('2d');
-
-        this.scale =0;
-        this.animateContainer = animateContainer;
+   
+        for(var i =0; i<OBJECT.length; i++){
+            STATE[i] = new Enum(Object.keys(OBJECT[i]));
+        }
+        document.body.style.overflow = 'hidden';
+        document.body.style.margin  = '0 auto';
+        document.body.style.backgroundColor='black';
     }
 
     setCanvas(x,y,width,height){
@@ -99,26 +97,8 @@ class GEngine {
         this.setCanvas(x,y,w,h);
         return this;
     }
-
-    setResizeCallback(){
-        window.addEventListener('resize', function(event){
-            GEngine.engine.setRatioCanvas(4,3);
-            GEngine.engine.animateContainer.setCollisonArray(COLLISION_DATA);
-
-            var aniCon = GEngine.engine.animateContainer;
-            aniCon.drawCollisionArray(GEngine.engine.bufferContext,COLLISION_DATA,IMAGE[ID.BG],aniCon.getUnitWidth(),aniCon.getUnitHeight());
-        });
-        window.dispatchEvent(new Event('resize'));
-    }
-
-    appendBodyChild(){   
-        for(var i =0; i<OBJECT.length; i++){
-            STATE[i] = new Enum(Object.keys(OBJECT[i]));
-        }
-        document.body.style.overflow = 'hidden';
-        document.body.style.margin  = '0 auto';
-        document.body.style.backgroundColor='black';
-
+    
+    appendBodyChild(){
         document.body.appendChild(this.canvas);
         return this;
     }
@@ -157,10 +137,13 @@ class GEngine {
     getScale(){
         return this.scale;
     }
+
+    setResizeCallback(callback){
+        window.addEventListener('resize', callback);
+        window.dispatchEvent(new Event('resize'));
+    }
     
     loadImageFile(callback){
-        this.appendBodyChild();
-
         this.imageCount = 0;
         for(var i = 0; i<IMAGE.length; i++){
             IMAGE[i] = new Array(OBJECT[i].IMG);
@@ -183,8 +166,6 @@ class GEngine {
                             callback(GEngine.NEXT_FILE,count++);
                             if(GEngine.END_FILE == type){
                                 callback(GEngine.END_FILE,count);
-
-                                GEngine.engine.setResizeCallback();
                             }
                         });
                     }
@@ -192,21 +173,39 @@ class GEngine {
                 //log("IMAGE[" + i + "][" + j + "] : " + IMAGE[i][j].src);
             }
         }
-
-        this.startTimeLoop(60,function(){
-            GEngine.engine.drawNextFrame();
-        });
         return this;
     }
 
     draw(){
         this.context.drawImage(this.bufferCanvas, 0, 0);
     }
+
+    drawMap(map,image,sizeW,sizeH){
+        for(var x=0; x<map[0].length; x++) {
+            for(var y=0; y<map.length; y++) {
+                this.bufferContext.drawImage(image[map[y][x]] , x * sizeW, y * sizeH, sizeW, sizeH);
+                this.bufferContext.strokeRect(x * sizeW, y * sizeH, sizeW, sizeH);
+                this.bufferContext.fillText("" + map[y][x], x * sizeW, y * sizeH, 10);
+           }
+        }
+        return this;
+    }
+
+    drawMoveMap(map,image,sizeW,sizeH,startX,startY,sizeX,sizeY,dX,dY){
+        var mX = -(startX * sizeW);
+        var mY = -(startY * sizeH);
+        for(var x=startX; x<sizeX +startX ; x++) {
+            for(var y=startY; y<sizeY +startY; y++) {
+                this.bufferContext.drawImage(image[map[y][x]] ,dX + mX + x * sizeW,dY + mY + y * sizeH);    
+            }
+        } 
+        return this;
+    }
+
     startTimeLoop(loop_time,callback){
         GEngine.LOOP_TIME = loop_time;
         GEngine.loopCallback = callback;
         GEngine.loop();
-        return this;
     }
 
     static loop(){
@@ -215,22 +214,4 @@ class GEngine {
         var delay = new Date().getTime() - start ;
         setTimeout(GEngine.loop, GEngine.LOOP_TIME - delay);
     }
-
-    newObject(id,state,x,y){
-        return this.animateContainer.newObject(id,state,x,y);
-    }
-
-    setState(index,state,x,y){
-        return this.animateContainer.setState(index,state,x,y);
-    }
-
-    drawNextFrame(){
-        this.animateContainer.drawNextFrame(this);
-        return this.animateContainer;
-    }
-
-    getObject(index){
-        return this.animateContainer.objectArray[index];
-    }
-
 }
