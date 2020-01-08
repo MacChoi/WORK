@@ -10,7 +10,7 @@ class GAudio {
 
     static loadSoundFile(callback){
         GAudio.callback = callback;
-        GAudio.isOn = true;
+        GAudio.isOn = false;
         
         this.soundCount = 0;
         for(var i = 0; i<SOUND.length; i++){

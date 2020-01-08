@@ -33,7 +33,7 @@ class GEngine {
     static set engine(eng){this.eng = eng};
     static get engine(){return this.eng};
 
-    static loadObjectFile(IDArray){
+    static loadObjectFile(IDArray,callback){
         ID = new Enum(IDArray);
         OBJECT = new Array(ID.length);
         IMAGE = new Array(ID.length);
@@ -49,6 +49,8 @@ class GEngine {
             //log("OBJECT [" + i +"] : " +jscript.src);
         }
         GEngine.engine = new GEngine(new AnimateContainer());
+
+        window.onload = callback;
         return GEngine.engine;
     }
 
@@ -234,4 +236,11 @@ class GEngine {
         return this.animateContainer.objectArray[index];
     }
 
+    pressKey(keyCode){
+        return this.animateContainer.pressKeyMap(keyCode);
+    }
+    
+    addEventListener(callback){
+        window.addEventListener('keydown', callback);
+    }
 }

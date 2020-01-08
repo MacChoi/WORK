@@ -60,7 +60,5 @@ function callbackView(type,indexA,indexB,angle){
         case AnimateContainer.NEXT_FRAME:
             _BG.setState(STATE[ID.BG].NEW_BG,objA.x-500,_BG.y);
         break;
-        case AnimateContainer.COLLISION:
-        break;
     }    
 }

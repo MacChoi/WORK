@@ -46,6 +46,10 @@ class Animate{
         this.callback = function(){};
 
         this.nextState = null;
+
+        this.indexObj =0;
+
+        this.keyMap = new Map();
     }
 
     nextFrame(ani_index){
@@ -66,6 +70,22 @@ class Animate{
         }
     }
     
+    pressKeyMap(keyCode){
+        var callback=this.keyMap.get(keyCode);
+        if(!isEmpty(callback))callback();
+        return this;
+    }
+
+    setKeyCallBack(keyCode,callback){
+        this.keyMap.set(keyCode,callback);
+        return this;
+    }
+
+    setIndexObj(indexObj){
+        this.indexObj = indexObj;
+        return this;
+    }
+
     setValue(value){
         this.value = value;
         return this;
@@ -119,6 +139,7 @@ class Animate{
 
     setCallback(callback){
         this.callback = callback;
+        this.callback(AnimateContainer.INIT,this.indexObj,null,null);
         return this;
     }
 
@@ -136,6 +157,7 @@ class Animate{
 }
 
 class AnimateContainer{
+    static get INIT(){return -1;};
     static get END_FRAME(){return 0;};
     static get NEXT_FRAME(){return 1;};
     static get COLLISION(){return 2;};
@@ -144,6 +166,7 @@ class AnimateContainer{
     static get COLLISION_UP(){return 5;};
     static get COLLISION_DOWN(){return 6;};
     static get SOUND_ENDED (){return 7;};
+    
     constructor(){
         this.collision = new GCollision();
         this.objectArray = new Array(0);
@@ -266,6 +289,7 @@ class AnimateContainer{
    
     newObject(id,state,x,y){
         var index =this.objectArray.push(new Animate(id,OBJECT[id],state,x,y))-1;
+        this.objectArray[index].setIndexObj(index);
 
         if(GAudio.isOn == false)return this.getObject(index);
 
@@ -315,6 +339,13 @@ class AnimateContainer{
         return count;
     }
 
+    pressKeyMap(keyCode){
+        for (var index = 0; index < this.objectArray.length; index++) {
+            this.objectArray[index].pressKeyMap(keyCode);
+        }
+        return this;
+    }
+   
     setScale(scale){
         this.scale = scale;
         return this;
