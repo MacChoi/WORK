@@ -1,6 +1,6 @@
 OBJECT[ID.RYU] = {
     IMG:60,
-    SOUND:4,
+    SOUND:0,
     NEW:[
     [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5],//image
     [NO_SOUND],//sound
