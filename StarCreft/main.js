@@ -13,19 +13,3 @@ var _ENGINE = GEngine.loadObjectFile(["BG","RYU","FX"],function(){
         if(_RYU.state == STATE[ID.RYU].NEW)_ENGINE.pressKey(e.keyCode);
     });
 });
-
-var 류,류2;
-var 배경,뷰;
-var 게임도구 = 게임라이브러리.객체파일읽기(["배경","류","효과"]),function(){
-    게임도구.이미지파일일기(function (파일상태,count){
-        if(게임라이브러리.파일읽기끝 == 파일상태){
-            배경 = 게임도구.객체만들기(이름.배경,STATE[ID.BG].NEW_BG,0,0);
-            뷰 = 게임도구.객체만들기(이름.뷰,STATE[ID.BG].NEW_VIEW,250,360).함수(callbackView);
-            류 = 게임도구.객체만들기(이름.류,STATE[ID.RYU].NEW,150,270).setCallback(callbackRyu);
-            류2 =게임도구.객체만들기(이름.류2,STATE[ID.RYU].NEW,350,270).setReverseX(-1).setCallback(callbackRyu);
-        }
-    }).addEventListener(function(e) {
-        //log("e.keyCode: " + e.keyCode);
-        if(_RYU.state == STATE[ID.RYU].NEW)_ENGINE.pressKey(e.keyCode);
-    });
-});
