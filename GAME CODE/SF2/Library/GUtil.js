@@ -78,3 +78,25 @@ function appendDivChild(id,view){
 function appendBodyChild(canvas){
     document.body.appendChild(canvas);
 }
+
+function appendBodyCanvas(){
+    document.body.style.overflow = 'hidden';
+    document.body.style.margin  = '0 auto';
+    document.body.style.backgroundColor='black';
+    var canvas = document.createElement( 'Canvas' );
+    canvas.style.left = 0;
+    canvas.style.top = 0;
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+
+    document.body.appendChild(canvas);
+    var ctx =canvas.getContext('2d');
+    ctx.font = "30px malgun gothic"; //폰트의 크기, 글꼴체 지정      
+    ctx.fillStyle = "rgba(255,0,255,1)"; //색상지정
+    return ctx;
+}
+
+var line = 0;
+function ln(){
+    return line += 50;
+}
