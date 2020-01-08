@@ -1,12 +1,19 @@
 window.onload = function(){
     var ctx = appendBodyCanvas();
-    ctx.fillText("게임코딩 - 시작하기 - 함수",50,ln());
+    ctx.fillText("게임코딩 - 시작하기 - 반복문",50,ln());
     ctx.fillText("=======================",50,ln());
 
-    ctx.fillText("(10 + 10) ==> " + (10 - 5) ,50,ln());
-    ctx.fillText("add(10,10) ==> " + add(10,10) ,50,ln());
-}
+    var value = 1;
+    var sum = 0;
+    // while (value <= 10) {
+    //     ctx.fillText("value : "  + value ,50,ln());
+    //     sum += value++;
+    // }
+    
+    for (var value = 1; value <= 10; value++) {
+        ctx.fillText("value : "  + value ,50,ln());
+        sum += value;
+    }
 
-function add(value1,value2){
-    return value1 - value2;
+    ctx.fillText("sum : "  + sum ,50,ln());
 }
