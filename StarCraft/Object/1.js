@@ -41,14 +41,12 @@ function callbackCursor(type,indexA,indexB,angle){
             _ENGINE.setState(indexA,STATE[ID.CURSOR].CURSOR_2,mouseX - (objA.w/2),mouseY - (objA.h/2));
         break;
         case AnimateContainer.NONE_COLLISION:
-            if(objA.state != STATE[ID.CURSOR].NEW)
-            objA.setState(STATE[ID.CURSOR].CURSOR_1,mouseX - (objA.w/2),mouseY - (objA.h/2));
-            else if(objA.state != STATE[ID.CURSOR].CURSOR_1)
+            if(objA.state != STATE[ID.CURSOR].NEW && objA.state == STATE[ID.CURSOR].CURSOR_2)
             objA.setState(STATE[ID.CURSOR].NEW,mouseX - (objA.w/2),mouseY - (objA.h/2));
         break;
         case AnimateContainer.COLLISION:
             if(objA.state != STATE[ID.CURSOR].CURSOR_2)
-            objA.setState(STATE[ID.CURSOR].CURSOR_2,_CURSOR.x,_CURSOR.y);
+            objA.setState(STATE[ID.CURSOR].CURSOR_2,mouseX - (objA.w/2),mouseY - (objA.h/2));
         break;
     }    
 }

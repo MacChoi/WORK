@@ -41,7 +41,9 @@ class Animate{
         this.reverseX = 1;
         this.reverseY = 1;
         this.reverseImg = 1;
+
         this.isAniLoop = true;
+        this.isEndDelete = false;
 
         this.callback = function(){};
 
@@ -57,12 +59,14 @@ class Animate{
         if(this.index < this.objectState[0].length-1){
             this.index++;
         }else{
-            this.index=0;
             if(!isEmpty(this.nextState)){
                 this.setState(this.nextState,this.x,this.y);
                 this.nextState = null;
             }
-            else if(!isEmpty(this.callback))this.callback(AnimateContainer.END_FRAME,ani_index);
+            else {
+                if(!isEmpty(this.callback))this.callback(AnimateContainer.END_FRAME,ani_index);
+                if(this.isAniLoop)this.index=0;
+            }
         }
         if(!isEmpty(this.callback))this.callback(AnimateContainer.NEXT_FRAME,ani_index);
         if(this.glint > 0){
@@ -96,6 +100,11 @@ class Animate{
         return this;
     }
 
+    setEndDelete(bool){
+        this.isEndDelete = bool;
+        return this;
+    }
+    
     setState(state,x,y){
         this.x = x;
         this.y = y;
@@ -205,7 +214,7 @@ class AnimateContainer{
         engine.context.drawImage(engine.bufferCanvas, 0, 0);
         for (var index = 0; index < this.objectArray.length; index++) {
             this.objectArray[index].nextFrame(index);
-            if(this.objectArray[index].index == 0 & this.objectArray[index].isAniLoop == false){
+            if(this.objectArray[index].index == 0 & this.objectArray[index].isEndDelete == true){
                 this.deleteObject(index);
                 continue;
             }

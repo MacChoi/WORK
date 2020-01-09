@@ -14,7 +14,6 @@ function callbackBG(type,indexA,indexB,angle){
     var objB = _ENGINE.getObject(indexB)
     switch (type) {
         case AnimateContainer.END_FRAME:
-            _ENGINE.setState(indexA,STATE[ID.BG].NEW,objA.x,objA.y);
         break;
         case AnimateContainer.NEXT_FRAME:
         break;
