@@ -51,6 +51,11 @@ class GEngine {
         GEngine.engine = new GEngine(new AnimateContainer());
 
         window.onload = callback;
+
+        GEngine.engine.addEventListener(function(e) {
+            //log("e.keyCode: " + e.keyCode);
+            GEngine.engine.pressKey(e.keyCode);
+        });
         return GEngine.engine;
     }
 
@@ -71,7 +76,7 @@ class GEngine {
         this.canvas.height=height;
         this.bufferCanvas.width=width;
         this.bufferCanvas.height=height;
-
+        
         this.canvas.style.position = 'absolute';
         this.canvas.style.left = x;
         this.canvas.style.top = y;
@@ -107,8 +112,11 @@ class GEngine {
             GEngine.engine.setRatioCanvas(4,3);
             GEngine.engine.animateContainer.setCollisonArray(COLLISION_DATA);
 
-            var aniCon = GEngine.engine.animateContainer;
-            aniCon.drawCollisionArray(GEngine.engine.bufferContext,COLLISION_DATA,IMAGE[ID.BG],aniCon.getUnitWidth(),aniCon.getUnitHeight());
+           var aniCon = GEngine.engine.animateContainer;
+           // aniCon.drawCollisionArray(GEngine.engine.bufferContext,COLLISION_DATA,IMAGE[ID.BG],aniCon.getUnitWidth(),aniCon.getUnitHeight());
+
+           GEngine.engine.bufferContext.fillStyle = '#ff6';
+           GEngine.engine.bufferContext.fillRect(0, 0, GEngine.engine.canvas.width, GEngine.engine.canvas.height);
         });
         window.dispatchEvent(new Event('resize'));
     }
@@ -197,7 +205,7 @@ class GEngine {
 
         this.startTimeLoop(60,function(){
             GEngine.engine.drawNextFrame();
-        });
+        });    
         return this;
     }
 

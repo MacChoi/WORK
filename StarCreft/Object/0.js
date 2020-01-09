@@ -1,32 +1,11 @@
 OBJECT[ID.BG] = {
-    IMG:4,
-    SOUND:1,
-    NEW_BG:[
-    [2],//image
+    IMG:2,
+    SOUND:0,
+    NEW:[
+    [0,1],//image
     [NO_SOUND],//sound
-    [0],//x
-    [0],//y
-    ],
-    NEW_VIEW:[
-    [3],//image
-    [NO_SOUND],//sound
-    [0],//x
-    [0],//y
-    [5]//gravity
-    ],
-    VIEW_LEFT:[
-    [3,3,3,3,3],//image
-    [NO_SOUND],//sound
-    [-2,-2,-2,-2,-2],//x
-    [0,0,0,0,0],//y
-    [5,5,5,5,5]//gravity
-    ],
-    VIEW_RIGHT:[
-    [3,3,3,3,3],//image
-    [NO_SOUND],//sound
-    [2,2,2,2,2],//x
-    [0,0,0,0,0],//y
-    [5,5,5,5,5]//gravity
+    [0,0],//x
+    [0,0],//y
     ],
 };
 
@@ -35,10 +14,9 @@ function callbackView(type,indexA,indexB,angle){
     var objB = _ENGINE.getObject(indexB)
     switch (type) {
         case AnimateContainer.END_FRAME:
-            _ENGINE.setState(indexA,STATE[ID.BG].NEW_VIEW,objA.x,objA.y);
+            _ENGINE.setState(indexA,STATE[ID.BG].NEW,objA.x,objA.y);
         break;
         case AnimateContainer.NEXT_FRAME:
-            _BG.setState(STATE[ID.BG].NEW_BG,objA.x-500,_BG.y);
         break;
     }    
 }

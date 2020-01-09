@@ -139,7 +139,7 @@ class Animate{
 
     setCallback(callback){
         this.callback = callback;
-        this.callback(AnimateContainer.INIT,this.indexObj,null,null);
+        this.callback(AnimateContainer.NEW_FRAME,this.indexObj,null,null);
         return this;
     }
 
@@ -157,7 +157,7 @@ class Animate{
 }
 
 class AnimateContainer{
-    static get INIT(){return -1;};
+    static get NEW_FRAME(){return -1;};
     static get END_FRAME(){return 0;};
     static get NEXT_FRAME(){return 1;};
     static get COLLISION(){return 2;};

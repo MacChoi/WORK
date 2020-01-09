@@ -1,142 +1,73 @@
-OBJECT[ID.RYU] = {
-    IMG:60,
+OBJECT[ID.CURSOR] = {
+    IMG:2,
     SOUND:0,
     NEW:[
-    [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5],//image
+    [0,1],//image
     [NO_SOUND],//sound
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//x
-    [0,0,0,0,0,0,0,0,0,-3,0,3,0,0,0],//y
-    [5,5,5,0,5,0,5,5,5,0,5,0,5,5,5],//gravity
-    ],
-    LEFT:[
-    [17,16,15,14,13,12],//image
-    [NO_SOUND],//sound
-    [-5,-5,-5,-5,-5,-5],//x
-    [1,2,3,3,2,1],//y
-    [5,5,5,5,5,5]//gravity
-    ],
-    RIGHT:[
-    [11,10,9,8,7,6],//image
-    [NO_SOUND],//sound
-    [5,5,5,5,5,5],//x
-    [1,2,3,3,2,1],//y
-    [5,5,5,5,5,5]//gravity
-    ],
-    JUMP:[
-    [18,19,20,21,22,23,24],//image
-    [NO_SOUND],//sound
-    [0,0,0,0,0,0,0],//x
-    [-0,-10,-20,-30,-20,-10,-0],//y
-    [0,0,0,0,0,0,0],//gravity
-    ],
-    JUMP_DOWN:[
-    [24,24,24,5,5],//image
-    [NO_SOUND],//sound
-    [0,0,0,0,0],//x
-    [0,0,0,0,0],//y
-    [20,20,20,20,20]//gravity
-    ],
-    JUMP_LEFT:[
-    [30,30,30,29,29,29,28,28,28,27,27,27,26,26,26,25,25,25],//image
-    [NO_SOUND],//sound
-    [0,-10,-10,-10,-10,-10,0,0,0,0,0,-10,0,0,0,0,0,0],//x
-    [-10,0,0,0,0,-50,0,0,0,0,0,0,0,0,0,0,0,0],//y
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],//gravity
-    ],
-    JUMP_RIGHT:[
-    [25,25,25,26,26,26,27,27,27,28,28,28,29,29,29,30,30,30],//image
-    [NO_SOUND],//sound
-    [0,0,0,10,10,10,10,10,0,0,0,10,0,0,0,0,0,0],//x
-    [-10,0,0,0,0,-50,0,0,0,0,0,0,0,0,0,0,0,0],//y
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],//gravity
-    ], 
-    PUNCH:[
-    [31,31,31,32,32],//image
-    [NO_SOUND],//sound
-    [0,0,0,0,0],//x
-    [0,0,0,0,0],//y
-    [5,5,5,5,5]//gravity
-    ],
-    KICK:[
-    [33,33,33,34,34],//image
-    [NO_SOUND],//sound
-    [0,0,0,0,0],//x
-    [0,0,0,0,0],//y
-    [5,5,5,5,5]//gravity
-    ],
-    SKILL_1:[
-    [35,35,35,36,36,36,37,37,37,38,38,38,38,38],//image
-    [0],//sound
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//x
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//y
-    [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]//gravity
-    ],
-    SKILL_2:[
-    [40,41,42,43,44,45,46,47,44,45 ,46,47,44,45,46,47,44,45,46,47, 44,45,46,47,44,45,46,47,48,49],//image
-    [1],//sound
-    [20,0,0,0,0,20,0,0,0,0,20,0,0,0,0,20,0,0,0,0,20,0,0,0,0,20,0,0,0,0],//x
-    [0,-50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//y
-    ],
-    SKILL_3:[
-    [50,51,52,53,54,55,56],//image
-    [2],//sound
-    [20,0,0,0,0,20,0],//x
-    [0,-10,-20,-20,-20,-20,0],//y
-    ],
-    GET_BLOW:[
-    [57,58,59],//image
-    [3],//sound
-    [0,0,0],//x
-    [5,0,-5],//y
-    [10,10,10],//gravity
+    [0,0],//x
+    [0,0],//y
     ],
 };
 
-function callbackRyu(type,indexA,indexB,angle){
+function callbacCursor(type,indexA,indexB,angle){
     var objA = _ENGINE.getObject(indexA);
-    var objB = _ENGINE.getObject(indexB);
+    var objB = _ENGINE.getObject(indexB)
     switch (type) {
-        case AnimateContainer.INIT:
-            objA.setKeyCallBack(GEngine.KEY_LEFT,function (){
-                _RYU.setState(STATE[ID.RYU].LEFT,_RYU.x,_RYU.y);
-                _VIEW.setState(STATE[ID.BG].VIEW_RIGHT,_VIEW.x,_VIEW.y);
-            }).setKeyCallBack(GEngine.KEY_RIGHT,function (){
-                _RYU.setState(STATE[ID.RYU].RIGHT,_RYU.x,_RYU.y);
-                _VIEW.setState(STATE[ID.BG].VIEW_LEFT,_VIEW.x,_VIEW.y);
-            }).setKeyCallBack(GEngine.KEY_UP,function (){
-                _RYU.setState(STATE[ID.RYU].JUMP,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
-            }).setKeyCallBack(GEngine.KEY_A,function (){
-                _RYU.setState(STATE[ID.RYU].PUNCH,_RYU.x,_RYU.y);
-            }).setKeyCallBack(GEngine.KEY_S,function (){
-                _RYU.setState(STATE[ID.RYU].KICK,_RYU.x,_RYU.y);
-            }).setKeyCallBack(GEngine.KEY_1,function (){
-                var uniId = _RYU.setState(STATE[ID.RYU].SKILL_1,_RYU.x,_RYU.y).setReverseX(_RYU.getReverseX()).getUniqueID();
-                _ENGINE.newObject(ID.FX,STATE[ID.FX].NEW,_RYU.x,_RYU.y+15).setReverseX(_RYU.getReverseX()).setCallback(callbackFX).setValue(uniId);
-            }).setKeyCallBack(GEngine.KEY_2,function (){
-                _RYU.setState(STATE[ID.RYU].SKILL_2,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
-            }).setKeyCallBack(GEngine.KEY_3,function (){
-                _RYU.setState(STATE[ID.RYU].SKILL_3,_RYU.x,_RYU.y).setNextState(STATE[ID.RYU].JUMP_DOWN);
-            });
-        break;
+        case AnimateContainer.NEW_FRAME:
+            _ENGINE.getCanvas().style.cursor = "none";
+            _ENGINE.getCanvas().addEventListener("mousemove", onMouseMove, false);
+            _ENGINE.getCanvas().addEventListener("mousedown", onMouseDown, false);
+            _ENGINE.getCanvas().addEventListener("mouseup", onMouseUp, false);
+            window.addEventListener("mouseup", onMouseUp, true);
+            break;
         case AnimateContainer.END_FRAME:
-            _ENGINE.setState(indexA,STATE[ID.RYU].NEW,objA.x,270);
+            _ENGINE.setState(indexA,STATE[ID.CURSOR].NEW,mouseX - (objA.w/2),mouseY - (objA.h/2));
         break;
         case AnimateContainer.NEXT_FRAME:
-            if(_RYU.x > _RYU2.x)_RYU.setReverseX(-1);
-            else _RYU.setReverseX(1);
-            _RYU2.setReverseX(_RYU.getReverseX() * -1);
-        break;
-        case AnimateContainer.COLLISION:
-            if(objB.id == ID.RYU )
-                if(objA.state == STATE[ID.RYU].KICK
-                ||objA.state == STATE[ID.RYU].PUNCH
-                ||objA.state == STATE[ID.RYU].SKILL_2
-                ||objA.state == STATE[ID.RYU].SKILL_3)
-            objB.setState(STATE[ID.RYU].GET_BLOW,objB.x +(5 *_RYU.getReverseX()),objB.y);
-        break;
-        case AnimateContainer.COLLISION_LEFT:
-        break;
-        case AnimateContainer.COLLISION_RIGHT:
+            
         break;
     }    
+}
+
+const MOUSE_BUTTON_LEFT = 0;
+const MOUSE_BUTTON_RIGHT = 2;
+var mouseStartX,mouseStartY;
+var mouseX,mouseY;
+var mouseDown = false;
+var mouseDownButton = false;
+
+function onMouseDown(e) {
+    mouseDown = true;
+    mouseStartX = e.offsetX;
+    mouseStartY = e.offsetY;
+
+    mouseDownButton = event.button;
+
+    log(mouseDownButton)
+}
+
+function onMouseUp(e) {
+    mouseDown = false;
+    mouseDownButton = false;
+}
+
+function onMouseMove(e) {
+    mouseX = e.offsetX /_ENGINE.getScale();
+    mouseY = e.offsetY /_ENGINE.getScale();
+
+    if(mouseDown && mouseDownButton == MOUSE_BUTTON_LEFT){
+        var startX = mouseStartX;
+        var startY = mouseStartY;
+        var width = e.offsetX - mouseStartX;
+        var height = e.offsetY - mouseStartY;
+
+        if(width <= 0)startX += width;
+        if(height <= 0)startY += height;
+
+        // log("mouseStartX :" + mouseStartX);
+        // log("mouseStartY :" + mouseStartY);
+        // log(" Math.abs(mouseStartX - e.offsetX) :" + (mouseStartX - e.offsetX));
+        // log("Math.abs(mouseStartY - e.offsetY) :" + (mouseStartY - e.offsetY));
+        _ENGINE.getContext().strokeRect(startX, startY, Math.abs(width), Math.abs(height));
+    }
 }
