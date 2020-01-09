@@ -112,11 +112,11 @@ class GEngine {
             GEngine.engine.setRatioCanvas(4,3);
             GEngine.engine.animateContainer.setCollisonArray(COLLISION_DATA);
 
-           var aniCon = GEngine.engine.animateContainer;
-           // aniCon.drawCollisionArray(GEngine.engine.bufferContext,COLLISION_DATA,IMAGE[ID.BG],aniCon.getUnitWidth(),aniCon.getUnitHeight());
+            GEngine.engine.bufferContext.fillStyle = '#fff';
+            GEngine.engine.bufferContext.fillRect(0, 0, GEngine.engine.canvas.width, GEngine.engine.canvas.height);
 
-           GEngine.engine.bufferContext.fillStyle = '#ff6';
-           GEngine.engine.bufferContext.fillRect(0, 0, GEngine.engine.canvas.width, GEngine.engine.canvas.height);
+            var aniCon = GEngine.engine.animateContainer;
+            //aniCon.drawCollisionArray(GEngine.engine.bufferContext,COLLISION_DATA,IMAGE[ID.BG],aniCon.getUnitWidth(),aniCon.getUnitHeight());
         });
         window.dispatchEvent(new Event('resize'));
     }

@@ -19,8 +19,10 @@ function callbacCursor(type,indexA,indexB,angle){
             _ENGINE.getCanvas().addEventListener("mousedown", onMouseDown, false);
             _ENGINE.getCanvas().addEventListener("mouseup", onMouseUp, false);
             window.addEventListener("mouseup", onMouseUp, true);
+            
             break;
         case AnimateContainer.END_FRAME:
+            
             _ENGINE.setState(indexA,STATE[ID.CURSOR].NEW,mouseX - (objA.w/2),mouseY - (objA.h/2));
         break;
         case AnimateContainer.NEXT_FRAME:
@@ -42,13 +44,15 @@ function onMouseDown(e) {
     mouseStartY = e.offsetY;
 
     mouseDownButton = event.button;
-
-    log(mouseDownButton)
+    e.preventDefault();
+    e.stopPropagation();
 }
 
 function onMouseUp(e) {
     mouseDown = false;
     mouseDownButton = false;
+    e.preventDefault();
+    e.stopPropagation();
 }
 
 function onMouseMove(e) {
@@ -68,6 +72,12 @@ function onMouseMove(e) {
         // log("mouseStartY :" + mouseStartY);
         // log(" Math.abs(mouseStartX - e.offsetX) :" + (mouseStartX - e.offsetX));
         // log("Math.abs(mouseStartY - e.offsetY) :" + (mouseStartY - e.offsetY));
+        _ENGINE.getContext().globalAlpha = 0.2;
+        _ENGINE.getContext().fillStyle = '#99FF99';
+        _ENGINE.getContext().fillRect(startX, startY, Math.abs(width), Math.abs(height));
+        _ENGINE.getContext().fillStyle = '#00CC00';
         _ENGINE.getContext().strokeRect(startX, startY, Math.abs(width), Math.abs(height));
+        _ENGINE.getContext().globalAlpha = 1.0;
+        _ENGINE.getContext().fillStyle = '#fff';
     }
 }
