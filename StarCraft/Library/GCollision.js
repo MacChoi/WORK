@@ -84,7 +84,7 @@ class GCollision {
         theta *= 180 / Math.PI; 
         //return theta;
 
-        return theta >= 360 ? theta - 360 : theta < 0 ? theta + 360 : theta;
+        return Math.abs((theta >= 360 ? theta - 360 : theta < 0 ? theta + 360 : theta) - 360);
     }
 
     //공충돌 반응 각 (ex.당구공 충돌 반응 각도)

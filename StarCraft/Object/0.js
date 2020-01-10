@@ -17,5 +17,7 @@ function callbackBG(type,indexA,indexB,angle){
         break;
         case AnimateContainer.NEXT_FRAME:
         break;
+        case AnimateContainer.COLLISION:
+        break;
     }    
 }

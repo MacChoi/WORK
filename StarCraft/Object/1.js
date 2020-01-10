@@ -46,13 +46,21 @@ function callbackCursor(type,indexA,indexB,angle){
             else if(objA.state == STATE[ID.CURSOR].CURSOR_2)
             _ENGINE.setState(indexA,STATE[ID.CURSOR].CURSOR_2,mouseX - (objA.w/2),mouseY - (objA.h/2));
         break;
-        case AnimateContainer.NONE_COLLISION:
-            if(objA.state != STATE[ID.CURSOR].NEW && objA.state == STATE[ID.CURSOR].CURSOR_2)
-            objA.setState(STATE[ID.CURSOR].NEW,mouseX - (objA.w/2),mouseY - (objA.h/2));
+        case AnimateContainer.NEXT_FRAME:
+            if(_ENGINE.animateContainer.checkCollision()){
+                if(objA.state == STATE[ID.CURSOR].NEW && objA.index != 0)
+                objA.setState(STATE[ID.CURSOR].CURSOR_2,mouseX - (objA.w/2),mouseY - (objA.h/2));
+            }else{
+                if(objA.state == STATE[ID.CURSOR].CURSOR_2)
+                objA.setState(STATE[ID.CURSOR].NEW,mouseX - (objA.w/2),mouseY - (objA.h/2));
+            }
         break;
         case AnimateContainer.COLLISION:
-            if(objA.state != STATE[ID.CURSOR].CURSOR_2)
-            objA.setState(STATE[ID.CURSOR].CURSOR_2,mouseX - (objA.w/2),mouseY - (objA.h/2));
+            if(mouseDown == true && mouseDownButton == MOUSE_BUTTON_RIGHT){
+                mouseDownButton = mouseDown = false;
+                _ENGINE.animateContainer.setAllSelect(false);
+                objB.setSelect(true);
+            }
         break;
     }    
 }

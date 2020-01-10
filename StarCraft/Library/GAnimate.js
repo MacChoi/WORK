@@ -47,10 +47,11 @@ class Animate{
         this.callback = function(){};
 
         this.nextState = null;
-        this.indexObj =0;
+        this.indexObj = 0;
         this.keyMap = new Map();
 
-        this.isSelect = false; 
+        this.isSelect = false;
+        this.angle = 0;
     }
 
     nextFrame(ani_index){
@@ -103,7 +104,12 @@ class Animate{
         this.isEndDelete = bool;
         return this;
     }
-    
+
+    setSelect(bool){
+        this.isSelect = bool;
+        return this;
+    }
+
     setState(state,x,y){
         this.x = x;
         this.y = y;
@@ -174,7 +180,6 @@ class AnimateContainer{
     static get COLLISION_UP(){return 5;};
     static get COLLISION_DOWN(){return 6;};
     static get SOUND_ENDED (){return 7;};
-    static get NONE_COLLISION(){return 8;};
     
     constructor(){
         this.collision = new GCollision();
@@ -191,6 +196,7 @@ class AnimateContainer{
     }
 
     checkCollision(){
+        var isCollsion = false;
         for (var i = 0; i < this.objectArray.length; i++) {
             for (var j = 0; j < this.objectArray.length; j++) {
                 if(i == j)continue;
@@ -203,9 +209,11 @@ class AnimateContainer{
                     var h2 = this.objectArray[j].h / 2;
                     var angle = this.collision.getAngle(this.objectArray[i].x +w,this.objectArray[i].y + h,this.objectArray[j].x + w2,this.objectArray[j].y + h2);
                     this.objectArray[i].callback(AnimateContainer.COLLISION,i,j,angle); 
-                }else this.objectArray[i].callback(AnimateContainer.NONE_COLLISION,i);
+                    isCollsion = true;
+                }
             }  
         }
+        return isCollsion;
     }
 
     drawNextFrame(engine){
@@ -290,7 +298,7 @@ class AnimateContainer{
                 var halfW = element.w;
                 var halfH = element.h;
                 _ENGINE.getContext().strokeStyle = '#0c0';
-                this.drawEllipse(engine.context,element.x -halfW/2, element.y +halfH/2,element.w +halfW, halfH - (halfH/5.0));
+                this.drawEllipse(engine.context,element.x -halfW/5, element.y +halfH/1.3,element.w +halfW/3, halfH - (halfH/1.5));
                 _ENGINE.getContext().strokeStyle = '#fff';
             }
 
@@ -439,6 +447,14 @@ class AnimateContainer{
             var element = this.objectArray[index];
             element.x +=x;
             element.y +=y;
+        }
+        return this;
+    }
+
+    setAllSelect(bool){
+        for (var index = 0; index < this.objectArray.length; index++) {
+            var element = this.objectArray[index];
+            element.isSelect = bool;
         }
         return this;
     }
