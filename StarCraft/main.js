@@ -4,7 +4,7 @@ var _ENGINE = GEngine.loadObjectFile(["BG","CURSOR","OVERLOAD"],function(){
         if(GEngine.END_FILE == type){
             _BG = _ENGINE.newObject(ID.BG,STATE[ID.BG].NEW,50,50).setCallback(callbackBG);
             _CURSOR = _ENGINE.newObject(ID.CURSOR,STATE[ID.CURSOR].NEW,150,50).setCallback(callbackCursor);
-            _OVERLOAD = _ENGINE.newObject(ID.OVERLOAD,STATE[ID.OVERLOAD].MOVE_360,100,100).setCallback(callbackOverload);
+            _OVERLOAD = _ENGINE.newObject(ID.OVERLOAD,STATE[ID.OVERLOAD].NEW[0],100,100).setCallback(callbackOverload);
         }
     });
 });

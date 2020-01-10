@@ -2,11 +2,56 @@ OBJECT[ID.OVERLOAD] = {
     IMG:10,
     SOUND:0,
     NEW:[
-    [0,0,0,0,1],//image
-    [NO_SOUND],//sound
-    [0,0,0,0,0],//x
-    [0,0,0,0,0],//y
-    ],
+        [//0
+        [4],//image
+        [NO_SOUND],//sound
+        [0],//x
+        [0]//y
+        ],
+        [//45
+        [4],//image
+        [NO_SOUND],//sound
+        [0],//x
+        [0]//y
+        ],
+        [//90
+        [4],//image
+        [NO_SOUND],//sound
+        [0],//x
+        [0]//y
+        ],
+        [//135
+        [4],//image
+        [NO_SOUND],//sound
+        [0],//x
+        [0]//y
+        ],
+        [//180
+        [4],//image
+        [NO_SOUND],//sound
+        [0],//x
+        [0]//y
+        ],
+        [//225
+        [4],//image
+        [NO_SOUND],//sound
+        [0],//x
+        [0]//y
+        ],
+        [//270
+        [4],//image
+        [NO_SOUND],//sound
+        [0],//x
+        [0]//y
+        ],
+        [//315
+        [4],//image
+        [NO_SOUND],//sound
+        [0],//x
+        [0]//y
+        ],
+    ]
+    ,
     MOVE_0:[
     [4,5],//image
     [NO_SOUND],//sound
@@ -51,12 +96,6 @@ OBJECT[ID.OVERLOAD] = {
     ],
     MOVE_315:[
     [6,7],//image
-    [NO_SOUND],//sound
-    [0,0],//x
-    [0,0],//y
-    ],
-    MOVE_360:[
-    [4,5],//image
     [NO_SOUND],//sound
     [0,0],//x
     [0,0],//y
