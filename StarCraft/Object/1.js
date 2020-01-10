@@ -1,5 +1,5 @@
 OBJECT[ID.CURSOR] = {
-    IMG:20,
+    IMG:22,
     SOUND:0,
     NEW:[
     [0,1,2,3,4],//image
@@ -20,10 +20,10 @@ OBJECT[ID.CURSOR] = {
     [0,0,0,0,0,0,0,0,0,5,0,0,0,-5],//y
     ],
     CURSOR_3:[
-    [6],//image
+    [20,21],//image
     [NO_SOUND],//sound
-    [0],//x
-    [0],//y
+    [0,0],//x
+    [0,0],//y
     ]
 };
 
