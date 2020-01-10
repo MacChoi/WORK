@@ -44,14 +44,13 @@ class Animate{
 
         this.isAniLoop = true;
         this.isEndDelete = false;
-
         this.callback = function(){};
 
         this.nextState = null;
-
         this.indexObj =0;
-
         this.keyMap = new Map();
+
+        this.isSelect = false; 
     }
 
     nextFrame(ani_index){
@@ -210,6 +209,8 @@ class AnimateContainer{
     }
 
     drawNextFrame(engine){
+        var selectCircle = new Path2D();
+
         this.engine = engine;
         engine.context.drawImage(engine.bufferCanvas, 0, 0);
         for (var index = 0; index < this.objectArray.length; index++) {
@@ -283,6 +284,14 @@ class AnimateContainer{
                 if((element.glint % 2)==0)
                 engine.context.globalAlpha = 0.1;
                 else engine.context.globalAlpha = 1.0;
+            }
+
+            if(element.isSelect){
+                var halfW = element.w;
+                var halfH = element.h;
+                _ENGINE.getContext().strokeStyle = '#0c0';
+                this.drawEllipse(engine.context,element.x -halfW/2, element.y +halfH/2,element.w +halfW, halfH - (halfH/5.0));
+                _ENGINE.getContext().strokeStyle = '#fff';
             }
 
             if(element.objectState[0][element.index] * element.reverseImg >= 0)
@@ -484,4 +493,28 @@ class AnimateContainer{
         this.drawGrid(context,map,W,H);
         return this;
     }
+
+    drawEllipse(ctx,x,y,width,height){
+        var PI2=Math.PI*2;
+        var ratio=height/width;
+        var radius=Math.max(width,height)/2;
+        var increment = 1 / radius;
+        var cx=x+width/2;
+        var cy=y+height/2;
+        
+        ctx.beginPath();
+        var x = cx + radius * Math.cos(0);
+        var y = cy - ratio * radius * Math.sin(0);
+        ctx.lineTo(x,y);
+    
+        for(var radians=increment; radians<PI2; radians+=increment){ 
+            var x = cx + radius * Math.cos(radians);
+            var y = cy - ratio * radius * Math.sin(radians);
+            ctx.lineTo(x,y);
+         }
+    
+        ctx.closePath();
+        ctx.stroke();
+    }
+
 }

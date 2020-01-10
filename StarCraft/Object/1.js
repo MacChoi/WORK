@@ -16,8 +16,14 @@ OBJECT[ID.CURSOR] = {
     CURSOR_2:[
     [6,7,8,9,10,11,12,13,14,15,16,17,18,19],//image
     [NO_SOUND],//sound
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0],//x
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0],//y
+    [-6,0,0,0,6,0,0,0,-5,0,0,0,0,5],//x
+    [0,0,0,0,0,0,0,0,0,5,0,0,0,-5],//y
+    ],
+    CURSOR_3:[
+    [6],//image
+    [NO_SOUND],//sound
+    [0],//x
+    [0],//y
     ]
 };
 
@@ -62,11 +68,18 @@ function onMouseDown(e) {
     mouseStartX = e.offsetX;
     mouseStartY = e.offsetY;
     mouseDownButton = event.button;
+
+    if(mouseDownButton == MOUSE_BUTTON_RIGHT){
+        _CURSOR.setState(STATE[ID.CURSOR].CURSOR_3,_CURSOR.x,_CURSOR.y);
+    }
 }
 
 function onMouseUp(e) {
-    mouseDown = false;
-    mouseDownButton = false;
+    if(mouseDown && mouseDownButton == MOUSE_BUTTON_LEFT){
+        mouseStartX=0;mouseStartY=0;
+        mouseDown = false;
+        mouseDownButton = false;
+    }
     _CURSOR.setState(STATE[ID.CURSOR].NEW,_CURSOR.x,_CURSOR.y);
 }
 
@@ -89,7 +102,7 @@ function onMouseMove(e) {
         // log("Math.abs(mouseStartY - e.offsetY) :" + (mouseStartY - e.offsetY));
         _ENGINE.getContext().strokeStyle = '#0c0';
         _ENGINE.getContext().strokeRect(startX, startY, Math.abs(width), Math.abs(height));
-    
+        _ENGINE.getContext().strokeStyle = '#fff';
         _CURSOR.setState(STATE[ID.CURSOR].CURSOR_1,_CURSOR.x,_CURSOR.y);
     }
 }
