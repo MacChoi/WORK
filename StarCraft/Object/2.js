@@ -61,6 +61,9 @@ function callbackOverload(type,indexA,indexB,angle){
     var objA = _ENGINE.getObject(indexA);
     var objB = _ENGINE.getObject(indexB)
     switch (type) {
+        case AnimateContainer.NEW_FRAME:
+            objA.objectState = Object.values(OBJECT[ID.OVERLOAD])[STATE[ID.OVERLOAD].MOVE_315];
+        break;
         case AnimateContainer.END_FRAME:
         break;
         case AnimateContainer.NEXT_FRAME:

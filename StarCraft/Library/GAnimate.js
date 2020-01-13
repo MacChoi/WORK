@@ -217,8 +217,6 @@ class AnimateContainer{
     }
 
     drawNextFrame(engine){
-        var selectCircle = new Path2D();
-
         this.engine = engine;
         engine.context.drawImage(engine.bufferCanvas, 0, 0);
         for (var index = 0; index < this.objectArray.length; index++) {
