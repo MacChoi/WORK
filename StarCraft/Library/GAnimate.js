@@ -50,8 +50,16 @@ class Animate{
         this.indexObj = 0;
         this.keyMap = new Map();
 
+        this.isSelectEnable = false;
         this.isSelect = false;
         this.angle = 0;
+
+        this.targetX = 0;
+        this.targetY = 0;
+
+        this.isMove = false;
+        this.isAttack = false;
+        this.isHold = false;
     }
 
     nextFrame(ani_index){
@@ -105,6 +113,11 @@ class Animate{
         return this;
     }
 
+    setSelectEnable(bool){
+        this.isSelectEnable = bool;
+        return this;
+    }
+   
     setSelect(bool){
         this.isSelect = bool;
         return this;
@@ -303,7 +316,7 @@ class AnimateContainer{
             if(element.objectState[0][element.index] * element.reverseImg >= 0)
             engine.context.drawImage(image, element.x , element.y);
             else{
-                element.x +=  element.pre_w - element.w;
+               // element.x +=  element.pre_w - element.w;
                 this.flipHorizontally(image, element.x , element.y);
             }
                 
@@ -452,7 +465,60 @@ class AnimateContainer{
     setAllSelect(bool){
         for (var index = 0; index < this.objectArray.length; index++) {
             var element = this.objectArray[index];
+            if(element.isSelectEnable)
             element.isSelect = bool;
+        }
+        return this;
+    }
+
+    setSelectRect(x,y,w,h){
+        var isCollsion = false;
+        for (var index = 0; index < this.objectArray.length; index++) {
+            var element = this.objectArray[index];
+            if(this.collision.hitRectangle({x:x,y:y,w:w,h:h},element)){
+                if(element.isSelectEnable){
+                    element.isSelect = true;
+                    isCollsion = true;
+                }
+            }
+        }
+        return isCollsion;
+    }
+
+    setAllSelectState(state){
+        var isCollsion = false;
+        for (var index = 0; index < this.objectArray.length; index++) {
+            var element = this.objectArray[index];
+            if(element.isSelectEnable){
+                switch(state){
+                    case MOUSE_STATE_HOLD:
+                        element.isMove = false;
+                        element.isAttack = false;
+                        element.isHold = true;
+                        break;
+                    case MOUSE_STATE_MOVE:
+                        element.isMove = true;
+                        element.isAttack = false;
+                        element.isHold = false;
+                        break;
+                    case MOUSE_STATE_ATTACK:
+                        element.isMove = false;
+                        element.isAttack = true;
+                        element.isHold = false;
+                        break;    
+                }
+            }
+        }
+        return this;
+    }
+
+    setTarget(x,y){
+        for (var index = 0; index < this.objectArray.length; index++) {
+            var element = this.objectArray[index];
+            if(element.isSelectEnable){
+                element.targetX = x;
+                element.targetY = y;
+            }
         }
         return this;
     }
