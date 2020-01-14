@@ -1,5 +1,5 @@
 var _CURSOR;
-var _ENGINE = GEngine.loadObjectFile(["COMMON","BG","CURSOR","OVERLOAD","MARINE","COMMAND_CENTER"],function(){
+var _ENGINE = GEngine.loadObjectFile(["COMMON","BG","CURSOR","OVERLOAD","MARINE","STRUCTURE"],function(){
     _ENGINE.loadImageFile(function (type,count){
         if(GEngine.END_FILE == type){
             _ENGINE.newObject(ID.BG,STATE[ID.BG].NEW,0,0);
@@ -11,7 +11,7 @@ var _ENGINE = GEngine.loadObjectFile(["COMMON","BG","CURSOR","OVERLOAD","MARINE"
             _ENGINE.newObject(ID.MARINE,STATE[ID.MARINE].NEW,200,200).setCallback(callbackMarine).setSelectEnable(true);
             _ENGINE.newObject(ID.MARINE,STATE[ID.MARINE].NEW,200,250).setCallback(callbackMarine).setSelectEnable(true);
 
-            _ENGINE.newObject(ID.COMMAND_CENTER,STATE[ID.COMMAND_CENTER].NEW,200,250).setCallback(callbackCommandCenter).setNextState(STATE[ID.COMMAND_CENTER].NEW_SCV);
+            _ENGINE.newObject(ID.STRUCTURE,STATE[ID.STRUCTURE].COMMAND_CENTER,200,250).setCallback(callbackCommandCenter).setNextState(STATE[ID.STRUCTURE].NEW_SCV);
 
             _CURSOR = _ENGINE.newObject(ID.CURSOR,STATE[ID.CURSOR].NEW,150,50).setCallback(callbackCursor);
         }
