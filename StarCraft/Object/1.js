@@ -8,16 +8,3 @@ OBJECT[ID.BG] = {
     [0],//y
     ],
 };
-
-function callbackBG(type,indexA,indexB,angle){
-    var objA = _ENGINE.getObject(indexA);
-    var objB = _ENGINE.getObject(indexB)
-    switch (type) {
-        case AnimateContainer.END_FRAME:
-        break;
-        case AnimateContainer.NEXT_FRAME:
-        break;
-        case AnimateContainer.COLLISION:
-        break;
-    }    
-}

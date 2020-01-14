@@ -1,4 +1,4 @@
-OBJECT[ID.OVERLOAD] = {
+OBJECT[ID.MARINE] = {
     IMG:20,
     SOUND:0,
     NEW:[
@@ -9,7 +9,7 @@ OBJECT[ID.OVERLOAD] = {
         ],
 };
 
-function callbackOverload(type,indexA,indexB,angle){
+function callbackMarine(type,indexA,indexB,angle){
     var objA = _ENGINE.getObject(indexA);
     var objB = _ENGINE.getObject(indexB)
     switch (type) {
