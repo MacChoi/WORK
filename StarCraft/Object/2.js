@@ -126,7 +126,8 @@ function onMouseMove(e) {
         _ENGINE.getContext().strokeRect(startX, startY, Math.abs(width), Math.abs(height));
         _ENGINE.getContext().strokeStyle = '#fff';
         _CURSOR.setState(STATE[ID.CURSOR].CURSOR_1,_CURSOR.x,_CURSOR.y);
-        
+
+        _ENGINE.animateContainer.setAllSelect(false);
         mouseSelectRect = {x:startX/_ENGINE.scale,y:startY/_ENGINE.scale,w:Math.abs(width)/_ENGINE.scale,h:Math.abs(height)/_ENGINE.scale};
     }
 }
