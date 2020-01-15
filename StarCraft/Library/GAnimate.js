@@ -465,13 +465,18 @@ class AnimateContainer{
     setAllSelect(bool){
         for (var index = 0; index < this.objectArray.length; index++) {
             var element = this.objectArray[index];
-            if(element.isSelectEnable)
+            if(!bool){
+                element.isHold =false;
+                element.isMove =false;
+                element.isSelect = false;
+            }else if(element.isSelectEnable)
             element.isSelect = bool;
         }
         return this;
     }
 
     setSelectRect(x,y,w,h){
+        this.setAllSelect(false);
         var isCollsion = false;
         for (var index = 0; index < this.objectArray.length; index++) {
             var element = this.objectArray[index];
@@ -486,10 +491,9 @@ class AnimateContainer{
     }
 
     setAllSelectState(state){
-        var isCollsion = false;
         for (var index = 0; index < this.objectArray.length; index++) {
             var element = this.objectArray[index];
-            if(element.isSelectEnable){
+            if(element.isSelectEnable && element.isSelect){
                 switch(state){
                     case MOUSE_STATE_HOLD:
                         element.isMove = false;

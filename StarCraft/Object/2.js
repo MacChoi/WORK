@@ -38,22 +38,9 @@ function callbackCursor(type,indexA,indexB,angle){
             _ENGINE.getCanvas().addEventListener("mouseup", onMouseUp, false);
             window.addEventListener("mouseup", onMouseUp, true);
             break;
-        case AnimateContainer.END_FRAME:
-            // if(objA.state == STATE[ID.CURSOR].NEW)
-            // _ENGINE.setState(indexA,STATE[ID.CURSOR].NEW,mouseX - (objA.w/2),mouseY - (objA.h/2));
-            // else if(objA.state == STATE[ID.CURSOR].CURSOR_1)
-            // _ENGINE.setState(indexA,STATE[ID.CURSOR].CURSOR_1,mouseX - (objA.w/2),mouseY - (objA.h/2));
-            // else if(objA.state == STATE[ID.CURSOR].CURSOR_2)
-            // _ENGINE.setState(indexA,STATE[ID.CURSOR].CURSOR_2,mouseX - (objA.w/2),mouseY - (objA.h/2));
-        break;
         case AnimateContainer.NEXT_FRAME:
             objA.x = mouseX - (objA.w/2);
             objA.y = mouseY - (objA.h/2);
-        break;
-        case AnimateContainer.COLLISION:
-            // if(objA.state != STATE[ID.CURSOR].CURSOR_2)
-            // _CURSOR.setState(STATE[ID.CURSOR].CURSOR_2,_CURSOR.x,_CURSOR.y);
-
         break;
     }    
 }
@@ -86,7 +73,7 @@ function onMouseDown(e) {
             mouseStartX=0;mouseStartY=0;
             mouseDown = false;
             mouseDownButton = false;
-            _ENGINE.animateContainer.setAllSelectState(MOUSE_STATE_HOLD);
+            //_ENGINE.animateContainer.setAllSelectState(MOUSE_STATE_HOLD);
         }
     }
 }
@@ -95,14 +82,12 @@ function onMouseUp(e) {
     if(mouseDown && mouseDownButton == MOUSE_BUTTON_LEFT ){
         if(_ENGINE.animateContainer.setSelectRect(mouseSelectRect.x,mouseSelectRect.y,mouseSelectRect.w,mouseSelectRect.h) == false)
         _ENGINE.animateContainer.setAllSelect(false);
-        _ENGINE.animateContainer.setAllSelectState(MOUSE_STATE_HOLD);
     }
     
     _CURSOR.setState(STATE[ID.CURSOR].NEW,_CURSOR.x,_CURSOR.y);
     mouseStartX=0;mouseStartY=0;
     mouseDown = false;
     mouseDownButton = false;
-    //mouseSelectRect = 0;
 }
 
 function onMouseMove(e) {
