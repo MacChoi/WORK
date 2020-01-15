@@ -306,10 +306,11 @@ class AnimateContainer{
             }
 
             if(element.isSelect){
-                var halfW = element.w;
-                var halfH = element.h;
+                var img = IMAGE[element.id][Math.abs(element.objectState[0][0])];
+                var halfW = img.width;
+                var halfH = img.height;
                 _ENGINE.getContext().strokeStyle = '#0c0';
-                this.drawEllipse(engine.context,element.x -halfW/5, element.y +halfH/1.3,element.w +halfW/3, halfH - (halfH/1.5));
+                this.drawEllipse(engine.context,element.x -halfW/5, element.y +halfH/1.3,halfW +halfW/3, halfH - (halfH/1.5));
                 _ENGINE.getContext().strokeStyle = '#fff';
             }
 

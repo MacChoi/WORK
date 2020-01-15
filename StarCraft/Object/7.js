@@ -1,15 +1,16 @@
-OBJECT[ID.MARINE] = {
+OBJECT[ID.SCV] = {
     IMG:20,
     SOUND:0,
     NEW:[
-        [0],//image
+        [8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
+        -8,-8,-8,-8,-8,-8,-8,-8,-8,-8,-8,-8,-8,-8,-8,-8,-8,-8,-8,-8],//image
         [NO_SOUND],//sound
-        [0],//x
-        [0],//y
+        [0,0,0,0,1,0,0,0,0,2,0,0,0,0,3,0,0,0,0,4,0,0,0,0,-1,0,0,0,0,-2,0,0,0,0,-3,0,0,0,0,-4],//x
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//y
         ],
 };
 
-function callbackMarine(type,indexA,indexB,angle){
+function callbackScv(type,indexA,indexB,angle){
     var objA = _ENGINE.getObject(indexA);
     var objB = _ENGINE.getObject(indexB);
 
@@ -37,27 +38,11 @@ function callbackMarine(type,indexA,indexB,angle){
                 else if(objA.isHold)objA.objectState = getAngleToStateNEW(curser_angle);
                 else if(objA.isAttack)objA.objectState = getAngleToStateNEW(curser_angle);
             }else{
-                objA.objectState = getAngleToStateNEW(objA.angle);
+                //objA.objectState = getAngleToStateNEW(objA.angle);
             }
         break;
         case AnimateContainer.COLLISION:
-        //     if(objB.id == ID.CURSOR)return;
-        //     if(!objA.isMove)return;
-        //     var objB_angle = _ENGINE.animateContainer.collision.getAngle(objA.x,objA.y,objB.x,objB.y);
-        //    // while(_ENGINE.animateContainer.collision.hitRectangle(objA,objB)){
-                
-        //         objA.x += Math.sin(objB_angle)*getRandom(0,1);
-        //         objA.y += Math.cos(objB_angle)*getRandom(0,1);
-        //    // }
-            
-        //    if(objB.id == ID.CURSOR)return;
-        //     var objB_angle = _ENGINE.animateContainer.collision.getAngle(objA.x,objA.y,objB.x,objB.y);
-        //     while(_ENGINE.animateContainer.collision.hitRectangle(objA,objB)){
-        //         var tmpAngle = _ENGINE.animateContainer.collision.getAngle(objA.x,objA.y,objB.x,objB.y);
-        //         //if(objB_angle != tmpAngle)break;
-        //         objA.x += Math.sin(objB_angle)*getRandom(0,1.5);
-        //         objA.y += Math.cos(objB_angle)*getRandom(0,1.5);
-        //     }
+
         break;
     }    
 }

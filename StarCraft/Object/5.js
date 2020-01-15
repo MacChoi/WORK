@@ -42,13 +42,3 @@ OBJECT[ID.STRUCTURE] = {
         [0,0],//y
         ],
 };
-
-function callbackCommandCenter(type,indexA,indexB,angle){
-    var objA = _ENGINE.getObject(indexA);
-    var objB = _ENGINE.getObject(indexB)
-    switch (type) {
-        case AnimateContainer.NEXT_FRAME:
-        
-        break;
-    }    
-}
