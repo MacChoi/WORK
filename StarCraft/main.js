@@ -33,6 +33,3 @@ var _ENGINE = GEngine.loadObjectFile(["COMMON","BG","CURSOR","OVERLOAD","MARINE"
         }
     });
 });
-
-//ZERG
-//SCV

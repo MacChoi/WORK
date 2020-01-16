@@ -236,20 +236,20 @@ class AnimateContainer{
                 if(isEmpty(element.objectState[4]))continue;
 
                 if(this.collisionArray[idx_y_center-1][idx_x_center] != 0 ){
-                    element.y +=5;
+                    if(getRandom(0,10)<9)element.y +=5;
                     this.objectArray[i].callback(AnimateContainer.COLLISION_UP,i); 
                 }else if(this.collisionArray[idx_y_center+1][idx_x_center] != 0 ){
-                    element.y -=5;
+                    if(getRandom(0,10)<9)element.y -=5;
                     this.objectArray[i].callback(AnimateContainer.COLLISION_DOWN,i); 
                 }else{
                     element.y += element.objectState[3][element.index] * element.reverseY;
                 }
 
                 if(this.collisionArray[idx_y_center][idx_x_center-1] != 0 ){
-                    element.x +=5;
+                    if(getRandom(0,10)<9)element.x +=5;
                     this.objectArray[i].callback(AnimateContainer.COLLISION_LEFT,i); 
                 }else if(this.collisionArray[idx_y_center][idx_x_center+1] != 0 ){
-                    element.x -=5;
+                    if(getRandom(0,10)<9)element.x -=5;
                     this.objectArray[i].callback(AnimateContainer.COLLISION_RIGHT,i); 
                 }else{
                     element.x += element.objectState[2][element.index] * element.reverseX;   
