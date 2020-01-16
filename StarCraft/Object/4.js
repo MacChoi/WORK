@@ -6,6 +6,7 @@ OBJECT[ID.MARINE] = {
         [NO_SOUND],//sound
         [0],//x
         [0],//y
+        [0],
         ],
 };
 

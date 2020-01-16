@@ -1,22 +1,22 @@
 var COLLISION_DATA = [
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,1,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,1,1,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,1,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     ];
 
 class Animate{
@@ -212,17 +212,47 @@ class AnimateContainer{
         var isCollsion = false;
         for (var i = 0; i < this.objectArray.length; i++) {
             for (var j = 0; j < this.objectArray.length; j++) {
-                if(i == j)continue;
-                if(isEmpty(this.objectArray[i]))continue;
-                if(isEmpty(this.objectArray[j]))continue;
+                var element = this.objectArray[i];
+                var element2 = this.objectArray[j];
+                if(i == j || isEmpty(this.objectArray[i]) || isEmpty(this.objectArray[j]))continue;
                 if(this.collision.hitRectangle(this.objectArray[i],this.objectArray[j])){
-                    var w = this.objectArray[i].w / 2;
-                    var h = this.objectArray[i].h / 2;
-                    var w2 = this.objectArray[j].w / 2;
-                    var h2 = this.objectArray[j].h / 2;
+                    var w = element.w / 2;
+                    var h = element.h / 2;
+                    var w2 = element2.w / 2;
+                    var h2 = element2 / 2;
                     var angle = this.collision.getAngle(this.objectArray[i].x +w,this.objectArray[i].y + h,this.objectArray[j].x + w2,this.objectArray[j].y + h2);
-                    this.objectArray[i].callback(AnimateContainer.COLLISION,i,j,angle); 
+                    element.callback(AnimateContainer.COLLISION,i,j,angle); 
                     isCollsion = true;
+                }
+
+                var image = IMAGE[element.id][Math.abs(element.objectState[0][element.index])];
+                if(isEmpty(image))continue;
+                element.w = image.width;
+                element.h = image.height;
+                
+                var idx_x_center=parseInt((element.x + element.w/2) /this._unitW) + this.indexStartXCollisionArray;
+                var idx_y_center=parseInt((element.y + element.h/2) /this._unitH) + this.indexStartYCollisionArray;
+         
+                if(isEmpty(element.objectState[4]))continue;
+
+                if(this.collisionArray[idx_y_center-1][idx_x_center] != 0 ){
+                    element.y +=5;
+                    this.objectArray[i].callback(AnimateContainer.COLLISION_UP,i); 
+                }else if(this.collisionArray[idx_y_center+1][idx_x_center] != 0 ){
+                    element.y -=5;
+                    this.objectArray[i].callback(AnimateContainer.COLLISION_DOWN,i); 
+                }else{
+                    element.y += element.objectState[3][element.index] * element.reverseY;
+                }
+
+                if(this.collisionArray[idx_y_center][idx_x_center-1] != 0 ){
+                    element.x +=5;
+                    this.objectArray[i].callback(AnimateContainer.COLLISION_LEFT,i); 
+                }else if(this.collisionArray[idx_y_center][idx_x_center+1] != 0 ){
+                    element.x -=5;
+                    this.objectArray[i].callback(AnimateContainer.COLLISION_RIGHT,i); 
+                }else{
+                    element.x += element.objectState[2][element.index] * element.reverseX;   
                 }
             }  
         }
@@ -243,58 +273,6 @@ class AnimateContainer{
             if(isEmpty(element))continue;
             var image = IMAGE[element.id][Math.abs(element.objectState[0][element.index])];
             if(isEmpty(image))continue;
-
-            element.pre_w = element.w;
-
-            element.w = image.width;
-            element.h = image.height;
-            var tmpx= element.x;
-            element.x += element.objectState[2][element.index] * element.reverseX;
-            element.y += element.objectState[3][element.index] * element.reverseY;
-
-            var idx_X_1=parseInt((element.x) /this._unitW) + this.indexStartXCollisionArray;
-            var idx_X_2=parseInt((element.x + element.w) /this._unitW) + this.indexStartXCollisionArray;
-            var idx_Y=parseInt((element.y + element.h) /this._unitH) + this.indexStartYCollisionArray;
-
-            if( idx_Y > 1 & !isEmpty(element.objectState[4])){
-                if(this.collisionArray[idx_Y-1][idx_X_1] != 0 ){
-                    if(element.objectState[4][element.index] !=0)
-                    if(tmpx >= element.x){
-                        element.x = tmpx +5;
-                        this.objectArray[index].callback(AnimateContainer.COLLISION_LEFT,index); 
-                    }
-                }
-                if(this.collisionArray[idx_Y-1][idx_X_2] != 0 ){
-                    if(element.objectState[4][element.index] !=0)
-                    element.x = tmpx-5;
-                
-                    this.objectArray[index].callback(AnimateContainer.COLLISION_RIGHT,index); 
-                }
-            }
-
-            var idx_X_1_10=parseInt((element.x+10) /this._unitW) + this.indexStartXCollisionArray;
-            var idx_X_2_10=parseInt((element.x+element.w-10) /this._unitW) + this.indexStartXCollisionArray;
-            
-            if(!isEmpty(element.objectState[4])){
-                if(idx_Y <this.collisionArray.length -1){
-                    element.y += element.objectState[4][element.index];
-                    if(!isEmpty(this.collisionArray)){
-                        if(this.collisionArray[idx_Y][idx_X_1_10] != 0 |
-                            this.collisionArray[idx_Y][idx_X_2_10] != 0){
-                            element.y = ((idx_Y) * this._unitH)-element.h;
-
-                            this.objectArray[index].callback(AnimateContainer.COLLISION_DOWN,index); 
-                        }
-                    }
-                }else{
-                    element.y = ((idx_Y-this.indexStartYCollisionArray) * this._unitH)-element.h;
-                }
-            }
-
-            if(element.y < 0){
-                element.y = idx_Y * this._unitH;
-                this.objectArray[index].callback(AnimateContainer.COLLISION_UP,index);
-            }
 
             engine.context.save();
             engine.context.scale(engine.scale, engine.scale);  
@@ -575,7 +553,7 @@ class AnimateContainer{
 
     drawCollisionArray(context,map,image,W,H){
         this.drawMap(context,map,image,W,H);
-        this.drawGrid(context,map,W,H);
+        //this.drawGrid(context,map,W,H);
         return this;
     }
 

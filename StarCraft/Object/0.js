@@ -1,53 +1,61 @@
 OBJECT[ID.COMMON] = {
-    IMG:0,
+    IMG:2,
     SOUND:0,
     NEW_0:[
         [8],//image
         [NO_SOUND],//sound
         [0],//x
         [0],//y
+        [0]//gravity
         ],
     NEW_45:[
         [4],//image
         [NO_SOUND],//sound
-        [0,0],//x
-        [0,0],//y
+        [0],//x
+        [0],//y
+        [0]//gravity
         ],
     NEW_90:[
         [0],//image
         [NO_SOUND],//sound
-        [0,0],//x
-        [0,0],//y
+        [0],//x
+        [0],//y
+        [0]//gravity
         ],
     NEW_135:[
         [-4],//image
         [NO_SOUND],//sound
-        [0,0],//x
-        [0,0],//y
+        [0],//x
+        [0],//y
+        [0]//gravity
         ],
     NEW_180:[
         [-8],//image
         [NO_SOUND],//sound
-        [0,0],//x
-        [0,0],//y
+        [0],//x
+        [0],//y
+        [0]//gravity
         ],
     NEW_225:[
         [-12],//image
         [NO_SOUND],//sound
-        [0,0],//x
-        [0,0],//y
+        [0],//x
+        [0],//y
+        [0]//gravity
         ],
     NEW_270:[
         [16],//image
         [NO_SOUND],//sound
-        [0,0],//x
-        [0,0],//y
+        [0],//x
+        [0],//y
+        [0]//gravity
         ],
     NEW_315:[
         [8],//image
         [NO_SOUND],//sound
-        [0,0],//x
-        [0,0],//y
+        [0],//x
+        [0],//y
+        [0]//gravity
         ],
 
 
@@ -56,48 +64,56 @@ OBJECT[ID.COMMON] = {
         [NO_SOUND],//sound
         [0,0,0,0],//x
         [0,0,0,0],//y
+        [0,0,0,0],//gravity
         ],
     MOVE_45:[
         [4,5,6,7],//image
         [NO_SOUND],//sound
         [0,0,0,0],//x
         [0,0,0,0],//y
+        [0,0,0,0],//gravity
         ],
     MOVE_90:[
         [0,1,2,3],//image
         [NO_SOUND],//sound
         [0,0,0,0],//x
         [0,0,0,0],//y
+        [0,0,0,0],//gravity
         ],
     MOVE_135:[
         [-4,-5,-6,-7],//image
         [NO_SOUND],//sound
         [0,0,0,0],//x
         [0,0,0,0],//y
+        [0,0,0,0],//gravity
         ],
     MOVE_180:[
         [-8,-9,-10,-11],//image
         [NO_SOUND],//sound
         [0,0,0,0],//x
         [0,0,0,0],//y
+        [0,0,0,0],//gravity
         ],
     MOVE_225:[
         [-12,-13,-14,-15],//image
         [NO_SOUND],//sound
         [0,0,0,0],//x
         [0,0,0,0],//y
+        [0,0,0,0],//gravity
         ],
     MOVE_270:[
         [16,17,18,19],//image
         [NO_SOUND],//sound
         [0,0,0,0],//x
         [0,0,0,0],//y
+        [0,0,0,0],//gravity
         ],
     MOVE_315:[
         [12,13,14,15],//image
         [NO_SOUND],//sound
         [0,0,0,0],//x
         [0,0,0,0],//y
+        [0,0,0,0],//gravity
         ],
 };
 

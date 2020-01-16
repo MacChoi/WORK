@@ -117,7 +117,7 @@ class GEngine {
             GEngine.engine.bufferContext.fillRect(0, 0, GEngine.engine.canvas.width, GEngine.engine.canvas.height);
 
             var aniCon = GEngine.engine.animateContainer;
-            //aniCon.drawCollisionArray(GEngine.engine.bufferContext,COLLISION_DATA,IMAGE[ID.BG],aniCon.getUnitWidth(),aniCon.getUnitHeight());
+            aniCon.drawCollisionArray(GEngine.engine.bufferContext,COLLISION_DATA,IMAGE[ID.COMMON],aniCon.getUnitWidth(),aniCon.getUnitHeight());
         });
         window.dispatchEvent(new Event('resize'));
     }
