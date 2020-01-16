@@ -24,7 +24,7 @@ function callbackMarine(type,indexA,indexB,angle){
                 if(objA.isMove){
                     var x=Math.sin(curser_angle);
                     var y=Math.cos(curser_angle);
-                    var targetObj = {x:objA.targetX-5,y:objA.targetY-5,w:10,h:10};
+                    var targetObj = {x:objA.targetX-5,y:objA.targetY-5,w:20,h:20};
 
                     if(_ENGINE.animateContainer.collision.hitRectangle(objA,targetObj)){
                         objA.isMove = false;
@@ -42,23 +42,14 @@ function callbackMarine(type,indexA,indexB,angle){
             }
         break;
         case AnimateContainer.COLLISION:
-        //     if(objB.id == ID.CURSOR)return;
-        //     if(!objA.isMove)return;
-        //     var objB_angle = _ENGINE.animateContainer.collision.getAngle(objA.x,objA.y,objB.x,objB.y);
-        //    // while(_ENGINE.animateContainer.collision.hitRectangle(objA,objB)){
-                
-        //         objA.x += Math.sin(objB_angle)*getRandom(0,1);
-        //         objA.y += Math.cos(objB_angle)*getRandom(0,1);
-        //    // }
-            
-        //    if(objB.id == ID.CURSOR)return;
-        //     var objB_angle = _ENGINE.animateContainer.collision.getAngle(objA.x,objA.y,objB.x,objB.y);
-        //     while(_ENGINE.animateContainer.collision.hitRectangle(objA,objB)){
-        //         var tmpAngle = _ENGINE.animateContainer.collision.getAngle(objA.x,objA.y,objB.x,objB.y);
-        //         //if(objB_angle != tmpAngle)break;
-        //         objA.x += Math.sin(objB_angle)*getRandom(0,1.5);
-        //         objA.y += Math.cos(objB_angle)*getRandom(0,1.5);
-        //     }
+
+        break;
+        case AnimateContainer.COLLISION_TOP:
+        case AnimateContainer.COLLISION_BOTTOM:
+        case AnimateContainer.COLLISION_LEFT:
+        case AnimateContainer.COLLISION_RIGHT:
+            objA.isMove =false;
+            //objA.objectState = getAngleToStateNEW(objA.angle);
         break;
     }    
 }

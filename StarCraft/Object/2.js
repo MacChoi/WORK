@@ -39,8 +39,8 @@ function callbackCursor(type,indexA,indexB,angle){
             window.addEventListener("mouseup", onMouseUp, true);
             break;
         case AnimateContainer.NEXT_FRAME:
-            objA.x = mouseX - (objA.w/2);
-            objA.y = mouseY - (objA.h/2);
+            objA.x = mouseX + (objA.w/2);
+            objA.y = mouseY + (objA.h/2);
         break;
     }    
 }

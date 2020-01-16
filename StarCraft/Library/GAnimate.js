@@ -190,8 +190,8 @@ class AnimateContainer{
     static get COLLISION(){return 2;};
     static get COLLISION_LEFT(){return 3;};
     static get COLLISION_RIGHT(){return 4;};
-    static get COLLISION_UP(){return 5;};
-    static get COLLISION_DOWN(){return 6;};
+    static get COLLISION_TOP(){return 5;};
+    static get COLLISION_BOTTOM(){return 6;};
     static get SOUND_ENDED (){return 7;};
     
     constructor(){
@@ -237,10 +237,10 @@ class AnimateContainer{
 
                 if(this.collisionArray[idx_y_center-1][idx_x_center] != 0 ){
                     if(getRandom(0,10)<9)element.y +=5;
-                    this.objectArray[i].callback(AnimateContainer.COLLISION_UP,i); 
+                    this.objectArray[i].callback(AnimateContainer.COLLISION_TOP,i); 
                 }else if(this.collisionArray[idx_y_center+1][idx_x_center] != 0 ){
                     if(getRandom(0,10)<9)element.y -=5;
-                    this.objectArray[i].callback(AnimateContainer.COLLISION_DOWN,i); 
+                    this.objectArray[i].callback(AnimateContainer.COLLISION_BOTTOM,i); 
                 }else{
                     element.y += element.objectState[3][element.index] * element.reverseY;
                 }

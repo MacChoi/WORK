@@ -28,15 +28,12 @@ function callbackOverload(type,indexA,indexB,angle){
                 objA.objectState = getAngleToStateNEW(objA.angle);
             }
         break;
-        case AnimateContainer.COLLISION:
-            // if(objB.id == ID.CURSOR)return;
-            // var objB_angle = _ENGINE.animateContainer.collision.getAngle(objA.x,objA.y,objB.x,objB.y);
-            // while(_ENGINE.animateContainer.collision.hitRectangle(objA,objB)){
-            //     var tmpAngle = _ENGINE.animateContainer.collision.getAngle(objA.x,objA.y,objB.x,objB.y);
-            //     if(objB_angle != tmpAngle)objB_angle = tmpAngle;
-            //     objA.x += Math.sin(objB_angle);
-            //     objA.y += Math.cos(objB_angle);
-            // }
+        case AnimateContainer.COLLISION_TOP:
+        case AnimateContainer.COLLISION_BOTTOM:
+        case AnimateContainer.COLLISION_LEFT:
+        case AnimateContainer.COLLISION_RIGHT:
+            objA.isMove =false;
+            objA.objectState = getAngleToStateMOVE(objA.angle);
         break;
     }    
 }
