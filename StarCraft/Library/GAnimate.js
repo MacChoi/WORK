@@ -232,15 +232,13 @@ class AnimateContainer{
                 
                 var idx_x_center=parseInt((element.x + element.w/2) /this._unitW) + this.indexStartXCollisionArray;
                 var idx_y_center=parseInt((element.y + element.h/2) /this._unitH) + this.indexStartYCollisionArray;
-                if(isEmpty(idx_x_center))continue;
-                if(isEmpty(idx_y_center))continue;
 
-                 if(isEmpty(element.objectState[4]))continue;
+                if(isEmpty(element.objectState[4]))continue;
                 if(this.collisionArray[idx_y_center-1][idx_x_center] != 0 ){
-                    if(getRandom(0,10)<9)element.y +=5;
+                    element.y +=5;
                     this.objectArray[i].callback(AnimateContainer.COLLISION_TOP,i); 
                 }else if(this.collisionArray[idx_y_center+1][idx_x_center] != 0 ){
-                    if(getRandom(0,10)<9)element.y -=5;
+                    element.y -=5;
                     this.objectArray[i].callback(AnimateContainer.COLLISION_BOTTOM,i); 
                 }else{
                     element.y += element.objectState[3][element.index] * element.reverseY;
@@ -254,10 +252,10 @@ class AnimateContainer{
                     }
                 }
                 if(this.collisionArray[idx_y_center][idx_x_center-1] != 0 ){
-                    if(getRandom(0,10)<9)element.x +=5;
+                    element.x +=5;
                     this.objectArray[i].callback(AnimateContainer.COLLISION_LEFT,i); 
                 }else if(this.collisionArray[idx_y_center][idx_x_center+1] != 0 ){
-                    if(getRandom(0,10)<9)element.x -=5;
+                    element.x -=5;
                     this.objectArray[i].callback(AnimateContainer.COLLISION_RIGHT,i); 
                 }else{
                     element.x += element.objectState[2][element.index] * element.reverseX;   

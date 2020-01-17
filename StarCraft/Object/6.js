@@ -18,8 +18,7 @@ function callbackZerg(type,indexA,indexB,angle){
             break;
         case AnimateContainer.NEXT_FRAME:
             if(objA.isSelect){
-                var curser_angle = _ENGINE.animateContainer.collision.getAngle(objA.x,objA.y,objA.targetX,objA.targetY);
-                objA.angle = curser_angle;
+                objA.angle = _ENGINE.animateContainer.collision.getAngle(objA.x,objA.y,objA.targetX,objA.targetY);
                 if(objA.isMove){
                     var targetObj = {x:objA.targetX-5,y:objA.targetY-5,w:20,h:20};
                     if(_ENGINE.animateContainer.collision.hitRectangle(objA,targetObj)){

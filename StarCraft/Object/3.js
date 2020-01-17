@@ -20,7 +20,7 @@ function callbackOverload(type,indexA,indexB,angle){
                 var curser_angle = _ENGINE.animateContainer.collision.getAngle(objA.x,objA.y,objA.targetX,objA.targetY);
                 objA.angle = curser_angle;
                 if(objA.isMove){
-                    var targetObj = {x:objA.targetX-5,y:objA.targetY-5,w:20,h:20};
+                    var targetObj = {x:objA.targetX-5,y:objA.targetY-5,w:objA.w,h:objA.h};
                     if(_ENGINE.animateContainer.collision.hitRectangle(objA,targetObj)){
                         objA.objectState = getAngleToStateNEW(objA);
                     }else{
