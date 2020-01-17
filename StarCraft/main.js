@@ -2,7 +2,7 @@ var _CURSOR;
 var _ENGINE = GEngine.loadObjectFile(["COMMON","BG","CURSOR","OVERLOAD","MARINE","STRUCTURE","ZERG","SCV"],function(){
     _ENGINE.loadImageFile(function (type,count){
         if(GEngine.END_FILE == type){
-            // _ENGINE.newObject(ID.BG,STATE[ID.BG].NEW,0,0);
+            //_ENGINE.newObject(ID.BG,STATE[ID.BG].NEW,0,0);
             // _ENGINE.newObject(ID.STRUCTURE,STATE[ID.STRUCTURE].MINERAL,50,100);
             // _ENGINE.newObject(ID.STRUCTURE,STATE[ID.STRUCTURE].MINERAL,0,140);
             // _ENGINE.newObject(ID.STRUCTURE,STATE[ID.STRUCTURE].MINERAL,50,140);

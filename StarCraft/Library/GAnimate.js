@@ -69,12 +69,12 @@ class Animate{
         }else{
             if(!isEmpty(this.nextState)){
                 this.setState(this.nextState,this.x,this.y);
+                this.index=0;
                 this.nextState = null;
-            }
-            else {
-                if(!isEmpty(this.callback))this.callback(AnimateContainer.END_FRAME,ani_index);
+            }else {
                 if(this.isAniLoop)this.index=0;
             }
+            if(!isEmpty(this.callback))this.callback(AnimateContainer.END_FRAME,ani_index);
         }
         if(!isEmpty(this.callback))this.callback(AnimateContainer.NEXT_FRAME,ani_index);
         if(this.glint > 0){
@@ -300,7 +300,7 @@ class AnimateContainer{
                 engine.context.strokeStyle = '#fff';
 
                 engine.context.fillStyle = '#0c0';
-                engine.context.fillRect(element.x +img_W_Half -15, element.y +img.height +10,30,5);
+                engine.context.fillRect(element.x +img_W_Half -15, element.y +img.height +10+1,30,3);
                 engine.context.fillStyle = '#fff';
 
                 var img_bar = IMAGE[ID.COMMON][2];
@@ -351,11 +351,6 @@ class AnimateContainer{
         return this;
     }
 
-    setNextState(index,state){
-        this.setState(index,state,this.objectArray[index].x,this.objectArray[index].y);
-        return this;
-    }
-    
     deleteObject(index){
         this.objectArray[index].callback = function(){};
         this.objectArray.splice(index,1);
