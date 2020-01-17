@@ -1,5 +1,5 @@
 OBJECT[ID.COMMON] = {
-    IMG:2,
+    IMG:3,
     SOUND:0,
     NEW_0:[
         [8],//image

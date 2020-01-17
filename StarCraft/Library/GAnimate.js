@@ -290,12 +290,21 @@ class AnimateContainer{
             }
 
             if(element.isSelect){
-                var img = IMAGE[element.id][Math.abs(element.objectState[0][0])];
-                var halfW = img.width;
-                var halfH = img.height;
-                _ENGINE.getContext().strokeStyle = '#0c0';
-                this.drawEllipse(engine.context,element.x -halfW/5, element.y +halfH/1.3,halfW +halfW/3, halfH - (halfH/1.5));
-                _ENGINE.getContext().strokeStyle = '#fff';
+                var img = IMAGE[element.id][Math.abs(element.objectState[0][0])];              
+                var img_W = img.width;
+                var img_H = img.height;
+                var img_W_Half = img.width/2;
+                //var img_H_Half = img.height/2;
+                engine.context.strokeStyle = '#0c0';
+                this.drawEllipse(engine.context,element.x -img_W/5, element.y +img_H/1.3,img_W +img_W/3, img_H - (img_H/1.5));
+                engine.context.strokeStyle = '#fff';
+
+                engine.context.fillStyle = '#0c0';
+                engine.context.fillRect(element.x +img_W_Half -15, element.y +img.height +10,30,5);
+                engine.context.fillStyle = '#fff';
+
+                var img_bar = IMAGE[ID.COMMON][2];
+                engine.context.drawImage(img_bar, element.x +img_W_Half -15, element.y +img.height +10);
             }
 
             if(element.objectState[0][element.index] * element.reverseImg >= 0)
@@ -585,5 +594,4 @@ class AnimateContainer{
         ctx.closePath();
         ctx.stroke();
     }
-
 }
