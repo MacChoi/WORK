@@ -117,7 +117,9 @@ OBJECT[ID.COMMON] = {
         ],
 };
 
-function getAngleToStateNEW(angle){
+function getAngleToStateNEW(obj){
+    obj.index =0;
+    const angle = obj.angle;
     var state = STATE[ID.COMMON].NEW_0;
     if(angle >= 0 && angle < 22.5){
         state = STATE[ID.COMMON].NEW_0;
@@ -141,8 +143,10 @@ function getAngleToStateNEW(angle){
     return Object.values(OBJECT[ID.COMMON])[state];
 }
 
-function getAngleToStateMOVE(angle){
+function getAngleToStateMOVE(obj){
+    const angle = obj.angle;
     var state = STATE[ID.COMMON].MOVE_0;
+    
     if(angle >= 0 && angle < 22.5){
         state = STATE[ID.COMMON].MOVE_0;
     }else if(angle >= 22.5 && angle < 67.5){
@@ -162,5 +166,14 @@ function getAngleToStateMOVE(angle){
     }else if(angle >= 337.5 && angle < 360){
         state = STATE[ID.COMMON].MOVE_0;
     }
-    return Object.values(OBJECT[ID.COMMON])[state];
+
+    var x=Math.sin(angle);
+    var y=Math.cos(angle);
+    var stateObj = Object.values(OBJECT[ID.COMMON])[state];
+
+    for (let index = 0; index < stateObj[0].length; index++) {
+        stateObj[2][index] = x;
+        stateObj[3][index] = y;
+    }
+    return stateObj
 }
